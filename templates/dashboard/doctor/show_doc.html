@@ -1,0 +1,96 @@
+{% extends 'dashboard/user/user_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid dashboard-content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-center">Welcome,  {{user.first_name}}</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-center" id="requested"></h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- ============================================================== -->
+                    <!-- data table  -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Here is the list of Doctors for you {{user.first_name}}....</h5>
+                                <!-- <p>This example shows DataTables and the Buttons extension being used with the Bootstrap 4 framework providing the styling.</p> -->
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered second text-dark"
+                                        style="width:100%">
+                                        <thead> 
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Date</th>
+                                                <th>Name</th>
+                                                <th>AI Diagnosis</th>
+                                                <th>City</th>
+                                                <th>Request</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {%for doc in doctors %}    
+                                            <tr>
+                                                <td>1</td>
+                                                <td >{{doc.username}}</td>
+                                                <td> {{doc.name}}</td>
+                                                <td>{{doc.city}}</td>
+                                                <td>{{doc.gender}}</td>
+                                                <td><button type="button" id="button">Request</button></td>
+                                                <td>
+                                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    <i class="fa fa-window-close" aria-hidden="true"></i>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}   
+                                        </table>
+                                    <a class="btn btn-rounded btn-secondary float-right" href="#" style="margin-top: 5px;">View All ..</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end data table  -->
+                    <!-- ============================================================== -->
+                </div>
+                <script>
+                    
+                    $(document).ready(function () {
+                        var table = $('#example').DataTable();
+                        
+                        $('#example tbody').on('click', 'tr', function () {
+                            $(this).toggleClass('selected');
+                            
+                            var ids = $.map(table.rows('.selected').data(), function (item) {
+                                return item
+                            });
+                            var id=ids[1]
+                            $(this).toggleClass('not selected');
+                            
+                            $.ajax({
+                                type: "POST",
+                                data: {id:id},
+                                url: "reqdoc",
+                                }).done(function( data ) {
+                                    $("#requested").html("Your Request passed to Doctor "+ids[2]);
+
+                                   
+                                });
+
+                        });
+                    });
+                </script>
+{% endblock content %}
