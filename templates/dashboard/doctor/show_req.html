@@ -1,4 +1,4 @@
-{% extends 'dashboard/user/user_base.html' %}
+{% extends 'dashboard/doctor/doctor_base.html' %}
 {% load static %}
 
 {% block content %}
@@ -11,7 +11,6 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h3 class="text-center" id="requested"></h3>
                     </div>
                 </div>
 
@@ -38,7 +37,7 @@
                                                 <th>Request date</th>
                                                 <th>Schedule Appointment on</th>
                                                 <th>Schedule</th>
-                                                <th>ID</th>
+                                                <th style="display: none;">ID</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -53,10 +52,10 @@
                                                 <td>{{req.rdate}}</td>
 
                                                 <td >
-                                                    <input type="date" id="{{num}}"  class="ml-5" placeholder="Birth date">
+                                                    <input type="datetime-local" id="{{num}}"  class="ml-5" placeholder="Birth date">
                                                 </td>
-                                                <td><button type="button" class="button">Schedule</button></td>
-                                                <td>{{req.id}}</td>
+                                                <td><button type="button" onClick="this.disabled=true;" class="button">Schedule</button></td>
+                                                <td style="display: none;">{{req.id}}</td>
                                                 <td>
                                                     <i class="fa fa-edit" aria-hidden="true"></i>
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
@@ -80,10 +79,43 @@
                     <!-- end data table  -->
                     <!-- ============================================================== -->
                 </div>
+
+            <!-- Button trigger modal
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch demo modal
+            </button>
+             -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title text-center" id="myModalLabel">Hello {{user.first_name}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center" id="requested"></p>
+
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button"  class="btn btn-primary" data-dismiss="modal">OK</button>
+                    
+                    </div>
+                </div>
+                </div>
+            </div>    
+
+
+
                 <script>
                     $(document).ready(function () {
                         var table = $('#example').DataTable();
-                        
+                       
+                          
+                          
+                          
                         
                         $('.button').on('click', function () {
                             
@@ -96,18 +128,21 @@
                             var id=ids[1]
                             var n="#"+ids[0]
                             var date=($(n).val())
-                            var tid=ids[7   ]
+                            var tid=ids[7]
                             
-                            alert(tid)
+                            
                             $.ajax({
                                 type: "POST",
                                 data: {id:id,date:date,tid:tid},
                                 url: "docshowreq",
                                 }).done(function( data ) {
                                     $("#requested").html("Your Appointment is Schedule with  "+ids[2]);
-
+                                     
+                                    $('#myModal').modal('show');
+                                    
+                                    /*$('#myModal').modal('toggle');
                                     document.location.href="docshowreq"
-
+*/
                                 });
 
                         });

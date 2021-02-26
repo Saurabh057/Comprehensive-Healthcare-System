@@ -75,11 +75,11 @@
 <div class="header-right-btn f-right d-none d-lg-block ml-15">
   {% if user.is_authenticated %}
   <!-- <h4>Hello, {{user.first_name}}</h4> -->
-  <a href="logout" class="btn header-btn1">Hello, {{user.first_name}}
+  <a href="log/logout" class="btn header-btn1">Hello, {{user.first_name}}
   </a>
   
   {% else %}
-  <a href="login" class="btn header-btn">Login</a>
+  <a href="log/login" class="btn header-btn">Login</a>
 
   {% endif %}
 </div>

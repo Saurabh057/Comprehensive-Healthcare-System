@@ -6,15 +6,18 @@ from django.contrib.auth import authenticate
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
-
-from proj.models import AddtionalDetails,Record
+from log.models import AddtionalDetails
+from proj.models import Record,Orders
 # _appname_=proj
 profession=""
+
+#home page of web
 def home(request):
 
 	return render(request,'home/healthhome.html')
 
 
+#dashboard common to all user
 def dashboard(request):
 	username=request.user.username
 	user_rec=AddtionalDetails.objects.filter(username=username)
@@ -24,7 +27,7 @@ def dashboard(request):
 	
 	if profession=="user":
 		list1=[]
-		requests=Record.objects.filter(user=username,status=0,adate__isnull=False)
+		requests=Record.objects.filter(user=username,status=0,adate__isnull=False)[:5]
 		for i in requests:
 			list1.append(AddtionalDetails.objects.filter(username=i.doctor))
 
@@ -32,83 +35,64 @@ def dashboard(request):
 		data1=zip(list1,requests,numbers)
 		return render(request,'dashboard/user/user.html',{'data1':data1})
 	elif profession=="doctor":
-		return render(request,'dashboard/doctor/doctor.html')
-	
-	
-def login(request):
+		list1=[]
+		requests=Record.objects.filter(doctor=username,status=0,adate__isnull=False)[:5]
+		for i in requests:
+			list1.append(AddtionalDetails.objects.filter(username=i.user))
 
-	if(request.method=='POST'):
-		username=request.POST.get('usrid')
-		password=request.POST.get('pass')
-		print(username,password)
-		user=authenticate(request,username=username,password=password)
-		if user is not None:
-			auth.login(request,user)
-			return redirect("/dashboard")
-				
-		else:
-			messages.info(request,'Invalid Credentials..')
-			return redirect("login")			
+		numbers=range(1,20)
+		data1=zip(list1,requests,numbers)
 		
-	else:
-		return render(request,'profile/login.html')
-
-def logout(request):
-    auth.logout(request)
-    return redirect('/')
-
-def signup(request):
+		return render(request,'dashboard/doctor/doctor.html',{'data1':data1})
 	
-	if request.method=="POST":
-		username=request.POST.get('usrid')
-		first_name=request.POST.get('first_name')
-		last_name=request.POST.get('last_name')
-		phone=request.POST.get('phone')
-		bdate=request.POST.get('bdate')
-		address=request.POST.get('address')
-		city=request.POST.get('city')
-		pin=request.POST.get('pin')
-		gender=request.POST.get('gender')
-		profession=request.POST.get('profession')
-		password=request.POST.get('pass')
-		noti=[]
-		name=first_name+" "+last_name
-		if(User.objects.filter(username=username).exists()):
-			messages.info(request,'Username already Taken')
-			return HttpResponseRedirect("signup")
-		else:
-			user = User.objects.create_user(username=username, password=password,email=username, first_name =first_name, last_name = last_name)
-			user.save()
+	elif profession=="pharma":
+		list1=[]
+		requests=Orders.objects.filter(pharma=username,status=0,adate__isnull=False)[:5]
+		for i in requests:
+			list1.append(AddtionalDetails.objects.filter(username=i.user))
 
-			details = AddtionalDetails(username=username,name=name,phone=phone,bdate=bdate,address=address,city=city,pin=pin,gender=gender,profession=profession,notifications=noti)
-			details.save()
-			return HttpResponseRedirect('login')
+		numbers=range(1,20)
+		data1=zip(list1,requests,numbers)
+		
+		return render(request,'dashboard/pharma/pharma.html',{'data1':data1})
 	
-	else:
+	
 
-		return render(request,'profile/register.html')
 
+	#Funtion for Show Available doctors to user and request to doctor.
+	
 @csrf_exempt
 def reqdoc(request):
 
-	if request.method=='POST':
+	if request.method=='POST':				#Request to doctor for an appointment
+
 		print(request.POST)
 		username=request.user.username
+		userfname=request.user.get_full_name()
 		doctor=request.POST.get('id')
 		print(username,doctor)
 		r = Record(user=username,doctor=doctor)
 		r.save()
+		r=AddtionalDetails.objects.get(username=doctor)
+		noti=(" {user} Asked for an appointment ".format(user=userfname))
+		r.notifications.append([noti,str(datetime.now())])
+		r.save()
 		return HttpResponse("Requested")
-	else:
+
+	else:					#show available doctors
 		numbers=range(1,20)
 		doctors=AddtionalDetails.objects.filter(profession='doctor')
 		# doctors={}
 		data=zip(numbers,doctors)
 		return render(request,'dashboard/user/show_doc.html',{'data':data})
 
+
+	
+	#funtions for show appointments of user
+
 @csrf_exempt
 def showreq(request):
-	if request.method=='POST':
+	if request.method=='POST':  #to cancel appointment
 		print(request.POST)
 		doctor=request.user.username
 		user=request.POST.get('id')
@@ -118,7 +102,9 @@ def showreq(request):
 		
 		# redirect("/docshowappo")
 		return HttpResponse("Requested")
-	else:
+
+
+	else:    					#to show all appointments
 		username=request.user.username
 		requests=Record.objects.filter(user=username,status=0,adate__isnull=False)
 		proreq=Record.objects.filter(user=username,status=0,adate__isnull=True)
@@ -139,6 +125,7 @@ def showreq(request):
 		return render(request,'dashboard/user/show_req.html',{'data1':data1,'data2':data2})
 
 
+#fuction for make appointment with user 
 @csrf_exempt
 def docshowreq(request):
 	if request.method=='POST':
@@ -173,9 +160,15 @@ def docshowreq(request):
 		data1=zip(list1,requests,numbers)
 		return render(request,'dashboard/doctor/show_req.html',{'data1':data1})
 
+
+
+
+#funtion for show appointments of Doctor
+
 @csrf_exempt
 def docshowappo(request):
-	if request.method=='POST':
+
+	if request.method=='POST': #to  cancel the appointment
 		print(request.POST)
 		doctor=request.user.username
 		user=request.POST.get('id')
@@ -186,7 +179,7 @@ def docshowappo(request):
 		# redirect("/docshowappo")
 		return HttpResponse("Requested")
 
-	else:
+	else:  #to show all appointments
 
 		username=request.user.username
 		requests=Record.objects.filter(doctor=username,status=0,adate__isnull=False)
@@ -201,3 +194,145 @@ def docshowappo(request):
 		#zip data to display
 		data1=zip(list1,requests,numbers)
 		return render(request,'dashboard/doctor/show_appo.html',{'data1':data1})
+
+
+
+
+#Funtion of pharmacist
+
+@csrf_exempt
+def reqpharma(request):
+
+	if request.method=='POST':				#Request to doctor for an appointment
+
+		print(request.POST)
+		username=request.user.username
+		userfname=request.user.get_full_name()
+		pharma=request.POST.get('id')
+		# print(username,doctor)
+		r = Orders(user=username,pharma=pharma,medicines="List of medi")
+		r.save()
+		r=AddtionalDetails.objects.get(username=pharma)
+		noti=(" {user} Placed an Order ".format(user=userfname))
+		r.notifications.append([noti,str(datetime.now())])
+		r.save()
+		return HttpResponse("Requested")
+
+	else:					#show available doctors
+		numbers=range(1,20)
+		pharmas=AddtionalDetails.objects.filter(profession='pharma')
+		# doctors={}
+		data=zip(numbers,pharmas)
+		return render(request,'dashboard/user/show_pharma.html',{'data':data})
+
+
+	
+	#funtions for show appointments of user
+
+@csrf_exempt
+def showorders(request):
+	if request.method=='POST':  #to cancel appointment
+		print(request.POST)
+		pharma=request.user.username
+		user=request.POST.get('id')
+		tid=request.POST.get('tid')
+		print(user,pharma,tid)
+		Orders.objects.filter(id=tid).delete()
+		
+		# redirect("/docshowappo")
+		return HttpResponse("Requested")
+
+
+	else:    					#to show all appointments
+		username=request.user.username
+		requests=Orders.objects.filter(user=username,status=0,adate__isnull=False)
+		proreq=Orders.objects.filter(user=username,status=0,adate__isnull=True)
+		list1=[]
+		list2=[]
+		for i in requests:
+			list1.append(AddtionalDetails.objects.filter(username=i.pharma))
+		
+		for i in proreq:
+			list2.append(AddtionalDetails.objects.filter(username=i.pharma))
+
+		# print(list1)
+		numbers=range(1,20)
+		#zip data to display
+		data1=zip(list1,requests,numbers)
+		data2=zip(list2,proreq,numbers)
+		print(data2)
+		return render(request,'dashboard/user/show_orders.html',{'data1':data1,'data2':data2})
+
+
+
+
+
+#fuction for make Schedule order with user 
+@csrf_exempt
+def pharmashoworders(request):
+	if request.method=='POST':
+		print(request.POST)
+		pharma=request.user.username
+		pharmaname=request.user.first_name
+		user=request.POST.get('id')
+		tid=request.POST.get('tid')
+		date=request.POST.get('date')
+		print(user,pharma,date)
+		# sdate=date.strftime("%m/%d/%Y")
+
+		Orders.objects.filter(id=tid,user=user,pharma=pharma).update(adate=date)
+		r=AddtionalDetails.objects.get(username=user)
+		noti=(" Ph.{pharma} Expect delivery of medicines on {date} ".format(pharma=pharmaname,date=date))
+		r.notifications.append([noti,str(datetime.now())])
+		r.save()
+		return HttpResponse("Requested")
+
+	else:
+		username=request.user.username
+		requests=Orders.objects.filter(pharma=username,status=0,adate__isnull=True)
+		proreq=Orders.objects.filter(user=username,status=1)
+		list1=[]
+		for i in requests:
+			list1.append([(AddtionalDetails.objects.filter(username=i.user)),(AddtionalDetails.objects.filter(username=i.pharma))])
+
+		# print(list1)
+		numbers=range(1,20)
+
+		#zip data to display
+		data1=zip(list1,requests,numbers)
+		return render(request,'dashboard/pharma/show_req.html',{'data1':data1})
+
+
+
+
+#funtion for show Orders (pharma function)
+
+@csrf_exempt
+def pharmashowinorders(request):
+
+	if request.method=='POST': #to  cancel the appointment
+		print(request.POST)
+		pharma=request.user.username
+		user=request.POST.get('id')
+		tid=request.POST.get('tid')
+		print(user,pharma,tid)
+		Orders.objects.filter(id=tid).delete()
+		
+		# redirect("/docshowappo")
+		return HttpResponse("Requested")
+
+	else:  #to show all appointments
+
+		username=request.user.username
+		requests=Orders.objects.filter(pharma=username,status=0,adate__isnull=False)
+		proreq=Orders.objects.filter(user=username,status=1)
+		list1=[]
+		for i in requests:
+			list1.append([(AddtionalDetails.objects.filter(username=i.user)),(AddtionalDetails.objects.filter(username=i.pharma))])
+
+		# print(list1)
+		numbers=range(1,20)
+
+		#zip data to display
+		data1=zip(list1,requests,numbers)
+		return render(request,'dashboard/pharma/show_orders.html',{'data1':data1})

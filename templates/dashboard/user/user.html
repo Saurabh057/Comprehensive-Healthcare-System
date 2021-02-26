@@ -56,19 +56,21 @@
         <!-- grid column -->
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <!-- .card -->
+            <a href="showorders">
             <div class="card card-figure has-hoverable bg-danger">
                 <!-- .card-figure -->
                 <figure class="figure">
                     <img class="img-fluid" src="{% static 'assets/images/calendar.png' %}" alt="Calendar" style="height: 150px;">
                     <!-- .figure-caption -->
                     <figcaption class="figure-caption">
-                        <h6 class="figure-title"> Calendar </h6>
+                        <h6 class="figure-title"> Past Orders </h6>
                         <!-- <p class="text-muted mb-0"> Give some text description </p> -->
                     </figcaption>
                     <!-- /.figure-caption -->
                 </figure>
                 <!-- /.card-figure -->
             </div>
+            </a>
             <!-- /.card -->
         </div>
         <!-- /grid column -->
@@ -76,19 +78,21 @@
         <!-- grid column -->
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <!-- .card -->
+            <a href="reqpharma">
             <div class="card card-figure has-hoverable bg-success">
                 <!-- .card-figure -->
                 <figure class="figure">
                     <img class="img-fluid" src="{% static 'assets/images/classAnal.png' %}" alt="Analysis" style="height: 150px;">
                     <!-- .figure-caption -->
                     <figcaption class="figure-caption">
-                        <h6 class="figure-title"> Analysis </h6>
+                        <h6 class="figure-title"> Place Order </h6>
                         <!-- <p class="text-muted mb-0"> Give some text description </p> -->
                     </figcaption>
                     <!-- /.figure-caption -->
                 </figure>
                 <!-- /.card-figure -->
             </div>
+        </a>
             <!-- /.card -->
         </div>
         <!-- /grid column -->
@@ -117,7 +121,6 @@
                                 <th>Request Date</th>
                                 <th>Appointment On</th>
                                 <th style="display: none;">ID</th>
-                                <th >Cancel</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -134,7 +137,6 @@
                                     <td>No Response</td>
                                 {% endif %}
                                 <td style="display: none;">{{req.id}}</td>
-                                    <td><button type="button" class="button">Cancel</button></td>
                                     
                                 <td>
                                     <i class="fa fa-edit" aria-hidden="true"></i>
@@ -145,7 +147,7 @@
 
                         {% endfor %}
                       </table>
-                      <a class="btn btn-rounded btn-secondary float-right" href="#" style="margin-top: 5px;">View All ..</a>
+                      <a class="btn btn-rounded btn-secondary float-right" href="showreq" style="margin-top: 5px;">View All ..</a>
                   </div>
               </div>
           </div>
@@ -154,5 +156,34 @@
       <!-- end data table  -->
       <!-- ============================================================== -->
   </div>
+        <script>
+            $(document).ready(function () {
+                var table = $('#example').DataTable();
+                
+                
+                $('.button').on('click', function () {
+                    
+                    var $row=$(this).closest("tr")
+                    var $text = $row.find(".nr").text(); // Find the text
+                    
+                    var ids = $.map(table.rows($row).data(), function (item) {
+                        return item
+                    });
+                    var id=ids[1]
+                    var tid=ids[7]
+                    
+                    $.ajax({
+                        type: "POST",
+                        data: {id:id,tid:tid},
+                        url: "docshowappo",
+                        }).done(function( data ) {
+                            $("#requested").html("Your Appointment is Schedule with  "+ids[2]);
+                            
+                            document.location.href="docshowappo"
+                        
+                        });
 
+                });
+            });
+        </script>
 {% endblock content %}

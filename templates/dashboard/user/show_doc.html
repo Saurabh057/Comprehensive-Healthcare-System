@@ -9,11 +9,7 @@
                         <h3 class="text-center">Welcome,  {{user.first_name}}</h3>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h3 class="text-center" id="requested"></h3>
-                    </div>
-                </div>
+               
 
                 <div class="row">
                     <!-- ============================================================== -->
@@ -50,7 +46,7 @@
                                                 <td>Something</td>
                                                 <td>{{doc.city}}</td>
                                                 <td>{{doc.gender}}</td>
-                                                <td><button type="button" class="button">Request</button></td>
+                                                <td><button type="button" onClick="this.disabled=true; " class="button">Request</button></td>
                                                 <td>
                                                     <i class="fa fa-edit" aria-hidden="true"></i>
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
@@ -67,6 +63,30 @@
                     <!-- ============================================================== -->
                     <!-- end data table  -->
                     <!-- ============================================================== -->
+
+                    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                            <h4 class="modal-title text-center" id="myModalLabel">Hello {{user.first_name}}</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-center" id="requested"></p>
+        
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button"  class="btn btn-primary" data-dismiss="modal">OK</button>
+                            
+                            </div>
+                        </div>
+                        </div>
+                    </div>    
+        
+
+
                 </div>
                 <script>
                     
@@ -90,7 +110,9 @@
                                 url: "reqdoc",
                                 }).done(function( data ) {
                                     $("#requested").html("Your Request passed to Doctor "+ids[2]);
-
+                                     
+                                    $('#myModal').modal('show');
+                                    
                                    
                                 });
 
