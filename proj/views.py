@@ -7,7 +7,9 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from log.models import AddtionalDetails
-from proj.models import Record,Orders
+from proj.models import Record,Orders,Messages
+from django.db.models import Q
+import json
 # _appname_=proj
 profession=""
 
@@ -16,46 +18,73 @@ def home(request):
 
 	return render(request,'home/healthhome.html')
 
+@csrf_exempt
+def chatting(request):
+	user=request.user.username	
+	if request.method=="POST":
+		other=request.POST.get('id')
+		msgsend=Messages.objects.filter(Q(sender=user)| Q(receiver=other))
+		msgrecv=Messages.objects.filter(Q(sender=other)| Q(receiver=user))
+	# msg = Messages(sender=user,receiver="pha@a.c",message="Second Message")
+	# msg.save()
+		messages=[]
+		for i in msgrecv:
+			messages.append([i.message,i.time,0])
+		for i in msgsend:
+			messages.append([i.message,i.time,1])
+		return HttpResponse(json.dumps(messages))
+	else:
+		contactlist=Messages.objects.filter(Q(sender=user)| Q(receiver=user))
+		contacts=[]
 
+		for i in contactlist:
+			contacts.append(AddtionalDetails.objects.filter(username=i.receiver))
+
+		return render(request,'chat/chat.html',{'data':contacts})
 #dashboard common to all user
 def dashboard(request):
-	username=request.user.username
-	user_rec=AddtionalDetails.objects.filter(username=username)
-	global profession
-	profession=(user_rec[0].profession)
-	# profession="doctor"
 	
-	if profession=="user":
-		list1=[]
-		requests=Record.objects.filter(user=username,status=0,adate__isnull=False)[:5]
-		for i in requests:
-			list1.append(AddtionalDetails.objects.filter(username=i.doctor))
+	if request.user.is_authenticated:
 
-		numbers=range(1,20)
-		data1=zip(list1,requests,numbers)
-		return render(request,'dashboard/user/user.html',{'data1':data1})
-	elif profession=="doctor":
-		list1=[]
-		requests=Record.objects.filter(doctor=username,status=0,adate__isnull=False)[:5]
-		for i in requests:
-			list1.append(AddtionalDetails.objects.filter(username=i.user))
-
-		numbers=range(1,20)
-		data1=zip(list1,requests,numbers)
+		username=request.user.username
+		user_rec=AddtionalDetails.objects.filter(username=username)
+		global profession
+		profession=(user_rec[0].profession)
+		# profession="doctor"
 		
-		return render(request,'dashboard/doctor/doctor.html',{'data1':data1})
-	
-	elif profession=="pharma":
-		list1=[]
-		requests=Orders.objects.filter(pharma=username,status=0,adate__isnull=False)[:5]
-		for i in requests:
-			list1.append(AddtionalDetails.objects.filter(username=i.user))
+		if profession=="user":
+			list1=[]
+			requests=Record.objects.filter(user=username,status=0,adate__isnull=False)[:5]
+			for i in requests:
+				list1.append(AddtionalDetails.objects.filter(username=i.doctor))
 
-		numbers=range(1,20)
-		data1=zip(list1,requests,numbers)
+			numbers=range(1,20)
+			data1=zip(list1,requests,numbers)
+			return render(request,'dashboard/user/user.html',{'data1':data1})
+		elif profession=="doctor":
+			list1=[]
+			requests=Record.objects.filter(doctor=username,status=0,adate__isnull=False)[:5]
+			for i in requests:
+				list1.append(AddtionalDetails.objects.filter(username=i.user))
+
+			numbers=range(1,20)
+			data1=zip(list1,requests,numbers)
+			
+			return render(request,'dashboard/doctor/doctor.html',{'data1':data1})
 		
-		return render(request,'dashboard/pharma/pharma.html',{'data1':data1})
-	
+		elif profession=="pharma":
+			list1=[]
+			requests=Orders.objects.filter(pharma=username,status=0,adate__isnull=False)[:5]
+			for i in requests:
+				list1.append(AddtionalDetails.objects.filter(username=i.user))
+
+			numbers=range(1,20)
+			data1=zip(list1,requests,numbers)
+			
+			return render(request,'dashboard/pharma/pharma.html',{'data1':data1})
+
+	else:
+		return redirect("/log/login")
 	
 
 

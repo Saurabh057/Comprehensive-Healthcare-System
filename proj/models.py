@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import date,datetime
 from django.contrib.postgres.fields import ArrayField
+from django.utils import timezone
+
 # Create your models here.
 
 class Record(models.Model):
@@ -19,3 +21,8 @@ class Orders(models.Model):
     adate=models.DateTimeField(null=True)
     status=models.IntegerField(default=0)
 
+class Messages(models.Model):
+    sender = models.EmailField(max_length=254)
+    receiver = models.EmailField(max_length=254)
+    message = models.CharField(max_length=254)
+    time = models.DateTimeField(default=timezone.now)

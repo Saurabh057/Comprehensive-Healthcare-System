@@ -5,6 +5,8 @@ urlpatterns = [
 	#common to all users
 	path('',views.home,name="index"),
 	path('dashboard',views.dashboard,name="index"),
+	path('chatting',views.chatting,name="chat"),
+
 	#doctor urls for user 
 	path('reqdoc',views.reqdoc,name="Request Doctor user"),
 	path('showreq',views.showreq,name="Show Doctors available to user"),
