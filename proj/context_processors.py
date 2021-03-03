@@ -6,7 +6,7 @@ from datetime import datetime
 def add_variable_to_context(request):
       if request.user.is_authenticated:
             info = AddtionalDetails.objects.get(username=request.user.username)
-
+            profile=info.profile
             info=info.notifications[::-1]
             list1=[]
             for i in info[:5]:
@@ -32,6 +32,7 @@ def add_variable_to_context(request):
                         k[1]=str(diff.days)+"  days ago"
 
                   list1.append(k)
-            return {'info': list1}
+
+            return {'info': list1,'profile':profile}
             
       return {'notifications': ''}

@@ -179,16 +179,16 @@
                 <h4 style="font-size: 20px; color: #555;">Sign Up</h4>
 
                 <div class="form-group">
-                    <input type="text" name="first_name" placeholder="First Name">
-                    <input class="ml-3" name="last_name" stype="text" placeholder="Last Name">
+                    <input type="text" required name="first_name" placeholder="First Name">
+                    <input class="ml-3" required name="last_name" stype="text" placeholder="Last Name">
                 </div>
                 <div class="form-group mt-2">
-                    <input type="email" id="usrid" name="usrid" class="w-100" placeholder="E-mail">
+                    <input type="email" required id="usrid" name="usrid" class="w-100" placeholder="E-mail">
                 </div>
                 <p id="error"></p>
                 <div class="form-group mt-2 w-100">
-                    <input type="text" name="phone" class="w-70" placeholder="Phone">
-                    <input type="date" name="bdate" class="ml-5" placeholder="Birth date">
+                    <input type="text" name="phone" maxlength=10 class="w-70" placeholder="Phone">
+                    <input type="date" name="bdate" required class="ml-5" placeholder="Birth date">
                 </div>
 
                 <div class="form-group mt-2 w-100">
@@ -196,8 +196,8 @@
                 </div>
 
                 <div class="form-group mt-2 w-100">
-                    <input type="text" name="city" class="" placeholder="City">
-                    <input type="text" name="pin" class="ml-3" placeholder="Pin Code">
+                    <input type="text" required name="city" class="" placeholder="City">
+                    <input type="text" required name="pin" class="ml-3" placeholder="Pin Code">
                 </div>
                 <div class="form-group mt-2 w-100">
                     <label for="gender" >Gender:</label>
@@ -208,9 +208,9 @@
                         <option value="transgender">Transgender</option>
                     </select>
                     <label for="profession" class="ml-5" >Profession:</label>
-                    <select id="profession" name="profession"  style="border:0px solid black; border-bottom:1px solid black;">
+                    <select id="profession" required name="profession"  style="border:0px solid black; border-bottom:1px solid black;">
                         <option value="">Select</option>
-                        <option value="user">User</option>
+                        <option value="user" selected>User</option>
                         <option value="doctor">Doctor</option>
                         <option value="pharma">Pharmacist</option>
                     </select>
@@ -219,8 +219,8 @@
                 </div>
 
                 <div class="form-group mt-2 w-100">
-                    <input type="password" name="pass" class="" placeholder="Password">
-                    <input type="password" name="cpass" class="ml-3" placeholder="Confirm Password">
+                    <input type="password" required name="pass" class="" placeholder="Password">
+                    <input type="password" required name="cpass" class="ml-3" placeholder="Confirm Password">
                 </div>
 
                 <!-- <a href="#">Already a user?</a> -->

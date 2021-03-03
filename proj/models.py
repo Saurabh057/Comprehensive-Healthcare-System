@@ -26,3 +26,4 @@ class Messages(models.Model):
     receiver = models.EmailField(max_length=254)
     message = models.CharField(max_length=254)
     time = models.DateTimeField(default=timezone.now)
+    read=models.IntegerField(default=0)

@@ -51,7 +51,7 @@
                                             <a href="#" class="list-group-item list-group-item-action active">
                                                 <div class="notification-info">
                                                     <div class="notification-list-user-img"><img
-                                                            src="{%static 'assets/images/avatar-1.png' %}" alt=""
+                                                            src="static/{{profile}}" alt=""
                                                             class="user-avatar-md rounded-circle"></div>
                                                     <div class="notification-list-user-block"><span
                                                             class="notification-list-user-name">
@@ -74,7 +74,7 @@
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                    src="{% static 'assets/images/avatar-1.png' %}" alt=""
+                                    src="static/{{profile}}" alt=""
                                     class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                                 aria-labelledby="navbarDropdownMenuLink2">
@@ -148,11 +148,15 @@
                                 Personal
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-fw fa-user"></i>Profile</a>
+                                <a class="nav-link" href="log/showinfo"><i class="fas fa-fw fa-user"></i>Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fas fa-fw fa-university"></i>Administration</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="chatting"><i class="fas fa-fw fa-university"></i>Chat</a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fas fa-fw fa-calendar-alt"></i>Calendar</a>
                             </li>

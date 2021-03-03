@@ -14,3 +14,6 @@ class AddtionalDetails(models.Model):
     gender=models.CharField(max_length=10)    
     profession=models.CharField(max_length=10,default="user")
     notifications=ArrayField(models.CharField(max_length=100),blank=True,null=True)
+    profile=models.CharField(max_length=100,default="assets/images/avatar-1.png")
+
+# models.py 

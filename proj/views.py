@@ -19,12 +19,20 @@ def home(request):
 	return render(request,'home/healthhome.html')
 
 @csrf_exempt
+def newmsg(request):
+	user=request.user.username
+	receiver=request.POST.get('id')
+	mesg=request.POST.get('msg')
+	msg = Messages(sender=user,receiver=receiver,message=mesg)
+	msg.save()
+	return HttpResponse("Sucess")
+@csrf_exempt
 def chatting(request):
 	user=request.user.username	
 	if request.method=="POST":
 		other=request.POST.get('id')
-		msgsend=Messages.objects.filter(Q(sender=user)| Q(receiver=other))
-		msgrecv=Messages.objects.filter(Q(sender=other)| Q(receiver=user))
+		msgsend=Messages.objects.filter(Q(sender=user) & Q(receiver=other))
+		msgrecv=Messages.objects.filter(Q(sender=other) & Q(receiver=user))
 	# msg = Messages(sender=user,receiver="pha@a.c",message="Second Message")
 	# msg.save()
 		messages=[]
@@ -32,14 +40,40 @@ def chatting(request):
 			messages.append([i.message,i.time,0])
 		for i in msgsend:
 			messages.append([i.message,i.time,1])
-		return HttpResponse(json.dumps(messages))
+		# print(messages)
+		messages.sort(key = lambda x: x[1]) 
+
+		msgs=[]
+		for i in messages:
+			msgs.append([i[0],i[2]])
+		return HttpResponse(json.dumps(msgs))
 	else:
-		contactlist=Messages.objects.filter(Q(sender=user)| Q(receiver=user))
+		# contactlist=Messages.objects.filter(Q(sender=user)| Q(receiver=user))
+		# msgrecv=Messages.objects.filter(Q(receiver=user) & Q(read=0))
+		# new=len(msgrecv)
+		# contacts=[]
+			
+		# for i in msgrecv:
+		# 	contacts.append(AddtionalDetails.objects.filter(username=i.sender))
+
 		contacts=[]
+		user_rec=AddtionalDetails.objects.filter(username=user)
+		global profession
+		profession=(user_rec[0].profession)
+			
+		if profession=="user":
+			contactlist=Record.objects.filter(user=user)
+			for i in contactlist:
+				contacts.append(AddtionalDetails.objects.filter(username=i.doctor))
 
-		for i in contactlist:
-			contacts.append(AddtionalDetails.objects.filter(username=i.receiver))
+		elif profession=="doctor":
+			contactlist=Record.objects.filter(doctor=user)
+			for i in contactlist:
+				contacts.append(AddtionalDetails.objects.filter(username=i.user))
 
+		# print(contacts)
+		# print(type(contactlist))
+		
 		return render(request,'chat/chat.html',{'data':contacts})
 #dashboard common to all user
 def dashboard(request):

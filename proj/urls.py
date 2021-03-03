@@ -6,6 +6,7 @@ urlpatterns = [
 	path('',views.home,name="index"),
 	path('dashboard',views.dashboard,name="index"),
 	path('chatting',views.chatting,name="chat"),
+	path('newmsg',views.newmsg,name="New Message"),
 
 	#doctor urls for user 
 	path('reqdoc',views.reqdoc,name="Request Doctor user"),

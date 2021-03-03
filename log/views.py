@@ -6,7 +6,10 @@ from django.contrib.auth import authenticate
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
+from django.core.files.storage import FileSystemStorage
+import os
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 from log.models import AddtionalDetails
 
 def login(request):
@@ -56,6 +59,10 @@ def signup(request):
 
 			details = AddtionalDetails(username=username,name=name,phone=phone,bdate=bdate,address=address,city=city,pin=pin,gender=gender,profession=profession,notifications=noti)
 			details.save()
+			dirname="static/media/"+username
+			if not os.path.exists(os.path.join(BASE_DIR, dirname)):
+				os.mkdir(os.path.join(BASE_DIR, dirname))
+
 			return HttpResponseRedirect('login')
 	
 	else:
@@ -63,44 +70,54 @@ def signup(request):
 		return render(request,'profile/register.html')
 
 def showinfo(request):
+	# print(request.FILES)
+	if request.method == 'POST': 
+		username=request.user.username
+		img=request.FILES['profile_Img']
+		
+		img_extension = os.path.splitext(img.name)[1]
 
-	username=request.user.username
-	details=AddtionalDetails.objects.filter(username=username)
-	print(details)
-	return render(request,'profile/showinfo.html',{'details':details})
+		user_folder = 'static/media/' + str(request.user.username)
+		if not os.path.exists(user_folder):
+			os.mkdir(user_folder)
+
+		img_save_path =  user_folder+'/profile'+ img_extension
+		with open(img_save_path, 'wb+') as f:
+			for chunk in img.chunks():
+				f.write(chunk)
+		img_save_path =  'media/'+str(request.user.username)+'/profile'+ img_extension
+
+		AddtionalDetails.objects.filter(username=username).update(profile=img_save_path)
+
+		return redirect('/log/showinfo') 
+
+	else: 
+		# form = ProfileForm() 
+		username=request.user.username
+		details=AddtionalDetails.objects.filter(username=username)
+
+		return render(request,'profile/showinfo.html',{'details':details})
 
 def FileFieldView(request):
 		files = request.FILES.getlist('file_field')
+		print("Inside save me")
+		for file in files:
+			user=request.user.username
+			print(user)
+			file = request.FILES.get('file')
+			print(file)
+			filename='profile.jpeg'
+			path = 'static/media/'+user+'/'+filename
+			print(path)
+			dest = open(path,'wb+')
+			print(file.name)
+			for chunk in file.chunks():
+				dest.write(chunk)
+			dest.close()
 
-		if True:
-			for f in files:
-				fileName = f.name 
-				path = 'static/media/'+fileName
-				dest = open(path,'wb+')
+			fileName = ImageProcessing(path, fileName)
 
-				for chunk in f.chunks():
-				    dest.write(chunk)
-				dest.close()
+			path = "activities/media/" + fileName
 
-				fileName = ImageProcessing(path, fileName)
-
-				path = "activities/media/" + fileName
-				# imageBlob = bucket.blob("image.jpg")
-				# imageBlob.upload_from_filename(path)
-				# print(imageBlob)
-				#path=ImageProcessing(path, fileName)
-				recentUploads.append(path)
-
-
-				#adding image path and datetime in database..
-				global db
-				datee = datetime.datetime.now()
-				x = (str(datee.year)+str(datee.month)+str(datee.day))
-				upData = {
-				    u'path' : path,
-				    u'date' : x
-				}
-				db.collection('activities').document('csf').collection('Gallery').add(upData)
-      
-                ###   
-			return redirect('../studentAdmin_dashboard_galary')
+			    ###   
+		return redirect('/log/showinfo')
