@@ -42,8 +42,9 @@ def getdic(df):
         dic[i]=(firstdic[i]/probsum)*100
     return dic
 
-def soln():
-    columns=['itching','skin_rash','nodal_skin_eruptions','continuous_sneezing','shivering','chills', 'prognosis']
+def soln(columns):
+    if('prognosis' not in columns):
+        columns.append('prognosis')
     df=pd.read_csv('Training.csv', usecols=columns, header=0)
     df=df.loc[(df.iloc[:, :-1].T!=0).any()]
     df1=pd.read_csv('Testing.csv', usecols=columns, header=0)
@@ -51,12 +52,12 @@ def soln():
     dic=getdic(df)
 
 
-    sorted(dic.items(),key=operator.itemgetter(1), reverse=True)
+    dic=dict(sorted(dic.items(),key=operator.itemgetter(1), reverse=True))
     print(dic)
     ypred=list(dic.keys())
 
     dic2=getdic(df1)
-    ytestdic=sorted(dic2.items(),key=operator.itemgetter(1), reverse=True)
+    dic2=dict(sorted(dic2.items(),key=operator.itemgetter(1), reverse=True))
     ytestk=list(dic2.keys())
     print(dic2)
     print(ypred)
@@ -88,6 +89,6 @@ def overallaccuracy():
     print(ytest)
     print(accuracy_score(ans,ytest))
 
-soln()
+soln(['itching', 'skin_rash'])
 
 
