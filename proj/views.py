@@ -10,6 +10,7 @@ from log.models import AddtionalDetails
 from proj.models import Record,Orders,Messages
 from django.db.models import Q
 import json
+from selenium import webdriver
 # _appname_=proj
 profession=""
 
@@ -17,6 +18,10 @@ profession=""
 def home(request):
 
 	return render(request,'home/healthhome.html')
+
+# def videomeet(requests):
+
+	# return redirect("videomeet")
 
 @csrf_exempt
 def newmsg(request):
@@ -26,6 +31,8 @@ def newmsg(request):
 	msg = Messages(sender=user,receiver=receiver,message=mesg)
 	msg.save()
 	return HttpResponse("Sucess")
+
+	
 @csrf_exempt
 def chatting(request):
 	user=request.user.username	
@@ -75,6 +82,8 @@ def chatting(request):
 		# print(type(contactlist))
 		
 		return render(request,'chat/chat.html',{'data':contacts})
+
+
 #dashboard common to all user
 def dashboard(request):
 	

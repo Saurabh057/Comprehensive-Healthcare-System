@@ -98,26 +98,3 @@ def showinfo(request):
 
 		return render(request,'profile/showinfo.html',{'details':details})
 
-def FileFieldView(request):
-		files = request.FILES.getlist('file_field')
-		print("Inside save me")
-		for file in files:
-			user=request.user.username
-			print(user)
-			file = request.FILES.get('file')
-			print(file)
-			filename='profile.jpeg'
-			path = 'static/media/'+user+'/'+filename
-			print(path)
-			dest = open(path,'wb+')
-			print(file.name)
-			for chunk in file.chunks():
-				dest.write(chunk)
-			dest.close()
-
-			fileName = ImageProcessing(path, fileName)
-
-			path = "activities/media/" + fileName
-
-			    ###   
-		return redirect('/log/showinfo')
