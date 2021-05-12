@@ -65,7 +65,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'proj.context_processors.add_variable_to_context',
-                'log.context_processors.add_to_context',
+                # 'log.context_processors.add_to_context',
 
             ],
         },
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'healthcare',
         'USER' : 'postgres',
-        'PASSWORD' : 'saurabhgore57',
+        'PASSWORD' : 'Mandakini@4',
         'HOST' : 'localhost'
     }
 }
