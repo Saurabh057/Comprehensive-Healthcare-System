@@ -12,7 +12,24 @@ from django.db.models import Q
 import json
 from selenium import webdriver
 # _appname_=proj
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
 profession=""
+
+
+def handler404(request, *args, **argv):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request, *args, **argv):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
 
 #home page of web
 def home(request):
@@ -157,6 +174,7 @@ def reqdoc(request):
 		# doctors={}
 		data=zip(numbers,doctors)
 		return render(request,'dashboard/user/show_doc.html',{'data':data})
+		# return render(request,'dashboard/user/newuser.html',{'data':data})
 
 
 	

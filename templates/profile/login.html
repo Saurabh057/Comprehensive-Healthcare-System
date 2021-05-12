@@ -8,8 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <!--Include Css-->
-    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
-    <link href="{% static 'assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'newassets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'newassets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" /> -->
     <style>
         * {
@@ -30,7 +30,7 @@
             left: 0;
             bottom: 0;
             right: 0;
-            background-image: url('{% static "assets/images/test-back.jpg" %}');
+            background-image: url('{% static "newassets/images/log/test-back.jpg" %}');
             z-index: -3;
             opacity: 0.1;
         }
@@ -293,15 +293,15 @@
 </head>
 
 <body>
-    <img class="wave" src="{% static 'assets/images/wave.png' %}" alt="">
+    <img class="wave" src="{% static 'newassets/images/log/wave.png' %}" alt="">
     <div class="container">
         <div class="img">
-            <img src="{% static 'assets/images/mobile.svg' %}" alt="">
+            <img src="{% static 'newassets/images/log/mobile.svg' %}" alt="">
         </div>
         <div class="login-container">
             <form method="POST" action="login" >
                 {% csrf_token %}
-                <img class="avtar" src="{% static 'assets/images/profile.svg' %}" alt="">
+                <img class="avtar" src="{% static 'newassets/images/log/profile.svg' %}" alt="">
                 <h2>HEALTHAI</h2>
                 <h4 style="font-size: 20px; color: #555;">Sign In As</h4>
                 <div class="button-box">
@@ -392,9 +392,9 @@
             </form>
         </div>
     </div>
-    <script src="{% static 'assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
-    <script src="{% static 'assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
+    <script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'newassets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'newassets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
 
     <script>
         var x=document.getElementById("user");
