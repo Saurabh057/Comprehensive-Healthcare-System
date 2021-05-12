@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+    <!--Include Css-->
+    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{%static 'assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" /> -->
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            position: relative;
+        }
+
+        body:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: url('{% static "assets/images/test-back.jpg" %}');
+            z-index: -3;
+            opacity: 0.1;
+        }
+
+        .wave {
+            position: fixed;
+            height: 100%;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 7rem;
+            padding: 0 2rem;
+        }
+
+        .img {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .img img {
+            width: 500px;
+        }
+
+        .login-container {
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+
+        .avtar {
+            width: 100px;
+        }
+
+        @media screen and (max-width: 1050px) {
+            .container {
+                grid-gap: 5rem;
+            }
+        }
+
+        @media screen and (max-width: 1000px) {
+            .img img {
+                width: 400px;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+
+            .img {
+                display: none;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .wave {
+                display: none;
+            }
+
+            .login-container {
+                justify-content: center;
+            }
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8rem;
+        }
+
+        .error p {
+            margin: 0;
+            text-align: left;
+        }
+
+        input {
+            border: 0px solid;
+            border-bottom: 1px solid black;
+
+        }
+        .forgot a {
+            display: block;
+            text-align: right;
+            text-decoration: none;
+            color: #999;
+            font-size: 0.9rem;
+            transition: 0.5s ease;
+        }
+
+        a:hover {
+            color: #00aeef;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            height: 50px;
+            border-radius: 25px;
+            margin: 1rem 0;
+            font-size: 1rem;
+            outline: none;
+            border: none;
+            text-transform: uppercase;
+            background-color: #00aeef;
+            cursor: pointer;
+            background-size: 200%;
+            color: white;
+        }
+
+        .btn:hover {
+            background-color: #009cd4;
+            color: white;
+        }
+        select{
+            margin-left: 5px;
+            color:#555;
+        }
+        label{
+            color: #555;
+        }
+
+    </style>
+</head>
+
+<body>
+    <img class="wave" src="{% static 'assets/images/wave.png' %}" alt="">
+    <div class="container">
+        <div class="img">
+            <img src="{% static 'assets/images/mobile.svg' %}" alt="">
+        </div>
+        {%for msg in messages %}
+            <script>alert({{msg}})</script>
+        {% endfor %}
+        <div class="login-container">
+            <form action="signup" method="POST">
+                {% csrf_token %}
+                <img class="avtar" src="{% static 'assets/images/profile.svg' %}" alt="">
+                <h2>HEALTHAI</h2>
+                <h4 style="font-size: 20px; color: #555;">Sign Up</h4>
+
+                <div class="form-group">
+                    <input type="text" required name="first_name" placeholder="First Name">
+                    <input class="ml-3" required name="last_name" stype="text" placeholder="Last Name">
+                </div>
+                <div class="form-group mt-2">
+                    <input type="email" required id="usrid" name="usrid" class="w-100" placeholder="E-mail">
+                </div>
+                <p id="error"></p>
+                <div class="form-group mt-2 w-100">
+                    <input type="text" name="phone" maxlength=10 class="w-70" placeholder="Phone">
+                    <input type="date" name="bdate" required class="ml-5" placeholder="Birth date">
+                </div>
+
+                <div class="form-group mt-2 w-100">
+                    <textarea type="textarea" name="address" class="w-100" placeholder="Address" style="border:0px solid black; border-bottom:1px solid black;"></textarea>
+                </div>
+
+                <div class="form-group mt-2 w-100">
+                    <input type="text" required name="city" class="" placeholder="City">
+                    <input type="text" required name="pin" class="ml-3" placeholder="Pin Code">
+                </div>
+                <div class="form-group mt-2 w-100">
+                    <label for="gender" >Gender:</label>
+                    <select id="gender" name="gender"  style="border:0px solid black; border-bottom:1px solid black;">
+                        <option value="">Select</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
+                        <option value="transgender">Transgender</option>
+                    </select>
+                    <label for="profession" class="ml-5" >Profession:</label>
+                    <select id="profession" required name="profession"  style="border:0px solid black; border-bottom:1px solid black;">
+                        <option value="">Select</option>
+                        <option value="user" selected>User</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="pharma">Pharmacist</option>
+                    </select>
+                    
+                    
+                </div>
+
+                <div class="form-group mt-2 w-100">
+                    <input type="password" required name="pass" class="" placeholder="Password">
+                    <input type="password" required name="cpass" class="ml-3" placeholder="Confirm Password">
+                </div>
+
+                <!-- <a href="#">Already a user?</a> -->
+                <button type="submit" id="signup" class="btn" value="Sign Up">Sign up</button>
+                <h4><a href="login">Already a user?</a></h4>
+                
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
+    
+</body>
+
+</html>
