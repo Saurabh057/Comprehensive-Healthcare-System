@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from disease.decisiontree import decision_tree
+from disease.paralleldt import dt
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
@@ -14,9 +14,9 @@ def suggest(request):
     print(x)
     ans=[]
     if(x[0]==''):
-        ans=decision_tree([])
+        ans=dt([])
     else:
-        ans=decision_tree(x)
+        ans=dt(x)
     if(ans[0]=='ans'):
         final='ans,'+ans[1]+','
     else:

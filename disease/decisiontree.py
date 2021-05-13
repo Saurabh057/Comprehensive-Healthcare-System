@@ -3,7 +3,7 @@ import pandas as pd
 # from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 import math
-
+import time
 import operator
 def pred(df,inp):
     print(inp)
@@ -72,16 +72,18 @@ def pred(df,inp):
     # print(disease_prob)
     return ans
 def decision_tree(inp):
-    df=pd.read_csv('disease/Training.csv', header=0)
+    start_time=time.clock()
+    df=pd.read_csv('Training.csv', header=0)
     dic1=pred(df,inp)
     # df1=pd.read_csv('disease/Testing.csv', header=0)
     # dic2=pred(df1,inp)
     # acc=accuracy_score(list(dic1.keys()),list(dic2.keys()))
     ans=list(dic1.keys())
     # ans.append(acc)
+    print(time.clock()-start_time)
     return ans
 
-# decision_tree(['itching','skin_rash'])
+decision_tree([])
     
         
 
