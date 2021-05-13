@@ -407,8 +407,9 @@
                             <div class="card card-body border-none" style="background:#0808663f; border: none;">
                                 <h3> You have been diagnosed with<br /></h3>
                                 <h1 class="">{{ chosen.choosenDisease }}</h1>
-                                <h4>The system has choosen {{ chosen.choosenAlgorithm }} to conclude this with accuracy of
-                                    {{ chosen.chosenAcc  }} %</h4>
+                                <h4>The system has choosen {{ chosen.choosenAlgorithm }} to conclude this with accuracy
+                                    of
+                                    {{ chosen.chosenAcc }} %</h4>
                                 <p class="card-text" style="font-size: 15px;">Your Symptoms : {{ symptoms }}
                                 </p>
 
@@ -455,7 +456,7 @@
                                             <!-- <canvas id="pastWeekAtten"></canvas> -->
                                             <canvas id="gauge2" style="height: 100px;"></canvas>
 
-                                            <a class="btn alert-primary" onclick="">{{ disease.KNN.1  }}</a>
+                                            <a class="btn alert-primary" onclick="">{{ disease.KNN.1 }}</a>
                                         </div>
                                     </div>
 
@@ -479,13 +480,12 @@
 
                         <div class="row m-2 mt-4 w-100 text-center">
                             <div class="card card-body mt-3" style="background:#e98f7885; height: 500px !important"">
-                                <div class=" col w-100" >
-                                <iframe
-                                    src="https://www.webmd.com/search/search_results/default.aspx?query=Ashtma"
+                                <div class=" col w-100">
+                                <iframe id="diseaseFrame"
                                     style="overflow:hidden;height:90%;width:100%"
                                     title="W3Schools Free Online Web Tutorials"></iframe>
-                                    <a class="btn alert-primary" onclick="">Open this in new window</a>
-                               
+                                <a class="btn alert-primary" id="webMDlink" target="_blank">Open this in new window</a>
+
                             </div>
                         </div>
                     </div>
@@ -517,86 +517,102 @@
 
     <!-- //vvimp gauge vals -->
     <script>
-        $(function() {
-    "use strict";
-    // ============================================================== 
-    // Guage 1
-    // ============================================================== 
-    var opts = {
-        angle: 0, // The span of the gauge arc
-        lineWidth: 0.32, // The line thickness
-        radiusScale: 1, // Relative radius
-        pointer: {
-            length: 0.6, // // Relative to gauge radius
-            strokeWidth: 0.088, // The thickness
-            color: '#2e2f39' // Fill color
-        },
-        limitMax: false, // If false, max value increases automatically if value > maxValue
-        limitMin: false, // If true, the min value of the gauge will be fixed
-        colorStart: '#e4e4ee', // Colors
-        colorStop: '#5969ff', // just experiment with them
-        strokeColor: '#e4e4ee', // to see which ones work best for you
-        generateGradient: true,
-        highDpiSupport: true, // High resolution support
 
-    };
-    var target = document.getElementById('gauge1'); // your canvas element
-    var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-    gauge.maxValue = 100; // set max gauge value
-    gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
-    gauge.animationSpeed = 32; // set animation speed (32 is default value)
-    gauge.set({{ disease.NBS.2 }}); // set actual value
+        window.onload = function () {
+            var iframe = document.getElementById('diseaseFrame');
+            iframe.style.display = "none";
+            var webmd =  "https://www.webmd.com/search/search_results/default.aspx?query=".concat('{{ chosen.choosenDisease }}');
+            iframe.src = webmd;
+            iframe.style.display = "block";
 
-    opts = {
-        angle: 0, // The span of the gauge arc
-        lineWidth: 0.32, // The line thickness
-        radiusScale: 1, // Relative radius
-        pointer: {
-            length: 0.6, // // Relative to gauge radius
-            strokeWidth: 0.088, // The thickness
-            color: '#2e2f39' // Fill color
-        },
-        limitMax: false, // If false, max value increases automatically if value > maxValue
-        limitMin: false, // If true, the min value of the gauge will be fixed
-        colorStart: 'red', // Colors
-        colorStop: 'red', // just experiment with them
-        strokeColor: '#e4e4ee', // to see which ones work best for you
-        generateGradient: true,
-        highDpiSupport: true, // High resolution support
+            var mebmdlink = document.getElementById("webMDlink");
+            mebmdlink.href = webmd;
+            
+        };
 
-    };
 
-    var target = document.getElementById('gauge2'); // your canvas element
-    var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-    gauge.maxValue = 100; // set max gauge value
-    gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
-    gauge.animationSpeed = 32; // set animation speed (32 is default value)
-    gauge.set({{ disease.KNN.2 }}); // set actual value
-   
-    opts = {
-        angle: 0, // The span of the gauge arc
-        lineWidth: 0.32, // The line thickness
-        radiusScale: 1, // Relative radius
-        pointer: {
-            length: 0.6, // // Relative to gauge radius
-            strokeWidth: 0.088, // The thickness
-            color: '#2e2f39' // Fill color
-        },
-        limitMax: false, // If false, max value increases automatically if value > maxValue
-        limitMin: false, // If true, the min value of the gauge will be fixed
-        colorStart: 'green', // Colors
-        colorStop: 'green', // just experiment with them
-        strokeColor: '#e4e4ee', // to see which ones work best for you
-        generateGradient: true,
-        highDpiSupport: true, // High resolution support
 
-    };
-    var target = document.getElementById('gauge3'); // your canvas element
-    var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-    gauge.maxValue = 100; // set max gauge value
-    gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
-    gauge.animationSpeed = 32; // set animation speed (32 is default value)
-    gauge.set({{ disease.DTC.2 }}); // set actual value
+
+        $(function () {
+            "use strict";
+            // ============================================================== 
+            // Guage 1
+            // ============================================================== 
+            var opts = {
+                angle: 0, // The span of the gauge arc
+                lineWidth: 0.32, // The line thickness
+                radiusScale: 1, // Relative radius
+                pointer: {
+                    length: 0.6, // // Relative to gauge radius
+                    strokeWidth: 0.088, // The thickness
+                    color: '#2e2f39' // Fill color
+                },
+                limitMax: false, // If false, max value increases automatically if value > maxValue
+                limitMin: false, // If true, the min value of the gauge will be fixed
+                colorStart: '#e4e4ee', // Colors
+                colorStop: '#5969ff', // just experiment with them
+                strokeColor: '#e4e4ee', // to see which ones work best for you
+                generateGradient: true,
+                highDpiSupport: true, // High resolution support
+
+            };
+            var target = document.getElementById('gauge1'); // your canvas element
+            var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+            gauge.maxValue = 100; // set max gauge value
+            gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
+            gauge.animationSpeed = 32; // set animation speed (32 is default value)
+            gauge.set({{ disease.NBS.2 }}); // set actual value
+
+        opts = {
+            angle: 0, // The span of the gauge arc
+            lineWidth: 0.32, // The line thickness
+            radiusScale: 1, // Relative radius
+            pointer: {
+                length: 0.6, // // Relative to gauge radius
+                strokeWidth: 0.088, // The thickness
+                color: '#2e2f39' // Fill color
+            },
+            limitMax: false, // If false, max value increases automatically if value > maxValue
+            limitMin: false, // If true, the min value of the gauge will be fixed
+            colorStart: 'red', // Colors
+            colorStop: 'red', // just experiment with them
+            strokeColor: '#e4e4ee', // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true, // High resolution support
+
+        };
+
+        var target = document.getElementById('gauge2'); // your canvas element
+        var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = 100; // set max gauge value
+        gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 32; // set animation speed (32 is default value)
+        gauge.set({{ disease.KNN.2 }}); // set actual value
+
+        opts = {
+            angle: 0, // The span of the gauge arc
+            lineWidth: 0.32, // The line thickness
+            radiusScale: 1, // Relative radius
+            pointer: {
+                length: 0.6, // // Relative to gauge radius
+                strokeWidth: 0.088, // The thickness
+                color: '#2e2f39' // Fill color
+            },
+            limitMax: false, // If false, max value increases automatically if value > maxValue
+            limitMin: false, // If true, the min value of the gauge will be fixed
+            colorStart: 'green', // Colors
+            colorStop: 'green', // just experiment with them
+            strokeColor: '#e4e4ee', // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true, // High resolution support
+
+        };
+        var target = document.getElementById('gauge3'); // your canvas element
+        var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = 100; // set max gauge value
+        gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 32; // set animation speed (32 is default value)
+        gauge.set({{ disease.DTC.2 }}); // set actual value
 
 
     });

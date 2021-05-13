@@ -9,9 +9,9 @@ def home(request):
 
 def diangnose(request):
   
-    diseaseNaiveBAyes = "Tuberculosis" #yash bhadkahv ithe functions madhun return kr
+    diseaseNaiveBAyes = "Cancer" #yash bhadkahv ithe functions madhun return kr
     accNaiveBayes = 100
-    diseaseKnn = "TuberCulosis"
+    diseaseKnn = "HIV"
     accKnn = 86
     diseaseDecisionTree = "Asthma"
     accDecisionTree = 94
@@ -26,7 +26,8 @@ def diangnose(request):
         'DTC' : ['Decision Tree Classifier',diseaseDecisionTree, accDecisionTree]
     }
 
-    choosenAlgorithm =  max(disease, key=lambda x : disease[x][1])
+    choosenAlgorithm =  max(disease, key=lambda x : disease[x][2])
+    print(choosenAlgorithm)
 
     chosen = {
         'choosenAlgorithm' : disease[choosenAlgorithm][0],
