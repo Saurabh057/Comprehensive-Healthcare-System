@@ -12,7 +12,7 @@ from django.db.models import Q
 import json
 from selenium import webdriver
 # _appname_=proj
-from django.shortcuts import render_to_response
+# from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 profession=""
