@@ -1,0 +1,98 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Prescription</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'newassets/vendor/feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'newassets/vendor/ti-icons/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'newassets/vendor/css/vendor.bundle.base.css' %}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'newassets/css/vertical-layout-light/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'newassets/images/favicon.png' %}" />
+</head>
+
+<body>
+    <div class="main-panel" style="width: 100% ;height: 100%;">          
+        <div class="content-wrapper">
+          <div class="row justify-content-center">
+              <div class="col-lg-6 col-md-12">
+                  <div class="card px-2">
+                      <div class="card-body">
+                          <div class="container-fluid">
+                            <h3 align="center">Prescription&nbsp;&nbsp;Here</h3>
+                            <hr>
+                            <p id="date" class="text-right"></p>
+
+                          </div>
+                          <div class="container-fluid d-flex justify-content-between">
+                            <div class="col-lg-3 pl-0">
+                              <p class="mt-5 mb-2"><b>{{doc.0.name}}</b></p>
+                              <p>{{doc.0.city}}.</p>
+                            </div>
+                            <div class="col-lg-3 pr-0">
+                              <p class="mt-5 mb-2 text-right"><b>To,</b></p>
+                              <p class="text-right">{{user.0.name}}<br> {{user.0.city}}.</p>
+                            </div>
+                          </div>
+                          
+                          <div class="container-fluid mt-5 d-flex justify-content-center w-100">
+                            <div class="table-responsive w-100">
+                              <p>Description</p>
+                              {{pres}}
+                                <!-- <table class="table">
+                                  <thead>
+                                    <tr class="bg-dark text-white">
+                                        <th>#</th>
+                                        <th>Description</th>
+                                        <th class="text-right">Quantity</th>
+                                        <th class="text-right">Total</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr class="text-right">
+                                      <td class="text-left">1</td>
+                                      <td class="text-left">{{pres}}</td>
+                                      <td>2</td>
+                                      <td>$20</td>
+                                    </tr>
+                                    
+                                  </tbody>
+                                </table> --> 
+                              </div>
+                          </div>
+<!--                           <div class="container-fluid mt-5 w-100">
+                            <p class="text-right mb-2">Sub - Total amount: $12,348</p>
+                            <p class="text-right">vat (10%) : $138</p>
+                            <h4 class="text-right mb-5">Total : $13,986</h4>
+ -->                            <hr>
+                          <!-- </div> -->
+                          <div class="container-fluid w-100">
+                            <a href="#" class="btn btn-primary float-right mt-4 ml-2"><i class="ti-printer mr-1"></i>E Verified</a>
+                            
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>
+  <script type="text/javascript">
+  	n =  new Date();
+	y = n.getFullYear();
+	m = n.getMonth() + 1;
+	d = n.getDate();
+	document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+
+  </script>

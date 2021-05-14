@@ -35,7 +35,7 @@
                                   <th>AI Diagnosis</th>
                                   <th>Request Date</th>
                                   <th>Schedule Appointment On</th>
-                                  <th >Cancel</th>
+                                  <th >Schedule</th>
                                   <th style="display: none">User ID</th>
                                   <th>Status</th>
                               </tr>
@@ -57,7 +57,7 @@
                                   <td>Something</td>
                                   <td>{{req.rdate}}</td>
                                 <td >
-                                        <input type="datetime-local" id="{{num}}"  class="ml-3" placeholder="Birth date">
+                                        <input type="datetime-local" id="{{num}}"  class="ml-3" placeholder="Appointment date">
                                 </td>
                                     <td><button type="button" onClick="this.disabled=true;" class="button btn btn-primary btn-sm">Schedule</button></td>
                                     
@@ -106,7 +106,7 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <p class="text-center" id="requested"></p>
+                        <p class="text-center d-flex align-items-center" id="requested"></p>
 
                     </div>
                     <div class="modal-footer">
@@ -141,8 +141,12 @@
                             var n="#"+ids[0]
                             var date=($(n).val())
                             var tid=ids[7]
-                            
-                            
+                             if(!date){
+                           
+                               $(this).attr("disabled",false);
+
+                              return;
+                             }
                             $.ajax({
                                 type: "POST",
                                 data: {id:id,date:date,tid:tid},
@@ -152,9 +156,9 @@
                                      
                                     $('#myModal').modal('show');
                                     
-                                    /*$('#myModal').modal('toggle');
-                                    document.location.href="docshowreq"
-*/
+//                                     /*$('#myModal').modal('toggle');
+//                                     document.location.href="docshowreq"
+// */
                                 });
 
                         });

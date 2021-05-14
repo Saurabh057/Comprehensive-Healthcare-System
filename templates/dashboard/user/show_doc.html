@@ -91,9 +91,9 @@
                                 data: {id:usrid},
                                 url: "reqdoc",
                                 }).done(function( data ) {
-                                    $("#requested").html("Your Request passed to Doctor "+name);
+                                    // $("#requested").html("Your Request passed to Doctor "+name);
                                      
-                                    $('#myModal').modal('show');
+                                    // $('#myModal').modal('show');
                                     
                                    
                                 });
@@ -101,7 +101,7 @@
                         });
 
                         $('.cancelbt').on('click', function () {
-                            alert(id);
+                            // alert(id);
 
                             $("#" + id).attr("disabled",false);
 

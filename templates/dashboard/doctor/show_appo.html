@@ -22,7 +22,7 @@
       <div class="card">
         <div class="card-header">
           <h5 class="mb-0">
-            Here are the Pending Requests {{user.first_name}}....
+            Here are the Scheduled Appointments {{user.first_name}}....
           </h5>
           <!-- <p>This example shows DataTables and the Buttons extension being used with the Bootstrap 4 framework providing the styling.</p> -->
         </div>
@@ -34,12 +34,13 @@
                                   <th style="display: none;">#</th>
                                   <th style="display: none;">User ID</th>
                                   <th>User</th>
-                                  <th>AI Diagnosis</th>
+                                  <!-- <th>AI Diagnosis</th> -->
                                   <th>Request Date</th>
                                   <th>Schedule Appointment On</th>
                                   <th >Cancel</th>
                                   <th style="display: none">User ID</th>
                                   <th>Status</th>
+                                  <th>Prescription</th>
                               </tr>
                           </thead>
                               <tbody>
@@ -50,13 +51,13 @@
                                   <td>
                                       <div class="d-flex align-items-center">
                                           <img src="{% static 'newassets/images/faces/face1.jpg' %}" alt="profile"/>
-                                          <div class="ml-3">
+                                          <div class="ml-2">
                                               <p class="mb-0">{{i.0.0.name}}</p>
                                               <p class="mb-0 text-muted text-small">{{i.0.profession}}</p>
                                           </div>
                                       </div>
                                   </td>
-                                  <td>Something</td>
+                                  <!-- <td>Something</td> -->
                                   <td>{{req.rdate}}</td>
                                       <td>{{req.adate}}</td>
                                   
@@ -67,9 +68,11 @@
                                   <td style="display: none;">{{req.id}}</td>
                                       
                                   <td>
-                                      <label class="badge badge-success">In Progress</label>
+                                      <label class="badge badge-secondary">In Progress</label>
                                   </td>
-
+                                  <td>
+                                    <button type="button" class="presbt btn btn-primary ">Write</button>
+                                  </td>
                               </tr>
 
 
@@ -82,7 +85,90 @@
       </div>
     </div>
   </div>
+<!-- Table End In Process Appointments -->
 
+<!-- Table To Show Completed Appointments -->
+  
+  <div class="row mt-4">
+    <!-- ============================================================== -->
+    <!-- data table  -->
+    <!-- ============================================================== -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            Here are the Completd Appointments {{user.first_name}}....
+          </h5>
+          <!-- <p>This example shows DataTables and the Buttons extension being used with the Bootstrap 4 framework providing the styling.</p> -->
+        </div>
+        <div class="card-body text-center">
+          <div class="table-responsive">
+            <table id="example2" class="table" style="width: 100%">
+                          <thead> 
+                              <tr>
+                                  <th style="display: none;">#</th>
+                                  <th style="display: none;">User ID</th>
+                                  <th>User</th>
+                                  <!-- <th>AI Diagnosis</th> -->
+                                  <!-- <th>Request Date</th> -->
+                                  <th>Appointment was On</th>
+                                  <!-- <th >Cancel</th> -->
+                                  <th style="display: none">User ID</th>
+                                  <th>Status</th>
+                                  <th>Prescription</th>
+                              </tr>
+                          </thead>
+                              <tbody>
+                              {%for i,req,num in data2 %}    
+                              <tr>
+                                  <td style="display: none;">{{num}} </td>
+                                  <td style="display: none;">{{req.user}} </td>
+                                  <td>
+                                      <div class="d-flex align-items-center">
+                                          <img src="{% static 'newassets/images/faces/face1.jpg' %}" alt="profile"/>
+                                          <div class="ml-2">
+                                              <p class="mb-0">{{i.0.0.name}}</p>
+                                              <p class="mb-0 text-muted text-small">{{i.0.profession}}</p>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <!-- <td>Something</td> -->
+                                  <!-- <td>{{req.rdate}}</td> -->
+                                      <td>{{req.adate}}</td>
+                                  
+                                    <!-- <td>
+                                        <button type="button" class="button btn btn-primary ">Cancel</button>
+                                    
+                                    </td> -->
+                                  <td style="display: none;">{{req.id}}</td>
+                                      
+                                  <td>
+                                      <label class="badge badge-success">Completed</label>
+                                  </td>
+                                  <td>
+                                    <a href="{{req.prescription}}" class="btn btn-primary" target="_blank">Show</a>
+                                    <!-- 
+                                    <button type="button" data-path="{{req.prescription}}" class="presshow btn btn-primary ">Show</button> -->
+                                  </td>
+                              </tr>
+
+
+                              {% endfor %}   
+                              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Table End to show completed Appointments -->
+
+  <form id="prescription" action="prescription" method="GET">
+    <input type="hidden" name="usrid" id="usrid">
+    <input type="hidden" name="tid" id="tid">
+
+  </form>
   <!-- ============================================================== -->
   <!-- end data table  -->
   <!-- ============================================================== -->
@@ -94,6 +180,22 @@
     var table = $("#example").DataTable();
 
 
+    $(".presbt").on("click", function() {
+      var $row = $(this).closest("tr");
+      var $text = $row.find(".nr").text(); // Find the text
+
+      var ids = $.map(table.rows($row).data(), function (item) {
+        return item;
+      });
+      var id = ids[1];
+      var tid = ids[6];
+      $("#usrid").val(id);
+      $("#tid").val(tid);
+      // alert($("#usrid").val())
+      $("#prescription").submit();
+        // document.location.href = "prescription";
+
+    });
 
     $(".button").on("click", function () {
       var $row = $(this).closest("tr");
@@ -116,5 +218,11 @@
       });
     });
   });
+
+
+$(".presshow").click(function(){
+  // alert("The paragraph was clicked.");
+});
+
 </script>
 {% endblock content %}
