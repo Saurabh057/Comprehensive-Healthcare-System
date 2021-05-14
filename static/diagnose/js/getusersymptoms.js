@@ -19,7 +19,7 @@ function addThis(x) {
     symps.push(x);
     symps.push('1');
     document.getElementById("myInput").value = '';
-    var strstsr = '<button id=' + x + " class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
+    var strstsr = '<button id=' + x + " style='color:green;' class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
 
     $("#AddSympsHere").append(strstsr);
     getsuggestions();
@@ -31,7 +31,7 @@ function addUserSymps() {
     symps.push(x);
     symps.push('1');
     document.getElementById("myInput").value = '';
-    var strstsr = '<button id=' + x + " class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
+    var strstsr = '<button id=' + x + " style='color:green;' class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
 
     $("#AddSympsHere").append(strstsr);
     getsuggestions();
@@ -44,7 +44,7 @@ function addyes(){
     symps.push(x);
     symps.push('1');
     document.getElementById("myInput").value = '';
-    var strstsr = '<button id=' + x + " class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
+    var strstsr = '<button id=' + x + " style='color:green;' class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
 
     $("#AddSympsHere").append(strstsr);
     qa();
@@ -54,7 +54,7 @@ function addno(){
     symps.push(x);
     symps.push('0');
     document.getElementById("myInput").value = '';
-    var strstsr = '<button id=' + x + " class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
+    var strstsr = '<button id=' + x + " style='color:red;' class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
 
     $("#AddSympsHere").append(strstsr);
     qa();
@@ -89,17 +89,23 @@ function qa(){
           csrfmiddlewaretoken: '{{ csrf_token }}',
         },
         success : function(data){
-          var sugesstions=data.split(",");
-          alert(sugesstions);
-          if(sugesstions[0]=='ans'){
-              alert("Result : "+sugesstions[1]);
-              //this is diagnosis result by decision tree
-              document.getElementById("question").innerHTML="Tula "+sugesstions[1]+" ahe bhava";
+          data=JSON.parse(data);
+          if(symps.toString()!=data["before"].toString()){
+            alert("skip");
           }
           else{
-            document.getElementById("question").innerHTML="Are you experincing "+sugesstions[0]+"?";
-            $('#yes').attr('value', sugesstions[0]);
-            $('#no').attr('value', sugesstions[0]);
+            var sugesstions=data["after"];
+            alert(sugesstions);
+            if(sugesstions[0]=='ans'){
+                alert("Result : "+sugesstions[1]);
+                //this is diagnosis result by decision tree
+                document.getElementById("question").innerHTML="Tula "+sugesstions[1]+" ahe bhava";
+            }
+            else{
+              document.getElementById("question").innerHTML="Are you experincing "+sugesstions[0]+"?";
+              $('#yes').attr('value', sugesstions[0]);
+              $('#no').attr('value', sugesstions[0]);
+            }
           }
         }
       });
@@ -122,16 +128,40 @@ function getsuggestions(){
           csrfmiddlewaretoken: '{{ csrf_token }}',
         },
         success : function(data){
-          var sugesstions=data.split(",");
-          alert(sugesstions);
-          if(sugesstions[0]=='ans'){
-            alert("Result : "+sugesstions[1]);
-            //this is diagnosis result by decision tree
-            suggestSymptoms([sugesstions[1]]);
-        }
-        else
-          suggestSymptoms(sugesstions);
+          data=JSON.parse(data);
+          if(symps.toString()!=data["before"].toString()){
+            alert("skip");
+          }
+          else{
+            sugesstions=data["after"];
+            if(sugesstions[0]=='ans'){
+              alert("Result : "+sugesstions[1]);
+              //this is diagnosis result by decision tree
+              suggestSymptoms([sugesstions[1]]);
+            }
+            else
+              suggestSymptoms(sugesstions);
+          }
         }
       });
 
+}
+
+function diagnoseit(){
+  if(symps.length==0){
+    alert("Enter atleast one symptom");
+  }
+  else{
+    var final='';
+    for(var i=0;i<symps.length;i++){
+      final+=symps[i]+',';
+    }
+    
+    final=final.slice(0,-1);
+    alert(final);
+    $("#symptoms").val(final);
+    alert($("#symptoms").val());
+    $("#digform").submit();
+
+  }
 }

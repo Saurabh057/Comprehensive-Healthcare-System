@@ -58,17 +58,15 @@ def knn(columns):
     if('prognosis' not in columns):
         columns.append('prognosis')
     collen=len(columns)-1
-    df=pd.read_csv('Training.csv',usecols=columns,header=0)
+    df=pd.read_csv('disease/Training.csv',usecols=columns,header=0)
     df=df.loc[(df.iloc[:, :-1].T!=0).any()]
+    df2=pd.read_csv('disease/Testing.csv',usecols=columns,header=0)
+    df2=df2.loc[(df2.iloc[:, :-1].T!=0).any()]
     # train, test = train_test_split(df, test_size=0.25, random_state=42, shuffle=True)
-    for k in range(2,30):
-        
+    for k in range(2,30): 
         # ypred=pred(train,collen,k)
         # ytest=pred(test,collen,k)
-
         ypred=pred(df,collen,k)
-        df2=pd.read_csv('Testing.csv',usecols=columns,header=0)
-        df2=df2.loc[(df2.iloc[:, :-1].T!=0).any()]
         ytest=pred(df2,collen,k)
         acc=accuracy_score(ypred,ytest)
         # print(acc)
@@ -77,7 +75,8 @@ def knn(columns):
             ans=ypred
     print(max*100)
     print(ans)
-knn(['itching','red_spots_over_body'])
+    return [ans[0], int(max*100)]
+# knn(['itching','red_spots_over_body'])
 # print(len(df))
 # print(df.loc[((df.iloc[:, :-1].T!=0).sum())==2])
 

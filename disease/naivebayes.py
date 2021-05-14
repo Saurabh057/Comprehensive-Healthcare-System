@@ -45,9 +45,9 @@ def getdic(df):
 def soln(columns):
     if('prognosis' not in columns):
         columns.append('prognosis')
-    df=pd.read_csv('Training.csv', usecols=columns, header=0)
+    df=pd.read_csv('disease/Training.csv', usecols=columns, header=0)
     df=df.loc[(df.iloc[:, :-1].T!=0).any()]
-    df1=pd.read_csv('Testing.csv', usecols=columns, header=0)
+    df1=pd.read_csv('disease/Testing.csv', usecols=columns, header=0)
     df1=df1.loc[(df1.iloc[:, :-1].T!=0).any()]
     dic=getdic(df)
 
@@ -62,11 +62,13 @@ def soln(columns):
     print(dic2)
     print(ypred)
     print(ytestk)
-    print(accuracy_score(ypred,ytestk))
+    acc=int(accuracy_score(ypred,ytestk)*100)
+    print(acc)
+    return [ypred[0],acc]
 
 
 def overallaccuracy():
-    test=pd.read_csv('Testing.csv', header=0)
+    test=pd.read_csv('disease/Testing.csv', header=0)
     xtest=test.iloc[:,:-1]
     ytest=test.iloc[:,-1]
     ans=[]
@@ -89,6 +91,6 @@ def overallaccuracy():
     print(ytest)
     print(accuracy_score(ans,ytest))
 
-soln(['itching', 'skin_rash'])
+# soln(['itching', 'skin_rash'])
 
 

@@ -45,10 +45,10 @@ def pred(df,inp):
             # print(inp[i])
             # print(inp[i+1])
             # print(df)
-            if(inp[i] in list(df.columns)):
-                if(len(df.iloc[:,-1].unique())==1):
+            if(len(df.iloc[:,-1].unique())==1):
                     x=str(df.iloc[0,-1])
                     return {'ans':0,x:'2'}
+            if(inp[i] in list(df.columns)):   
                 df=df.loc[df[inp[i]]==int(inp[i+1])]
                 if(inp[i] in list(df.columns)):
                     df.pop(inp[i])
@@ -125,6 +125,43 @@ def dt(inp):
     # ans.append(acc)
     return ans
     # decision_tree([])
+
+def getlist(df,symps):
+    print(symps)
+    for i in symps:
+        
+        print(df)
+        if(len(df.iloc[:,-1].unique())==1):
+            x=str(df.iloc[0,-1])
+            return [x]
+        if i in list(df.columns): 
+            print(i)  
+            df=df.loc[df[i]==1]
+            df=df.loc[:, (df != 0).any(axis=0)]
+            print(df.columns)
+    dfl=len(df)
+    final={}
+    print(df)
+    for s in df.iloc[:,-1].unique():
+        final[s]=(len(df[df["prognosis"]==s])*100)/dfl
+    final=dict(sorted(final.items(),key=operator.itemgetter(1), reverse=True))
+    key=list(final.keys())
+    print(key)
+    return key
+
+def decisiontree(symps):
+    if "prognosis" in symps:
+        symps.remove("prognosis")
+    df=pd.read_csv('disease/Training.csv', header=0)
+    ypred=getlist(df,symps)
+    df=pd.read_csv('disease/Testing.csv', header=0)
+    ytest=getlist(df,symps)
+    acc=accuracy_score(ypred,ytest)
+    print(acc)
+    return [ypred[0], int(acc*100)]
+    
+
+    
 
 
 if __name__=="__main__":
