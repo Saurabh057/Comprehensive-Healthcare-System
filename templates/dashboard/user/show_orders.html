@@ -45,7 +45,8 @@
                                         {%for i,req,num in data1 %}    
                                         <tr>
                                                 <td>{{num}}</td>
-                                                <td >{{i.0.name}}</td>
+                                            
+                                                <td ><a href="log/details/{{i.0.username}}">{{i.0.name}}</a></td>
                                                 <!-- <td>{{req.medicines}}</td> -->
                                                 <td>{{req.rdate}}</td>
                                                 {% if req.adate is not null %}
@@ -104,7 +105,7 @@
                                             {%for i,req,num in data2 %}    
                                             <tr>
                                                     <td>{{num}}</td>
-                                                    <td >{{i.0.name}}</td>
+                                                    <td ><a href="log/details/{{i.0.username}}">{{i.0.name}}</a></td>
                                                     <!-- <td>Something</td> -->
                                                     <td>{{req.rdate}}</td>
                                                     {% if req.adate is not null %}

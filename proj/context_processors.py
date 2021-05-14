@@ -32,7 +32,7 @@ def add_variable_to_context(request):
                         k[1]=str(diff.days)+"  days ago"
 
                   list1.append(k)
-
+            # print(list1)      
             return {'info': list1,'profile':profile}
             
       return {'notifications': ''}

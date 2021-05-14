@@ -39,5 +39,3 @@ urlpatterns = [
 
 ]
 
-handler404 = 'proj.views.handler404'
-handler500 = 'proj.views.handler500'

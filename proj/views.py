@@ -26,19 +26,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 profession=""
 
 
-def handler404(request, *args, **argv):
-    response = render_to_response('404.html', {},
-                                  context_instance=RequestContext(request))
-    response.status_code = 404
-    return response
-
-
-def handler500(request, *args, **argv):
-    response = render_to_response('500.html', {},
-                                  context_instance=RequestContext(request))
-    response.status_code = 500
-    return response
-
 #home page of web
 def home(request):
 
@@ -107,6 +94,7 @@ def chatting(request):
 		# print(type(contactlist))
 		
 		return render(request,'chat/chat.html',{'data':contacts})
+
 
 
 #dashboard common to all user
