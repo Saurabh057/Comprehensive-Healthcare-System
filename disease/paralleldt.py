@@ -7,7 +7,7 @@ from sklearn.metrics import accuracy_score
 import math
 import operator
 from multiprocessing import Process,Manager
-
+from disease.asach import shuffle
 def entropycalc(i,df):
     print("starting : "+i)
     # entropy[i]=[[0,0]]
@@ -127,35 +127,78 @@ def dt(inp):
     # decision_tree([])
 
 def getlist(df,symps):
-    print(symps)
     for i in symps:
         
-        print(df)
         if(len(df.iloc[:,-1].unique())==1):
             x=str(df.iloc[0,-1])
-            return [x]
+            return {x:100}
         if i in list(df.columns): 
-            print(i)  
             df=df.loc[df[i]==1]
             df=df.loc[:, (df != 0).any(axis=0)]
-            print(df.columns)
     dfl=len(df)
     final={}
-    print(df)
     for s in df.iloc[:,-1].unique():
         final[s]=(len(df[df["prognosis"]==s])*100)/dfl
     final=dict(sorted(final.items(),key=operator.itemgetter(1), reverse=True))
-    key=list(final.keys())
-    print(key)
-    return key
+    print(final)
+    return final
 
 def decisiontree(symps):
     if "prognosis" in symps:
         symps.remove("prognosis")
     df=pd.read_csv('disease/Training.csv', header=0)
-    ypred=getlist(df,symps)
+    dic1=getlist(df,symps)
     df=pd.read_csv('disease/Testing.csv', header=0)
-    ytest=getlist(df,symps)
+    dic2=getlist(df,symps)
+    ypred=list(dic1.keys())
+    ytest=list(dic2.keys())
+    extra=ytest
+    i=0
+    while(i<len(ypred)):
+        if ypred[i] not in ytest:
+            # print("removed :" +ypred[i])
+            dic1.pop(ypred[i])
+            ypred.remove(ypred[i])
+            
+            # print(ypred)
+            # print(i)
+        else:
+            # print("extra : "+ypred[i])
+            extra.remove(ypred[i])
+            i+=1
+    # print(extra)
+    for i in extra:
+         # print(i)
+        ytest.remove(i)
+        dic2.pop(i)
+    dup1=[]
+    li=[]
+    val=0
+    for k,v in dic1.items():
+        if(val!=v):
+            dup1.append(li)
+            li=[k]
+            val=v
+        else:
+            li.append(k)
+    if(li!= dup1[-1]):
+        dup1.append(li)
+
+    dup2=[]
+    li=[]
+    val=0
+    for k,v in dic2.items():
+        if(val!=v):
+            dup2.append(li)
+            li=[k]
+            val=v
+        else:
+            li.append(k)
+    if(li != dup2[-1]):
+        dup2.append(li)
+    print(dup1)
+    print(dup2)
+    ypred,ytest=shuffle(ypred,ytest,dup1[1:],dup2[1:])
     acc=accuracy_score(ypred,ytest)
     print(acc)
     return [ypred[0], int(acc*100)]
@@ -166,7 +209,7 @@ def decisiontree(symps):
 
 if __name__=="__main__":
     print("in")
-    # dt([])
+    # decisiontree(['vomiting', 'nausea'])
         
 
 
