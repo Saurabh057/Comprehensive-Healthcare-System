@@ -69,6 +69,12 @@ def signup(request):
 
 		return render(request,'profile/register.html')
 
+def details(request,usrid):
+
+	details=AddtionalDetails.objects.filter(username=usrid)
+
+	return render(request,'profile/detail.html',{'details':details})
+
 def showinfo(request):
 	# print(request.FILES)
 	if request.method == 'POST': 

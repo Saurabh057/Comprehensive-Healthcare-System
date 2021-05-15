@@ -11,12 +11,17 @@ class Record(models.Model):
     rdate = models.DateField(default=date.today)
     adate=models.DateTimeField(null=True)
     status=models.IntegerField(default=0)
+    # presarray=ArrayField(models.CharField(max_length=100),blank=True,null=True)
+    prescription=models.CharField(max_length=100,null=True)
+    bill=models.CharField(max_length=100,null=True)
 
 
 class Orders(models.Model):
+    tid=models.IntegerField(default=0)
     user = models.EmailField(max_length=254)
     pharma = models.EmailField(max_length=254)
-    medicines=models.CharField(max_length=254)
+    prescription=models.CharField(max_length=100,null=True)
+    bill=models.CharField(max_length=100,null=True)
     rdate = models.DateField(default=date.today)
     adate=models.DateTimeField(null=True)
     status=models.IntegerField(default=0)
@@ -27,3 +32,13 @@ class Messages(models.Model):
     message = models.CharField(max_length=254)
     time = models.DateTimeField(default=timezone.now)
     read=models.IntegerField(default=0)
+
+
+class Prescription(models.Model):
+    tid=models.IntegerField(default=0)
+    mediname= models.CharField(max_length=254)
+    meditype=models.CharField(max_length=254)
+    quantity=models.IntegerField(default=0)
+    meal=models.CharField(max_length=254)
+    time=ArrayField(models.CharField(max_length=100),blank=True,null=True)
+    cost=models.IntegerField(default=0)

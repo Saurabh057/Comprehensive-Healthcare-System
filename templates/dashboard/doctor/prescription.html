@@ -1,0 +1,165 @@
+{% extends 'dashboard/doctor/doctor_base.html' %} 
+{% load static %} 
+{% block content %}
+
+<div class="row justify-content-md-center">
+<div class="col-md-12  grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title text-center">Prescription HERE</h4>
+                  <p class="card-description">
+                    Prescription 
+                  </p>
+                  <!-- <form  class="forms-sample"> -->
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">Name</label>
+                      <input type="text" class="form-control" id="name"  value="{{list1.0.0.name}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" name="email" id="email" value="{{list1.0.0.username}}">
+                    </div>
+
+                    <div class="form-group">
+                      <input type="hidden"  name="tid" id="tid" value="{{tid}}">
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="Textarea">Prescription</label>
+                      <!-- <input type="text" class="form-control"  name="pres" id="pres" placeholder="Enter Prescription Here"> -->
+                      <div class="table-responsive">
+                        <table id="example2" class="table" style="width: 100%">
+                          <thead> 
+                              <tr>
+                                  <th>Sr NO.</th>
+                                   <th>Type</th>  <!-- Drop down select  Tablet Syrup Ointment -->
+                                  <th>Name</th>
+                                  <th>Quantity</th>
+                                  <th>Before/After Meal</th>
+                                  <th>
+                                    Time<br>  
+                                    <br>M&nbsp;&nbsp;&nbsp; A&nbsp;&nbsp;&nbsp; E
+                                  </th>
+                              </tr>
+                          </thead>
+                              <tbody>
+                              <tr class="first">
+                                  <td>1</td>
+                                  <td>
+                                      <select id="meditype1" name="meditype1" class="form-control">
+                                        <option value="Tablet">Tablet</option>
+                                        <option value="Syrup">Syrup</option>
+                                        <option value="Ointment">Ointment</option>
+                                      </select>
+                                  </td>
+                                  <td>
+                                    <input type="text" id="mediname1" name="mediname" class="form-control" placeholder="Name Of Medicine">
+                                  </td>
+                                  <td>
+                                    <input type="number" min="0" class="form-control" id="quantity1" name="quantity" placeholder="Quantity Of Medicine">
+                                  </td>
+                                  <td>
+                                      <input type="radio" name="meal1" class="radio form-control.sm " value="before">Before
+                                      <input type="radio" name="meal1" class="radio form-control.sm ml-2" value="after">After
+                                  </td>
+                                  <td>
+                                        <div id="checkbox1">
+                                          <input type="checkbox" id="time1" name="time1"
+                                                 checked value="morning">
+                                          <input type="checkbox" class="checkbox ml-3" value="afternoon" id="time1" name="time1"
+                                                 >
+                                          <input type="checkbox" class="ml-3" value="evening" id="time1" name="time1"
+                                                 >
+
+                                        </div>
+
+                                  </td>
+                              </tr>
+
+
+                              </tbody>
+
+
+            </table>
+
+          </div>
+
+                    </div><!-- 
+                    <div class="form-check form-check-flat form-check-primary">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input">
+                        Remember me
+                      </label>
+                    </div> -->
+                    <button class=" btsubmit btn btn-primary btn-sm mr-2" >Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+                          <button class="btadd btn btn-primary btn-sm float-right">ADD</button>
+  
+                </div>
+              </div>
+            </div>
+</div>
+<script>
+  var num=1;
+  var email=$("#email").val();
+  var tid=$("#tid").val();
+  var array = new Array();
+                        
+    $(".btadd").on("click", function() {
+      
+      var meditype=$("#meditype"+num).val();
+      var mediname= $("#mediname"+num).val();
+      var quantity= $("#quantity"+num).val();
+      var time = new Array();
+      $('#checkbox'+num+' input:checked').each(function() {
+          time.push($(this).attr('value'));
+      });
+      // var meal=$("input[name='beforemeal"+num+"']:checked").val()
+      var nameradio="meal"+num
+      var meal=$('input[type=radio][name='+nameradio+']:checked').val()
+
+      // alert(time)
+      // alert(meal);
+      var row=[meditype,mediname,quantity,meal,time]
+      array.push(row)
+
+      num=num+1;
+  
+
+      $(".first").innerHtml;
+      $('#example2 tr:last').after("<tr class='first'><td>"+num+"</td><td><select id='meditype"+num+"' name='meditype' class='form-control'><option value='Tablet'>Tablet</option><option value='Syrup'>Syrup</option><option value='Ointment'>Ointment</option></select></td><td><input type='text' name='mediname' id='mediname"+num+"' class='form-control' placeholder='Name Of Medicine'>                      </td><td><input type='number' min='0' class='form-control' name='quantity' id='quantity"+num+"' placeholder='Quantity Of Medicine'></td><td><input type='radio' name='meal"+num+"' class='radio form-control.sm' value='before'>Before  <input type='radio' name='meal"+num+"' class='radio form-control.sm ml-2' value='after'>After</td> <td>            <div id='checkbox"+num+"'>    <input type='checkbox' id='time' value='morning' name='time" +num+"'          checked> <input type='checkbox' class='checkbox ml-3' value='afternoon' id='time' name='time"+num+"' > <input type='checkbox' class='ml-3' id='time' value='evening' name='time"+num+"' >      </div>     </td> </tr>");
+
+  });
+
+    $(".btsubmit").on("click", function() {
+              var meditype=$("#meditype"+num).val();
+              var mediname= $("#mediname"+num).val();
+              var quantity= $("#quantity"+num).val();
+              var time = new Array();
+              $('#checkbox'+num+' input:checked').each(function() {
+                  time.push($(this).attr('value'));
+              });
+              var nameradio="meal"+num
+            var meal=$('input[type=radio][name='+nameradio+']:checked').val()
+
+              var row=[meditype,mediname,quantity,meal,time]
+              array.push(row)
+
+               var encoded = JSON.stringify(array);   
+                 // alert(array);
+                 // console.table(array);
+                  $.ajax({
+                                type: "POST",
+                                data: {email:email,tid:tid,array:encoded},
+                                url: "renderpdf",
+                                }).done(function( data ) {
+                                    // $("#requested").html("Your Appointment with  "+"Is cancelled");
+                                       
+                                    document.location.href="/docshowappo";
+                                   
+                                });
+          });
+
+</script>
+{% endblock %}
