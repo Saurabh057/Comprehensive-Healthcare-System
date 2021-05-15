@@ -52,11 +52,6 @@ function autocomplete(inp, arr) {
 
 
 
-    var node = document.getElementById("suggestedSymps");
-    node.querySelectorAll('*').forEach(n => n.remove());
-
-
-
 
     var x = document.getElementById(this.id + "autocomplete-list");
     if (x) x = x.getElementsByTagName("div");

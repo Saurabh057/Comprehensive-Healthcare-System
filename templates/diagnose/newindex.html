@@ -122,7 +122,9 @@
             -moz-box-sizing: border-box;
             box-sizing: border-box;
         }
-        .sympshow{
+
+
+        .sympshow {
             margin-top: 2px;
             color: blanchedalmond;
             /* font-weight: bold; */
@@ -153,10 +155,56 @@
         .sympshow .btn:hover:before {
             content: "Remove!";
         }
-        .showsymptoms{
+
+        .showsymptoms {
             height: 80px;
             color: blanchedalmond;
             font-weight: bold;
+        }
+
+        .sugestionsclass {
+            padding-top: 60px;
+            color: blanchedalmond;
+            /* font-weight: bold; */
+        }
+
+        .sugestionsclass .btn {
+            height: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            margin: 3px 3px 3px 3px;
+            padding: auto;
+            padding-top: 1px;
+        }
+
+        .sugestionsclass .btn:hover span {
+            display: none
+        }
+
+
+        .sugestionsclass .btn:hover {
+            border: 0px solid #1292e1;
+            background: rgba(3, 202, 3, 0.815);
+            color: white !important;
+            content: "Add!" !important;
+        }
+
+        .sugestionsclass .btn:hover:before {
+            content: "Add!";
+        }
+
+        .qabasedcontent {
+            text-align: right !important;
+
+        }
+
+        #changeContentButt {
+            font-size: small !important;
+            margin-top: 7%;
+            margin-left: 30%;
+            background-color: rgba(30, 207, 139, 0.493);
+            color: cornsilk;
         }
     </style>
 </head>
@@ -164,6 +212,9 @@
 <body>
 
     <!-- <div id="wave"></div> -->
+    <header class="text-center text-white py-5">
+        <h1 class="display-4 font-weight-bold mb-4">Comprehensive Healthcare System using ML</h1>
+    </header>
     <div style="overflow-y: hidden;">
         <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" style="z-index: -2;">
 
@@ -199,23 +250,37 @@
             </div>
             <div class="col heightclass text-center">
 
-                <div class="input-group mb-3">
-                    <input type="text" id="myInput" class="form-control text-center" placeholder="Enter your symptom">
-                    <div class="input-group-append text-center">
-                        <span class="input-group-text"><button type="button" class="btn btn-primary" id="adduserSympButton">Add</button></span>
+
+
+                <div id="sympSearchBar">
+                    <div class="input-group text-center" id="inputsearchbar">
+                        <input type="text" id="myInput" class="form-control text-center"
+                            placeholder="Enter your symptom">
+                        <div class="input-group-append text-center">
+                            <span class="input-group-text"><button type="button" class="btn btn-primary"
+                                    id="adduserSympButton">Add</button></span>
+                        </div>
                     </div>
+
+                    <div class="text-center" id="quesanswers" style="display: none;">
+                        <h1 class="text-center"> DO you feel like ulti? </h1>
+                        <br><button class='btn btn-outline-secondary alert-primary text-center ml-4 mt-2' onclick="">
+                            Yes</button>
+                        <button class='btn btn-outline-secondary alert-primary text-center ml-4 mt-2'
+                            onclick="">No</button>
+                    </div>
+
                 </div>
+
+
+
                 <div class="showsymptoms">
-                    
+
                 </div>
 
                 <div class="sympshow" id="AddSympsHere">
 
                     symptoms entered will appear here!<br>
-
-
-
-
 
                 </div>
 
@@ -225,16 +290,24 @@
             </div>
             <div class="col-sm-3 col-md-3 col-xl-3 heightclass">
                 <div class="dtClass text-center">
-                    <h5 class="pt-5">&nbsp;&nbsp;&nbsp;&nbsp;Not sure what's &nbsp;&nbsp;&nbsp;&nbsp;happening?</h5>
-                    <img class="logoimage" src="../../static/diagnose/image/dTree.png">
-                    <h6 class="text-center">We'll suggest you something using our decision tree..<br>
-                        &nbsp;&nbsp;&nbsp;Add any one symptom to get started!</h6>
+
+                    <button class='btn ' id="changeContentButt" onclick="changeContent(1)"> Prefer
+                        Questions?</button>
+
+
+                    <div id="suggesionss">
+                        <h5 class="pt-3">&nbsp;&nbsp;&nbsp;&nbsp;Not sure what's &nbsp;&nbsp;&nbsp;&nbsp;happening?</h5>
+                        <img class="logoimage" src="../../static/diagnose/image/dTree.png">
+                        <h6 class="text-center">We'll suggest you something using our decision tree..<br>
+                            &nbsp;&nbsp;&nbsp;Add any one symptom to get started!</h6>
+
+                    </div>
 
                 </div>
             </div>
         </div>
     </div>
-	<script src="../../static/diagnose/js/autocomplete.js"></script>
-	<script src="../../static/diagnose/js/getusersymptoms.js"></script>
+    <script src="../../static/diagnose/js/autocomplete.js"></script>
+    <script src="../../static/diagnose/js/getusersymptoms.js"></script>
 
 </body>
