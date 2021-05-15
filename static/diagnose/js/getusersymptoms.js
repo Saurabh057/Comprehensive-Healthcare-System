@@ -67,11 +67,18 @@ function suggestSymptoms(a) {
     node.querySelectorAll('*').forEach(n => n.remove());
     var st= '<button class="btn text-center m-1" style="border:none; background-color:#f8f9fa;">Suggested:</p>';
     $("#suggestedSymps").append(st);
-    for(var i=0;i<a.length;i++){
-        var strstsr = '<button id=' + a[i] + " class='btn btn-outline-secondary text-center m-1' onclick=addThis('" + a[i] + "')>" + a[i] + "</button>";
-        //he vrcha system kdun ghyaychay for now let it be
-        $("#suggestedSymps").append(strstsr);
+    alert(a);
+    if(a[0]=="nosymp"){
+      var st= '<button class="btn text-center m-1" style="border:none; background-color:#f8f9fa;">None</p>';
+      $("#suggestedSymps").append(st);
+    }
+    else{
+      for(var i=0;i<a.length;i++){
+          var strstsr = '<button id=' + a[i] + " class='btn btn-outline-secondary text-center m-1' onclick=addThis('" + a[i] + "')>" + a[i] + "</button>";
+          //he vrcha system kdun ghyaychay for now let it be
+          $("#suggestedSymps").append(strstsr);
 
+      }
     }
 
     
@@ -79,6 +86,7 @@ function suggestSymptoms(a) {
 }
 
 function qa(){
+  alert("asach");
     document.getElementById("normal").style.display="none";
     document.getElementById("qa").style.display="block";
     $.ajax({
@@ -96,10 +104,10 @@ function qa(){
           else{
             var sugesstions=data["after"];
             alert(sugesstions);
-            if(sugesstions[0]=='ans'){
-                alert("Result : "+sugesstions[1]);
+            if(sugesstions[0]=='nosymp'){
+                // alert("Result : "+sugesstions[1]);
                 //this is diagnosis result by decision tree
-                document.getElementById("question").innerHTML="Tula "+sugesstions[1]+" ahe bhava";
+                document.getElementById("question").innerHTML="Done with suggestions!!";
             }
             else{
               document.getElementById("question").innerHTML="Are you experincing "+sugesstions[0]+"?";
@@ -111,12 +119,14 @@ function qa(){
       });
 }
 function normal(){
+  alert('in');
     document.getElementById("normal").style.display="block";
     document.getElementById("qa").style.display="none";
+    getsuggestions();
 
 }
-document.getElementById("profile-tab").addEventListener("click", qa)
-document.getElementById("home-tab").addEventListener("click", normal)
+// document.getElementById("profile-tab").addEventListener("click", qa)
+// document.getElementById("home-tab").addEventListener("click", normal)
 
 function getsuggestions(){
     alert(symps.toString());
@@ -134,13 +144,7 @@ function getsuggestions(){
           }
           else{
             sugesstions=data["after"];
-            if(sugesstions[0]=='ans'){
-              alert("Result : "+sugesstions[1]);
-              //this is diagnosis result by decision tree
-              suggestSymptoms([sugesstions[1]]);
-            }
-            else
-              suggestSymptoms(sugesstions);
+            suggestSymptoms(sugesstions);
           }
         }
       });

@@ -45,16 +45,19 @@ def pred(df,inp):
             # print(inp[i])
             # print(inp[i+1])
             # print(df)
+            if df.empty:
+                return {"nosymp":1}
             if(len(df.iloc[:,-1].unique())==1):
                     x=str(df.iloc[0,-1])
-                    return {'ans':0,x:'2'}
+                    # return {'ans':0,x:'2'}
             if(inp[i] in list(df.columns)):   
                 df=df.loc[df[inp[i]]==int(inp[i+1])]
                 if(inp[i] in list(df.columns)):
                     df.pop(inp[i])
             i+=2
         df=df.loc[:, (df != 0).any(axis=0)]
-        
+    if df.empty:
+        return {"nosymp":1}   
     col=list(df.columns)
     col.remove('prognosis')
     print(col)

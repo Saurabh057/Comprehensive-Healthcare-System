@@ -48,14 +48,14 @@ def soln(columns):
         columns.append('prognosis')
     df=pd.read_csv('disease/Training.csv', usecols=columns, header=0)
     df=df.loc[(df.iloc[:, :-1].T!=0).any()]
-    # df1=pd.read_csv('disease/Testing.csv', usecols=columns, header=0)
-    # df1=df1.loc[(df1.iloc[:, :-1].T!=0).any()]
-    # # print(df1)
-    # dic=getdic(df)
-    # dic2=getdic(df1)
-    train, test = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
-    dic=getdic(train)
-    dic2=getdic(test)
+    df1=pd.read_csv('disease/Testing.csv', usecols=columns, header=0)
+    df1=df1.loc[(df1.iloc[:, :-1].T!=0).any()]
+    # print(df1)
+    dic=getdic(df)
+    dic2=getdic(df1)
+    # train, test = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
+    # dic=getdic(train)
+    # dic2=getdic(test)
 
     dic=dict(sorted(dic.items(),key=operator.itemgetter(1), reverse=True))
     print(dic)

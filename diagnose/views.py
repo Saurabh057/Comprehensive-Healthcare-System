@@ -67,8 +67,9 @@ def suggest(request):
         x=[]  
     ans=dt(x)
     final=[]
-    if(ans[0]=='ans'):
-        final=ans
+    print(ans)
+    if(ans ==[] or ans==['']):
+        final=["nosymp"]
     else:
         count=0
         for i in ans:
