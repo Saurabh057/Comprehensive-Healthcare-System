@@ -3,9 +3,9 @@ import pandas as pd
 # from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-
+import time
 import operator
-
+from disease.asach import shuffle
 def pred(df, collen, k):
     anslen=0
     ans={}
@@ -50,7 +50,7 @@ def pred(df, collen, k):
         #     ans.pop(s)
     final=dict(sorted(ans.items(),key=operator.itemgetter(1), reverse=True))
     # print(final)
-    return list(final.keys())
+    return final
 
 def knn(columns):
     max=0
@@ -62,21 +62,85 @@ def knn(columns):
     df=df.loc[(df.iloc[:, :-1].T!=0).any()]
     df2=pd.read_csv('disease/Testing.csv',usecols=columns,header=0)
     df2=df2.loc[(df2.iloc[:, :-1].T!=0).any()]
-    # train, test = train_test_split(df, test_size=0.25, random_state=42, shuffle=True)
+    train, test = train_test_split(df, test_size=0.25, random_state=42, shuffle=True)
+    start=time.clock()
+    d1={}
+    d2={}
+    finalk=0
     for k in range(2,30): 
-        # ypred=pred(train,collen,k)
-        # ytest=pred(test,collen,k)
-        ypred=pred(df,collen,k)
-        ytest=pred(df2,collen,k)
+        dic1=pred(train,collen,k)
+        dic2=pred(test,collen,k)
+        # dic1=pred(df,collen,k)
+        # dic2=pred(df2,collen,k)
+        ypred=list(dic1.keys())
+        ytest=list(dic2.keys())
+        extra=ytest
+        # print(ypred)
+        # print(ytest)
+        i=0
+        while(i<len(ypred)):
+            if ypred[i] not in ytest:
+                # print("removed :" +ypred[i])
+                dic1.pop(ypred[i])
+                ypred.remove(ypred[i])
+                # print(ypred)
+                # print(i)
+                
+            else:
+                # print("extra : "+ypred[i])
+                extra.remove(ypred[i])
+                i+=1
+        # print(extra)
+        for i in extra:
+            # print(i)
+            ytest.remove(i)
+            dic2.pop(i)
+        dup1=[]
+        li=[]
+        val=0
+        for k,v in dic1.items():
+            if(val!=v):
+                dup1.append(li)
+                li=[k]
+                val=v
+            else:
+                li.append(k)
+        if(li!= dup1[-1]):
+            dup1.append(li)
+
+        dup2=[]
+        li=[]
+        val=0
+        for k,v in dic2.items():
+            if(val!=v):
+                dup2.append(li)
+                li=[k]
+                val=v
+            else:
+                li.append(k)
+        if(li != dup2[-1]):
+            dup2.append(li)
+        # print(dup1)
+        # print(dup2)
+
+        ypred,ytest=shuffle(ypred,ytest,dup1[1:],dup2[1:])
+
         acc=accuracy_score(ypred,ytest)
-        # print(acc)
+        print(acc)
         if(acc>=max):
+            finalk=k
+            d1=dic1
+            d2=dic2
             max=acc
             ans=ypred
+    print(time.clock()-start)
     print(max*100)
+    print(finalk)
+    print(dic1)
+    print(dic2)
     print(ans)
     return [ans[0], int(max*100)]
-# knn(['itching','red_spots_over_body'])
+# knn(['vomiting','nausea'])
 # print(len(df))
 # print(df.loc[((df.iloc[:, :-1].T!=0).sum())==2])
 

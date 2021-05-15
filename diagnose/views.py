@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from disease.paralleldt import dt,decisiontree
+from disease.paralleldt import dt
 from django.views.decorators.csrf import csrf_exempt
 import json
 
 from disease.naivebayes import soln
 from disease.knn import knn
+from disease.decisiontree import decisiontree
 # Create your views here.
 def home(request):
     return render(request,'diagnose/index.html')
