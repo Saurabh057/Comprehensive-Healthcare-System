@@ -18,11 +18,11 @@
                <div class="row">
                     {%for i,doc in data %}    
                    
-                   <div class="col-md-4 grid-margin stretch-card">
-                            <div class="card">
+                   <div class="col-md-3 grid-margin stretch-card">
+                            <div class="card ">
                                 <div class="card-body">
-                                    <div class="d-sm-flex flex-row flex-wrap text-left text-sm-left align-items-left">
-                                        <img src="{% static 'newassets/images/faces/profile.jpg' %}" class="img-lg rounded" alt="profile image"/>
+                                    <div class="d-sm-flex justify-content-center flex-row flex-wrap text-left text-sm-left align-items-left">
+                                        <img src="static/{{doc.profile}}" class="img-lg  rounded" alt="profile image"/>
                                         <div class="ml-sm-3 ml-md-0 ml-xl-3 mt-2 mt-sm-0 mt-md-2 mt-xl-0">
                                             <h6 class="mb-0">{{doc.name}}</h6>
                                             <p class="text-muted mb-1">{{doc.username}}</p>

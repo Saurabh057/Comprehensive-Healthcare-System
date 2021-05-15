@@ -1,0 +1,130 @@
+{% extends 'dashboard/user/user_base.html' %}
+{% load static %}
+
+{% block header %}
+
+<link rel="stylesheet" href="{%static 'diagnose/libs/css/style.css' %}">
+<link rel="stylesheet" href="{%static 'diagnose/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+<style type="text/css">
+    a {
+        color: white;
+    }
+
+
+    .card:hover {
+        box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
+        transform: translate3d(0px, 4px, 0px);
+    }
+</style>
+
+<script src="{% static 'diagnose/vendor/gauge/gauge.min.js' %}"></script>
+<script src="{% static 'diagnose/vendor/gauge/gauge.js' %}"></script>
+
+{% endblock header%}
+
+{% block content %}
+
+<div class="container-fluid dashboard-content">
+    <div class="row mt-2">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- <h3 class="text-center">Good afternoon, Abhijit!</h3> -->
+        </div>
+    </div>
+    <div class="row text-center m-2">
+
+        <div class="card card-body border-none" style="background:#0808663f; border: none;">
+            <h3> You have been diagnosed with<br /></h3>
+            <h1 class="">Tuberculosis</h1>
+            <h4>The system has choosen Naive Bayes Algorithm to conclude this with accuracy of
+                98.99%</h4>
+            <p class="card-text" style="font-size: 25px;">Your Symptoms : Blah, blah, blah, blah,
+                and blah
+            </p>
+
+            <div class="row w-100 text-center" style="float: none; margin:0 auto;">
+
+                <div class="col m-2">
+                    <a class="btn alert-primary w-100" onclick="">Diagnose
+                        again</a>
+                </div>
+                <div class="col m-2 ">
+                    <a class="btn alert-primary w-100" onclick="">Consult
+                        Doctor</a>
+                </div>
+                <div class="col m-2">
+                    <a class="btn alert-primary  w-100" onclick="">Dashboard Home</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center mt-3" style="float: none; margin:0 auto;">
+
+        <div class="card card-body mt-3" style="background:#8be9788f;">
+
+
+
+            <div class="row text-center mt-3" style="border:0px solid !important;">
+
+                <div class="col max-height:200px;">
+                    <div class="card card-body text-center">
+                        <h4 class="card-title">Naive Bayes Classifier</h4>
+                        <p class="card-text">Accuracy : 76%</p>
+                        <canvas id="gauge1" style="height: 100px;"></canvas>
+
+                        <a class="btn alert-primary" onclick="">Tuberculosis</a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card card-body  text-center">
+                        <h4 class="card-title">K Nearest Neighbors</h4>
+                        <p class="card-text">Accuracy : 76%</p>
+                        <!-- <canvas id="pastWeekAtten"></canvas> -->
+                        <canvas id="gauge2" style="height: 100px;"></canvas>
+
+                        <a class="btn alert-primary" onclick="">Tuberculosis</a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card card-body  text-center">
+                        <h4 class="card-title">Decision Tree Classifier</h4>
+                        <p class="card-text">Accuracy : 76%</p>
+                        <canvas id="gauge3" style="height: 100px;"></canvas>
+                        <a class="btn alert-primary" onclick="">Tuberculosis</a>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row m-2 mt-4 w-100 text-center">
+        <div class="card card-body mt-3" style="background:#e98f7885; height: 500px !important"">
+            <div class=" col w-100" >
+            <iframe
+                src="https://www.webmd.com/search/search_results/default.aspx?query=Tuberculosis"
+                style="overflow:hidden;height:90%;width:100%"
+                title="W3Schools Free Online Web Tutorials"></iframe>
+                <a class="btn alert-primary" onclick="">Open this in new window</a>
+           
+        </div>
+    </div>
+</div>
+
+
+
+
+</div>
+
+<script src="{%static 'diagnose/vendor/gauge/gauge.min.js' %}"></script>
+<script src="{% static 'diagnose/vendor/gauge/gauge.js' %} "></script>
+
+{% endblock content %}

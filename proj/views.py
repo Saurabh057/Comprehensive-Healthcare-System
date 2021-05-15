@@ -14,6 +14,7 @@ from selenium import webdriver
 from django.core.mail import EmailMultiAlternatives
 
 # _appname_=proj
+
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 

@@ -20,7 +20,7 @@
 			background-repeat: no-repeat;
 			background-attachment: fixed;
 			background-size: cover;
-			height: 100%;
+			height: 100%; 
 
 		}
 
@@ -29,7 +29,7 @@
 
 </head>
 
-<body>
+<body onload="getsuggestions([])">
 
 	<section name="AI DIAGNOSIS IP field">
 
@@ -56,8 +56,7 @@
 						<div style="height: 100%;">
 
 							<div class="text-center" style="height: 20%;"></div>
-
-							<div class="text-center" style="height: 20%; margin: auto; width: 50%;">
+							<div class="text-center" style="height: 20%; margin: auto; width: 50%;" id="normal">
 								<div class="input-group text-center mb-3">
 									<input type="text" class="form-control text-center" id="myInput"
 										placeholder="Enter your Symptom" aria-label="" aria-describedby="basic-addon2">
@@ -71,6 +70,19 @@
 								</div>
 
 							</div>
+							<div class="text-center" style="height: 20%; margin: auto; width: 50%; display: none;" id="qa">
+								<div class="text-center">
+									<h5 class="text-center qa", id="question"></h5>
+									<!--<h5 style="color:orange;"> &nbsp</h5><h5 style="color:darkorange; font-weight: bold;"></h5><h5 style="color:orange;">?</h5>
+								--></div>
+
+
+								<div class="showsymptoms text-center" id="suggestedSymps">
+									<button id="yes" class='btn btn-outline-secondary text-center mybtn' onclick="addyes()" style="color:green;">Yes</button>
+									<button id="no" class='btn btn-outline-secondary text-center mybtn' onclick="addno()" style="color:red;">No</button>
+								</div>
+
+							</div>
 
 							<div class="showaddedsymps" style="height: 60%; margin: auto; width: 80%; margin-top: 10% !important;" id="AddSympsHere">
 				
@@ -79,9 +91,13 @@
 							</div>
 
 							<div class="text-center" style="height: 20%; width: 80%;">
-								<button class="btn third text-center">DIAGNOSE!</button>
+								<button class="btn third text-center" id="done" onclick="diagnoseit()">DIAGNOSE!</button>
 
 							</div>
+							<form action="dash" id="digform" method="post">
+							{% csrf_token %}
+								<input type="hidden" id="symptoms" name="symptoms">
+							</form>
 						</div>
 
 					</div>
@@ -94,7 +110,10 @@
 
 
 
-
+	<script>
+		
+		
+	</script>
 	<script src="{% static 'diagnose/js/jquery-3.3.1.min.js' %}"></script>
 	<script src="{% static 'diagnose/js/autocomplete.js' %}"></script>
 	<script src="{% static 'diagnose/js/getusersymptoms.js' %}"></script>
