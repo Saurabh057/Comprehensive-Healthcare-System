@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{% static 'newassets/vendor/feather/feather.css' %}">
   <link rel="stylesheet" href="{% static 'newassets/vendor/ti-icons/css/themify-icons.css' %}">
   <link rel="stylesheet" href="{% static 'newassets/vendor/css/vendor.bundle.base.css' %}">
-    <link rel="stylesheet" href="{%static 'newassets/vendors/font-awesome/css/font-awesome.min.css' %}" />
+    <!-- <link rel="stylesheet" href="{%static 'newassets/vendors/font-awesome/css/font-awesome.min.css' %}" /> -->
 
   <!-- endinject -->
   <!-- Plugin css for this page -->
@@ -33,16 +33,23 @@
     <link rel="stylesheet" href="{% static 'newasstes/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
     <script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
     <style type="text/css">
-      a {
-        color: white;
+     .homecard a{
+      color: white;
+     }
+     .card a {
+        color: black;
+        text-underline-position: none;
       }
       .card {
-        color: white;
+        /*color: white;*/
         padding: 1px;  /*JUST TO LOOK COOL*/ 
         border: 1px solid #eee;  /* JUST TO LOOK COOL */
         box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
         transition: all .3s ease-in-out;
       }
+      .homecard a{
+      color: white;
+     }
 
       .card:hover {
         box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
@@ -85,32 +92,9 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-success">
-                    <i class="ti-info-alt mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                  <p class="font-weight-light small-text mb-0 text-muted">
-                    Just now
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-warning">
-                    <i class="ti-settings mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal">Settings</h6>
-                  <p class="font-weight-light small-text mb-0 text-muted">
-                    Private message
-                  </p>
-                </div>
-              </a>
+
+              {% for i,j in info %}
+              
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-info">
@@ -118,24 +102,25 @@
                   </div>
                 </div>
                 <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                  <h6 class="preview-subject font-weight-normal">{{i}}</h6>
                   <p class="font-weight-light small-text mb-0 text-muted">
-                    2 days ago
+                    {{j}}
                   </p>
                 </div>
               </a>
+              {% endfor %}
             </div>
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="{% static 'newassets/images/faces/face28.jpg' %}" alt="profile"/>
+              <img src="static/{{profile}}" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
+              <a href="log/showinfo" class="dropdown-item">
+                <i  class="ti-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a  href="log/logout" class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>
@@ -336,16 +321,25 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">Patient</span>
+              <span class="menu-title">Appointments</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="reqdoc">Make Appointment</a></li>
-                <li class="nav-item"> <a class="nav-link" href="showreq">MY Appointments</a></li>
+                <li class="nav-item"> <a class="nav-link" href="reqdoc">New</a></li>
+                <li class="nav-item"> <a class="nav-link" href="showreq">In process </a></li>
+                <li class="nav-item"> <a class="nav-link" href="completedreq">Completed </a></li>
+                <!-- <li class="nav-item"> <a class="nav-link" href="reqpharma">Order Medicines</a></li> -->
+                <!-- <li class="nav-item"> <a class="nav-link" href="showorders">MY orders</a></li> -->
                 
               </ul>
             </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="showorders">
+              <i class="icon-bar-graph menu-icon"></i>
+              <span class="menu-title">My Orders</span>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
