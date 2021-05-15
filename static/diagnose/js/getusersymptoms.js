@@ -31,7 +31,12 @@ function addUserSymps() {
     symps.push(x);
     document.getElementById("myInput").value = '';
     alert(symps);
-    var strstsr = '<button id=' + x + " class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
+
+    let strstsr = `<button type="button" id=` + x + ` class="btn alert alert-success" data-dismiss="alert" onclick=delThis('` + x + `') aria-label="Close">
+                        <span>`+x+`</span>
+    </button>`
+
+    // var strstsr = '<button id=' + x + " class='btn btn-outline-secondary text-center m-1' onclick=delThis('" + x + "')>" + x + "</button>";
 
     $("#AddSympsHere").append(strstsr);
     suggestSymptoms();

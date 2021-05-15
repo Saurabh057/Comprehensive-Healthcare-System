@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,9 +13,12 @@
     <style>
         body {
             overflow-y: hidden;
-            background-image: url("../../static/diagnose/image/background.jpg");
-            background-repeat: no-repeat;
+            background: url("../../static/diagnose/image/background.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
             background-size: cover;
+
         }
 
         .CARS {
@@ -112,6 +114,50 @@
             height: 150px;
             width: 200px;
         }
+
+        *,
+        *:before,
+        *:after {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .sympshow{
+            margin-top: 2px;
+            color: blanchedalmond;
+            /* font-weight: bold; */
+        }
+
+        .sympshow .btn {
+            height: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            margin: 3px 3px 3px 3px;
+            padding: auto;
+            padding-top: 1px;
+        }
+
+        .sympshow .btn:hover span {
+            display: none
+        }
+
+
+        .sympshow .btn:hover {
+            border: 0px solid #1292e1;
+            background: rgba(202, 3, 3, 0.815);
+            color: white !important;
+            content: "Remove!" !important;
+        }
+
+        .sympshow .btn:hover:before {
+            content: "Remove!";
+        }
+        .showsymptoms{
+            height: 80px;
+            color: blanchedalmond;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -154,38 +200,23 @@
             <div class="col heightclass text-center">
 
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control text-center" placeholder="Enter your symptom">
+                    <input type="text" id="myInput" class="form-control text-center" placeholder="Enter your symptom">
                     <div class="input-group-append text-center">
-                        <span class="input-group-text"><button type="button" class="btn btn-primary">Add</button></span>
+                        <span class="input-group-text"><button type="button" class="btn btn-primary" id="adduserSympButton">Add</button></span>
                     </div>
                 </div>
+                <div class="showsymptoms">
+                    
+                </div>
 
-                <div class="sympshow">
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
-                    symptoms will appear here
+                <div class="sympshow" id="AddSympsHere">
+
+                    symptoms entered will appear here!<br>
+
+
+
+
+
                 </div>
 
                 <div class="diagnosebutton text-left">
@@ -203,43 +234,7 @@
             </div>
         </div>
     </div>
+	<script src="../../static/diagnose/js/autocomplete.js"></script>
+	<script src="../../static/diagnose/js/getusersymptoms.js"></script>
 
-
-<!-- Code injected by live-server -->
-<script type="text/javascript">
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script></body>
+</body>
