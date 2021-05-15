@@ -1,0 +1,155 @@
+{% extends 'dashboard/user/user_base.html' %}
+{% load static %}
+  
+{% block content %}
+
+<div class="container-fluid dashboard-content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-left">Hello,  {{user.first_name}}</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-center" id="requested"></h3>
+                    </div>
+                </div>
+
+                  <div class="row mt-4">
+    <!-- ============================================================== -->
+    <!-- data table  -->
+    <!-- ============================================================== -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            Here are the Completd Appointments {{user.first_name}}....
+          </h5>
+          <!-- <p>This example shows DataTables and the Buttons extension being used with the Bootstrap 4 framework providing the styling.</p> -->
+        </div>
+        <div class="card-body text-center">
+          <div class="table-responsive">
+            <table id="example2" class="table" style="width: 100%">
+                          <thead> 
+                              <tr>
+                                  <th style="display: none;">#</th>
+                                  <th style="display: none;">User ID</th>
+                                  <th>Doctor</th>
+                                  <th>Appointment was On</th>
+                                  <th style="display: none">User ID</th>
+                                  <th>Status</th>
+                                  <th>Prescription</th>
+                                  <th>Order</th>
+                              </tr>
+                          </thead>
+                              <tbody>
+                              {%for i,req,num in data2 %}    
+                              <tr>
+                                  <td style="display: none;">{{num}} </td>
+                                  <td style="display: none;">{{req.user}} </td>
+                                  <td>
+                                      <div class="d-flex align-items-center">
+                                          <img src="{% static 'newassets/images/faces/face1.jpg' %}" alt="profile"/>
+                                          <a href="log/details/{{i.1.0.username}}">
+                                          <div class="ml-2">
+                                              <p class="mb-0">{{i.1.0.name}}</p>
+                                              <p class="mb-0 text-muted text-small">{{i.1.0.profession}}</p>
+                                          </div>
+                                      </div>
+                                  </td>
+                                      <td>{{req.adate}}</td>
+                                  
+                                  <td style="display: none;">{{req.id}}</td>
+                                      
+                                  <td>
+                                      <label class="badge badge-success">Completed</label>
+                                  </td>
+                                  <td>
+                                    <a href="{{req.prescription}}" class="btn btn-primary" target="_blank">Show</a>
+                                  </td>
+                                  <td>
+                                    <button type="button" data-prescription="{{req.prescription}}" class="button2 btn btn-primary" target="_blank">order</a>
+                                  </td>
+                              </tr>
+
+
+                              {% endfor %}   
+                              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form id="completedreq" action="reqpharma" method="GET">
+    <input type="hidden" name="usrid" id="usrid">
+    <input type="hidden" name="tid" id="tid">
+
+  </form>
+  
+
+
+                <script>
+                    $(document).ready(function () {
+                        $('table').dataTable({searching: true,ordering :true, paging: false, info: false});
+
+                        var table = $('#example2').DataTable();
+                        
+                        
+
+                $(".button2").on("click", function() {
+                    var $row = $(this).closest("tr");
+                    var $text = $row.find(".nr").text(); // Find the text
+
+                    var ids = $.map(table.rows($row).data(), function (item) {
+                      return item;
+                    });
+                    var id = ids[1];
+                    var tid = ids[4];
+                    $("#usrid").val(id);
+                    $("#tid").val(tid);
+                    // alert($("#tid").val())
+                    $("#completedreq").submit();
+                      // document.location.href = "prescription";
+
+                      }); 
+                    });
+                      
+
+
+                        // $(document).ready(function () {
+                        //     var table = $('#example2').DataTable();
+                        
+                        // $('.button2').on('click', function () {
+                            
+                        //     var $row=$(this).closest("tr")
+                        //     // alert($row);
+                        //     var $text = $row.find(".nr").text(); // Find the text
+                            
+                        //     var ids = $.map(table.rows($row).data(), function (item) {
+                        //         return item
+                        //     });
+                        //     var id=ids[1];
+                        //     var name=(ids[7]);
+                        //     var tid=ids[4];
+                            
+                        //     localStorage.setItem( 'tid', tid );
+
+                        //     // alert(name);
+                        //     $.ajax({
+                        //         type: "GET",
+                        //         data: {tid:tid},
+                        //         url: "reqpharma",
+                        //         }).done(function( data ) {
+                        //             $("#requested").html("Your Appointment with  "+"Is cancelled");
+                                       
+                        //             document.location.href="reqpharma";
+                                   
+                        //         });
+
+                        // });
+
+                    // });
+                </script>
+{% endblock content %}

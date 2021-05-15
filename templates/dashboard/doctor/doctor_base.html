@@ -25,8 +25,8 @@
 
     <script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
     <style type="text/css">
-      a{
-        color: white;
+      .card a{
+        color: black;
       }
       .card {
         /*color: white;*/
@@ -39,6 +39,9 @@
       .card:hover {
         box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
         transform: translate3d(0px, 4px, 2px);
+      }
+      .homecard a{
+        color: white;
       }
     </style>
 </head>
@@ -74,32 +77,9 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-success">
-                    <i class="ti-info-alt mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                  <p class="font-weight-light small-text mb-0 text-muted">
-                    Just now
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-warning">
-                    <i class="ti-settings mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal">Settings</h6>
-                  <p class="font-weight-light small-text mb-0 text-muted">
-                    Private message
-                  </p>
-                </div>
-              </a>
+              
+              {% for i,j in info %}
+              
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-info">
@@ -107,24 +87,25 @@
                   </div>
                 </div>
                 <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                  <h6 class="preview-subject font-weight-normal">{{i}}</h6>
                   <p class="font-weight-light small-text mb-0 text-muted">
-                    2 days ago
+                    {{j}}
                   </p>
                 </div>
               </a>
+              {% endfor %}
             </div>
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="{% static 'newassets/images/faces/face28.jpg' %}" alt="profile"/>
+              <img src="static/{{profile}}" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
+                <i chref="log/showinfo" lass="ti-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a href="log/logout" class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>

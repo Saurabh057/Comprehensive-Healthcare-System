@@ -11,6 +11,7 @@ urlpatterns = [
 	path('logout',views.logout,name="logout"),
 	path('signup',views.signup,name="Sign Up"),
 	path('showinfo',views.showinfo,name="Show Profile"),
+	path('details/<str:usrid>',views.details,name="Show Details"),
 ]
 
 
