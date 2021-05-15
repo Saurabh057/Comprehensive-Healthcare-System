@@ -28,12 +28,12 @@ urlpatterns = [
 
 	path('pharmashoworders',views.pharmashoworders,name="Show Pending Orders to Pharmacist"),
 	path('pharmashowinorders',views.pharmashowinorders,name="Show In processs Orders"),
-	# path('generatebill',views.generatebill,name="generatebill"),
+	path('generatebill',views.generatebill,name="generatebill"),
 
 
 
-	# path('renderpdf',views.render_pdf_view,name="Show In processs Orders"),
-	# path('printbill',views.printbill,name="Print bill of order"),
+	path('renderpdf',views.render_pdf_view,name="Show In processs Orders"),
+	path('printbill',views.printbill,name="Print bill of order"),
 
 
 
