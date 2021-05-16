@@ -9,7 +9,7 @@ from disease.knn import knn
 from disease.decisiontree import decisiontree
 # Create your views here.
 def home(request):
-    return render(request,'diagnose/index.html')
+    return render(request,'diagnose/newindex.html')
 @csrf_exempt
 def diangnose(request):
     symp=request.POST.get("symptoms")
@@ -67,7 +67,7 @@ def suggest(request):
         x=[]  
     ans=dt(x)
     final=[]
-    print(ans)
+    # print(ans)
     if(ans ==[] or ans==['']):
         final=["nosymp"]
     else:
@@ -77,5 +77,5 @@ def suggest(request):
             count+=1
             if(count==5):
                 break
-    # print(json.dumps({"after":ans, "before":x}))
+    print(json.dumps({"after":final, "before":x}))
     return HttpResponse(json.dumps({"after":final, "before":x}))

@@ -44,10 +44,12 @@
 				<div class="col-md-9 register-right">
 					<ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
 						<li class="nav-item">
-							<button class="nav-link active" onclick="normal()">Normal</button>
+							<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+								aria-controls="home" aria-selected="true">Normal</a>
 						</li>
 						<li class="nav-item">
-							<button class="nav-link" onclick="qa()" >QA</button>
+							<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+								aria-controls="profile" aria-selected="false">QA</a>
 						</li>
 					</ul>
 					<div class="tab-content text-center" id="myTabContent" style="height:100%">
@@ -87,15 +89,15 @@
 							
 
 							</div>
-
-							<div class="text-center" style="height: 20%; width: 80%;">
-								<button class="btn third text-center" id="done" onclick="diagnoseit()">DIAGNOSE!</button>
-
-							</div>
 							<form action="dash" id="digform" method="post">
 							{% csrf_token %}
 								<input type="hidden" id="symptoms" name="symptoms">
 							</form>
+
+							<div class="text-center" style="height: 20%; width: 80%;">
+								<button class="btn third text-center">DIAGNOSE!</button>
+
+							</div>
 						</div>
 
 					</div>

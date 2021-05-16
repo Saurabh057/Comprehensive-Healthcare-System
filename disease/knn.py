@@ -97,7 +97,7 @@ def knn(columns):
             dic2.pop(i)
         dup1=[]
         li=[]
-        val=0
+        val=-1
         for k,v in dic1.items():
             if(val!=v):
                 dup1.append(li)
@@ -110,7 +110,7 @@ def knn(columns):
 
         dup2=[]
         li=[]
-        val=0
+        val=-1
         for k,v in dic2.items():
             if(val!=v):
                 dup2.append(li)
