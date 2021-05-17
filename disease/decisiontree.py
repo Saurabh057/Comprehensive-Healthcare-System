@@ -91,12 +91,30 @@ def getlist(df):
     dfl=len(df)
     final={}
     for s in df.iloc[:,-1].unique():
-        final[s]=(len(df[df["prognosis"]==s])*100)/dfl
-    final=dict(sorted(final.items(),key=operator.itemgetter(1), reverse=True))
-    print(final)
+        final[s]=len(df[df["prognosis"]==s])
+    ans=dict(sorted(final.items(),key=operator.itemgetter(1), reverse=True))
+    count = 0
+    filtered={}
+    su=0
+    # print('ans : ' +str(ans))
+    for k,v in ans.items():
+        if(count>4):
+            break
+        filtered[k]=v
+        su+=v
+        count+=1
+    # print('filtered : ' +str(filtered))
+    for k,v in filtered.items():
+        filtered[k]=(v*100)/su
+        # if(ans[s]<10):
+        #     ans.pop(s)
+    
+    final=dict(sorted(filtered.items(),key=operator.itemgetter(1), reverse=True))
+    # print(final)
     return final
 
 def decisiontree(symps):
+    # print("in decision tree")
     if "prognosis" in symps:
         symps.remove("prognosis")
     df=pd.read_csv('disease/Training.csv', header=0)
@@ -104,14 +122,14 @@ def decisiontree(symps):
     for i in symps:
         if(len(df.iloc[:,-1].unique())==1):
             x=str(df.iloc[0,-1])
-            return [x, 100]
+            return {x:100, "acc":100}
         if i in list(df.columns): 
             df=df.loc[df[i]==1]
             df=df.loc[:, (df != 0).any(axis=0)]
     train, test = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
     dic1=getlist(train)
     dic2=getlist(test)
-
+    # print(dic1)
     ypred=list(dic1.keys())
     ytest=list(dic2.keys())
     extra=ytest
@@ -158,12 +176,14 @@ def decisiontree(symps):
             li.append(k)
     if(li != dup2[-1]):
         dup2.append(li)
-    print(dup1)
-    print(dup2)
+    # print(dup1)
+    # print(dup2)
     ypred,ytest=shuffle(ypred,ytest,dup1[1:],dup2[1:])
-    acc=accuracy_score(ypred,ytest)
-    print(acc)
-    return [ypred[0], int(acc*100)]
+    acc=int(accuracy_score(ypred,ytest)*100)
+    # print(acc)
+    dic1['acc']=acc
+    # print("desision tree: " +str(dic1))
+    return dic1
 
 # decision_tree([])
     

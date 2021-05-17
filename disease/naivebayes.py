@@ -35,13 +35,24 @@ def getdic(df):
         # print(pdis)
         firstdic[s]=pdis
         probsum+=pdis
-
-    dic={}
-    for i in df.iloc[:,-1].unique():
-        # print(i)
-        # print(firstdic[i])
-        dic[i]=(firstdic[i]/probsum)*100
-    return dic
+    firstdic=dict(sorted(firstdic.items(),key=operator.itemgetter(1), reverse=True))
+    count = 0
+    filtered={}
+    su=0
+    # print('ans : ' +str(ans))
+    for k,v in firstdic.items():
+        if(count>4):
+            break
+        filtered[k]=v
+        su+=v
+        count+=1
+    # print("naive :  "+str(firstdic))
+    for k,v in filtered.items():
+        filtered[k]=(v*100)/su
+        # if(ans[s]<10):
+        #     ans.pop(s)
+    final=dict(sorted(filtered.items(),key=operator.itemgetter(1), reverse=True))
+    return final
 
 def soln(columns):
     if('prognosis' not in columns):
@@ -57,14 +68,14 @@ def soln(columns):
     # dic=getdic(train)
     # dic2=getdic(test)
 
-    dic=dict(sorted(dic.items(),key=operator.itemgetter(1), reverse=True))
-    print(dic)
+    # dic=dict(sorted(dic.items(),key=operator.itemgetter(1), reverse=True))
+    # print(dic)
     ypred=list(dic.keys())
 
     
-    dic2=dict(sorted(dic2.items(),key=operator.itemgetter(1), reverse=True))
+    # dic2=dict(sorted(dic2.items(),key=operator.itemgetter(1), reverse=True))
     ytest=list(dic2.keys())
-    print(dic2)
+    # print(dic2)
     i=0
     extra=ytest
     while(i<len(ypred)):
@@ -109,18 +120,19 @@ def soln(columns):
             li.append(k)
     if(li != dup2[-1]):
         dup2.append(li)
-    print(dup1)
-    print(dup2)
+    # print(dup1)
+    # print(dup2)
 
     ypred,ytest=shuffle(ypred,ytest,dup1[1:],dup2[1:])
-    print()
-    print(ypred)
-    print(ytest)
-    print()
+    # print()
+    # print(ypred)
+    # print(ytest)
+    # print()
 
     acc=int(accuracy_score(ypred,ytest)*100)
-    print(acc)
-    return [ypred[0],acc]
+    # print(acc)
+    dic['acc']=acc
+    return dic
 
 
 def overallaccuracy():
@@ -143,9 +155,9 @@ def overallaccuracy():
         dic=sorted(dic.items(),key=operator.itemgetter(1), reverse=True)
         
         ans.append(dic[0][0])
-    print(ans)
-    print(ytest)
-    print(accuracy_score(ans,ytest))
+    # print(ans)
+    # print(ytest)
+    # print(accuracy_score(ans,ytest))
 
 # soln(['vomiting', 'nausea'])
 

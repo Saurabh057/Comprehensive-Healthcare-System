@@ -42,13 +42,25 @@ def pred(df, collen, k):
                         else:
                             ans[s]+=dic[s]
                             anslen+=dic[s]
-                            dic[s]=0
-            
-    for s in df.iloc[:,-1].unique():
-        ans[s]=(ans[s]*100)/k
+                            dic[s]=0 
+    ans=dict(sorted(ans.items(),key=operator.itemgetter(1), reverse=True))
+    count = 0
+    filtered={}
+    su=0
+    # print('ans : ' +str(ans))
+    for k,v in ans.items():
+        if(count>4):
+            break
+        filtered[k]=v
+        su+=v
+        count+=1
+    # print('filtered : ' +str(filtered))
+    for k,v in filtered.items():
+        filtered[k]=(v*100)/su
         # if(ans[s]<10):
         #     ans.pop(s)
-    final=dict(sorted(ans.items(),key=operator.itemgetter(1), reverse=True))
+    
+    final=dict(sorted(filtered.items(),key=operator.itemgetter(1), reverse=True))
     # print(final)
     return final
 
@@ -126,20 +138,21 @@ def knn(columns):
         ypred,ytest=shuffle(ypred,ytest,dup1[1:],dup2[1:])
 
         acc=accuracy_score(ypred,ytest)
-        print(acc)
+        # print(acc)
         if(acc>=max):
             finalk=k
             d1=dic1
             d2=dic2
             max=acc
             ans=ypred
-    print(time.clock()-start)
-    print(max*100)
-    print(finalk)
-    print(dic1)
-    print(dic2)
-    print(ans)
-    return [ans[0], int(max*100)]
+    # print(time.clock()-start)
+    # print(max*100)
+    # print(finalk)
+    # print(d1)
+    # print(d2)
+    # print(ans)
+    d1['acc']=int(max*100)
+    return d1
 # knn(['vomiting','nausea'])
 # print(len(df))
 # print(df.loc[((df.iloc[:, :-1].T!=0).sum())==2])

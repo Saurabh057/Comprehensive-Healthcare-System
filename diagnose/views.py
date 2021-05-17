@@ -22,14 +22,23 @@ def diangnose(request):
         i=i+2
     print(sys)
     nb=soln(sys)
-    diseaseNaiveBAyes = nb[0] #yash bhadkahv ithe functions madhun return kr
-    accNaiveBayes = nb[1]
+    print(nb)
+    accNaiveBayes = nb['acc']
+    diseaseNaiveBAyes = list(nb.keys())[0] #yash bhadkahv ithe functions madhun return kr
+    
     kn=knn(sys)
-    diseaseKnn = kn[0]
-    accKnn = kn[1]
+    print(kn)
+    accKnn = kn["acc"]
+    diseaseKnn = list(kn.keys())[0]
+    
     dt=decisiontree(sys)
-    diseaseDecisionTree = dt[0]
-    accDecisionTree = dt[1]
+    print(dt)
+    accDecisionTree = dt["acc"]
+    diseaseDecisionTree = list(dt.keys())[0]
+    
+    
+    
+    
     if "prognosis" in sys:
         sys.remove("prognosis")
     symptoms = sys
