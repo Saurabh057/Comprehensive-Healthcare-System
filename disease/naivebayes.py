@@ -2,8 +2,9 @@ import numpy as np
 import pandas as pd
 # from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
-
+from sklearn.model_selection import train_test_split
 import operator
+from disease.asach import shuffle
 
 
 
@@ -45,28 +46,85 @@ def getdic(df):
 def soln(columns):
     if('prognosis' not in columns):
         columns.append('prognosis')
-    df=pd.read_csv('Training.csv', usecols=columns, header=0)
+    df=pd.read_csv('disease/Training.csv', usecols=columns, header=0)
     df=df.loc[(df.iloc[:, :-1].T!=0).any()]
-    df1=pd.read_csv('Testing.csv', usecols=columns, header=0)
+    df1=pd.read_csv('disease/Testing.csv', usecols=columns, header=0)
     df1=df1.loc[(df1.iloc[:, :-1].T!=0).any()]
+    # print(df1)
     dic=getdic(df)
-
+    dic2=getdic(df1)
+    # train, test = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
+    # dic=getdic(train)
+    # dic2=getdic(test)
 
     dic=dict(sorted(dic.items(),key=operator.itemgetter(1), reverse=True))
     print(dic)
     ypred=list(dic.keys())
 
-    dic2=getdic(df1)
+    
     dic2=dict(sorted(dic2.items(),key=operator.itemgetter(1), reverse=True))
-    ytestk=list(dic2.keys())
+    ytest=list(dic2.keys())
     print(dic2)
+    i=0
+    extra=ytest
+    while(i<len(ypred)):
+        if ypred[i] not in ytest:
+            # print("removed :" +ypred[i])
+            dic.pop(ypred[i])
+            ypred.remove(ypred[i])
+            # print(ypred)
+            # print(i)
+            
+        else:
+            # print("extra : "+ypred[i])
+            extra.remove(ypred[i])
+            i+=1
+    # print(extra)
+    for i in extra:
+         # print(i)
+        ytest.remove(i)
+        dic2.pop(i)
+    dup1=[]
+    li=[]
+    val=0
+    for k,v in dic.items():
+        if(val!=v):
+            dup1.append(li)
+            li=[k]
+            val=v
+        else:
+            li.append(k)
+    if(li!= dup1[-1]):
+        dup1.append(li)
+
+    dup2=[]
+    li=[]
+    val=0
+    for k,v in dic2.items():
+        if(val!=v):
+            dup2.append(li)
+            li=[k]
+            val=v
+        else:
+            li.append(k)
+    if(li != dup2[-1]):
+        dup2.append(li)
+    print(dup1)
+    print(dup2)
+
+    ypred,ytest=shuffle(ypred,ytest,dup1[1:],dup2[1:])
+    print()
     print(ypred)
-    print(ytestk)
-    print(accuracy_score(ypred,ytestk))
+    print(ytest)
+    print()
+
+    acc=int(accuracy_score(ypred,ytest)*100)
+    print(acc)
+    return [ypred[0],acc]
 
 
 def overallaccuracy():
-    test=pd.read_csv('Testing.csv', header=0)
+    test=pd.read_csv('disease/Testing.csv', header=0)
     xtest=test.iloc[:,:-1]
     ytest=test.iloc[:,-1]
     ans=[]
@@ -79,7 +137,7 @@ def overallaccuracy():
             if(value==1):
                 inp.append(key)
         inp.append('prognosis')
-        df=pd.read_csv('Training.csv', usecols=inp, header=0)
+        df=pd.read_csv('disease/Training.csv', usecols=inp, header=0)
         df=df.loc[(df.iloc[:, :-1].T!=0).any()]
         dic=getdic(df)
         dic=sorted(dic.items(),key=operator.itemgetter(1), reverse=True)
@@ -89,6 +147,6 @@ def overallaccuracy():
     print(ytest)
     print(accuracy_score(ans,ytest))
 
-soln(['itching', 'skin_rash'])
+# soln(['vomiting', 'nausea'])
 
 

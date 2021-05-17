@@ -1,22 +1,38 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from disease.decisiontree import decision_tree
+from disease.paralleldt import dt
 from django.views.decorators.csrf import csrf_exempt
+import json
 
+from disease.naivebayes import soln
+from disease.knn import knn
+from disease.decisiontree import decisiontree
 # Create your views here.
 def home(request):
-    return render(request,'diagnose/index.html')
-
+    return render(request,'diagnose/newindex.html')
+@csrf_exempt
 def diangnose(request):
-  
-    diseaseNaiveBAyes = "Cancer" #yash bhadkahv ithe functions madhun return kr
-    accNaiveBayes = 100
-    diseaseKnn = "HIV"
-    accKnn = 86
-    diseaseDecisionTree = "Asthma"
-    accDecisionTree = 94
-
-    symptoms = ["itching", "skin_rash", "nodal_skin_eruptions", "continuous_sneezing", "shivering"]
+    symp=request.POST.get("symptoms")
+    s=symp.split(',')
+    sys=[]
+    i=0
+    while(i<len(s)):
+        if(s[i+1]=='1'):
+            sys.append(s[i])
+        i=i+2
+    print(sys)
+    nb=soln(sys)
+    diseaseNaiveBAyes = nb[0] #yash bhadkahv ithe functions madhun return kr
+    accNaiveBayes = nb[1]
+    kn=knn(sys)
+    diseaseKnn = kn[0]
+    accKnn = kn[1]
+    dt=decisiontree(sys)
+    diseaseDecisionTree = dt[0]
+    accDecisionTree = dt[1]
+    if "prognosis" in sys:
+        sys.remove("prognosis")
+    symptoms = sys
 
     symptoms = str(symptoms).replace('[','').replace(']','').replace("'",'')
 
@@ -48,18 +64,18 @@ def suggest(request):
     print(x)
     ans=[]
     if(x[0]==''):
-        ans=decision_tree([])
-    else:
-        ans=decision_tree(x)
-    if(ans[0]=='ans'):
-        final='ans,'+ans[1]+','
+        x=[]  
+    ans=dt(x)
+    final=[]
+    # print(ans)
+    if(ans ==[] or ans==['']):
+        final=["nosymp"]
     else:
         count=0
-        final=''
         for i in ans:
-            final+=i+','
+            final.append(i)
             count+=1
             if(count==5):
                 break
-    print(final[:-1])
-    return HttpResponse(final[:-1])
+    print(json.dumps({"after":final, "before":x}))
+    return HttpResponse(json.dumps({"after":final, "before":x}))
