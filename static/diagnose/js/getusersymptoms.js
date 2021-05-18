@@ -220,6 +220,15 @@ function changeContent(num) {
       
       $('#changeContentButt').html('Enter Sypmtoms');
       $("#changeContentButt").attr("onclick", "changeContent(2)");
+
+      let strstr = `
+      <h5 class="pt-3">&nbsp;&nbsp;&nbsp;&nbsp;Not sure what's &nbsp;&nbsp;&nbsp;&nbsp;happening?</h5>
+      <img class="logoimage" src="../../static/diagnose/image/dTree.png">
+      <h6 class="text-center">We'll suggest you something using our decision tree..<br>
+          &nbsp;&nbsp;&nbsp;Add any one symptom to get started!</h6>
+      `;
+      $("#suggesionss").empty();
+      $("#suggesionss").append(strstr);
   }
   else {
 

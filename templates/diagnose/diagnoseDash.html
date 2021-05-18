@@ -431,6 +431,56 @@
                             </div>
                         </div>
 
+
+
+                        <!-- kjuthla disease kiti % aahe te on Yash's demand speciallyu -->
+
+                        <div class="row text-center m-2">
+
+                            <div class="card card-body border-none" style="background:#e98f784d; border: none;">
+                                <div class="row">
+                                    <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 card card-body border-none"
+                                        style="background:transparent; border: none;">
+
+                                        <canvas id="chartjs_polar" width="251" height="125"
+                                            style="display: block; width: 280px; height: 140px;"
+                                            class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                    <div class="col">
+                                        <h3> You might also have<br /></h3>
+                                        
+
+                                        <table class="table">
+                                            <thead>
+
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Disease</th>
+                                                    <th scope="col">Probability</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for i,j in top_diseases.diseases.items %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ i }}</td>
+                                                    <td> {{ j }}%</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- kjuthla disease kiti % aahe te on Yash's demand speciallyu -->
+
+
+
+
+
                         <div class="row text-center mt-3" style="float: none; margin:0 auto;">
 
                             <div class="card card-body mt-3" style="background:#8be9788f;">
@@ -481,9 +531,8 @@
                         <div class="row m-2 mt-4 w-100 text-center">
                             <div class="card card-body mt-3" style="background:#e98f7885; height: 500px !important"">
                                 <div class=" col w-100">
-                                <iframe id="diseaseFrame"
-                                    style="overflow:hidden;height:90%;width:100%"
-                                    title="W3Schools Free Online Web Tutorials"></iframe>
+                                <iframe id="diseaseFrame" style="overflow:hidden;height:90%;width:100%"
+                                    title="webmd link"></iframe>
                                 <a class="btn alert-primary" id="webMDlink" target="_blank">Open this in new window</a>
 
                             </div>
@@ -521,13 +570,13 @@
         window.onload = function () {
             var iframe = document.getElementById('diseaseFrame');
             iframe.style.display = "none";
-            var webmd =  "https://www.webmd.com/search/search_results/default.aspx?query=".concat('{{ chosen.choosenDisease }}');
+            var webmd = "https://www.webmd.com/search/search_results/default.aspx?query=".concat('{{ chosen.choosenDisease }}');
             iframe.src = webmd;
             iframe.style.display = "block";
 
             var mebmdlink = document.getElementById("webMDlink");
             mebmdlink.href = webmd;
-            
+
         };
 
 
@@ -615,6 +664,45 @@
         gauge.set({{ disease.DTC.2 }}); // set actual value
 
 
+        var namesArray = {{ top_diseases.names | safe }}.toString();
+        namesArray = namesArray.split(',');
+        console.log(namesArray);
+        // alert(namesArray);
+
+        if ($('#chartjs_polar').length) {
+            var ctx = document.getElementById("chartjs_polar").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: namesArray,
+                    datasets: [{
+                        backgroundColor: [
+                            "#5969ff",
+                            "#ff407b",
+                            "#25d5f2",
+                            "#ffc750",
+                        ],
+                        data: {{ top_diseases.scores }}
+            }] 
+                },
+        options: {
+
+            legend: {
+                display: true,
+                    position: 'right',
+
+                        labels: {
+                    fontColor: 'black',
+                        fontFamily: 'Circular Std Book',
+                            fontSize: 16,
+                        }
+            },
+
+
+        }
+            });
+        }
+
     });
 
 
@@ -648,6 +736,7 @@
 
 
     <script src="{%static 'diagnose/vendor/gauge/gauge.min.js' %}"></script>
+    <script src="{%static 'diagnose/vendor/chartjs/Chart.bundle.js' %}"></script>
 
 </body>
 

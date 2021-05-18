@@ -1,3 +1,4 @@
+from json import encoder
 from django.shortcuts import render
 from django.http import HttpResponse
 from disease.paralleldt import dt
@@ -10,6 +11,8 @@ from disease.decisiontree import decisiontree
 # Create your views here.
 def home(request):
     return render(request,'diagnose/newindex.html')
+
+
 @csrf_exempt
 def diangnose(request):
     symp=request.POST.get("symptoms")
@@ -22,17 +25,17 @@ def diangnose(request):
         i=i+2
     print(sys)
     nb=soln(sys)
-    print(nb)
+    # print(nb)
     accNaiveBayes = nb['acc']
     diseaseNaiveBAyes = list(nb.keys())[0] #yash bhadkahv ithe functions madhun return kr
     
     kn=knn(sys)
-    print(kn)
+    # print(kn)
     accKnn = kn["acc"]
     diseaseKnn = list(kn.keys())[0]
     
     dt=decisiontree(sys)
-    print(dt)
+    # print(dt)
     accDecisionTree = dt["acc"]
     diseaseDecisionTree = list(dt.keys())[0]
     
@@ -52,7 +55,7 @@ def diangnose(request):
     }
 
     choosenAlgorithm =  max(disease, key=lambda x : disease[x][2])
-    print(choosenAlgorithm)
+    # print("Choosen Algorithm : ",choosenAlgorithm)
 
     chosen = {
         'choosenAlgorithm' : disease[choosenAlgorithm][0],
@@ -62,6 +65,30 @@ def diangnose(request):
 
     context = {'chosen':chosen, 'disease': disease, 'symptoms':symptoms}
 
+
+
+    # multiple diseases
+    encoder ={"NBS":nb, "KNN":kn, "DTC":dt}
+
+    top_diseases = encoder[choosenAlgorithm]
+
+    # print("top-disease : ", top_diseases)
+    top_diseases.pop("acc")
+
+    # print("top-disease : ", top_diseases)
+
+    if(len(top_diseases)>4):
+        for i in range(len(top_diseases)-4):
+            top_diseases.popitem()
+    print("top-disease : ", top_diseases)
+
+    # print("Values : ", list(top_diseases.values()))
+    # print("Keys : ", list(top_diseases.keys()))
+
+
+    vals = [round(val,2) for val in top_diseases.values() ]
+    context['top_diseases'] = {'diseases': dict(zip(list(top_diseases.keys()),vals)), 'names': json.dumps(list(top_diseases.keys())), 'scores':list(top_diseases.values())}
+    print(context)
     return render(request, 'diagnose/diagnoseDash.html', context)
 
 def diangnose2(request):

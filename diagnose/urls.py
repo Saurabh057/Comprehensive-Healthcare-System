@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
     path('',views.home, name="home"),
-    path('dash',views.diangnose2, name="home"),
+    path('dash',views.diangnose, name="home"),
     path('suggest',views.suggest,name="suggest")
     # path('suggest',views.suggest,name="suggest")
 ]
