@@ -18,7 +18,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 
-from django.shortcuts import render_to_response
+# from django.shortcuts import render_to_response
 from django.template import RequestContext
 from .renderpdf import link_callback  
 import os
