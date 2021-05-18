@@ -243,6 +243,21 @@ def completedreq(request):
 		print(data2)
 		return render(request,'dashboard/user/completedreq.html',{'data2':data2})
 
+@csrf_exempt
+def feedback(request):
+	if request.method=="POST":
+		print(request.POST)
+		rating=request.POST.get('rating')
+		comment=request.POST.get('comment')
+
+		return redirect("/feedback")
+	else:
+
+		user=request.GET.get('feddoc')
+
+		doctor=AddtionalDetails.objects.filter(username=user)
+		print(doctor)
+		return render(request,'dashboard/user/feedback.html',{'doctor':doctor})
 
 #fuction for make appointment with user 
 @csrf_exempt
@@ -480,7 +495,6 @@ def pharmashowinorders(request):
 def prescription(request):
 
 	if request.method=='POST': #to  print prescription
-		print(re)
 		print(request.POST)
 		user=request.POST.get('email')
 		tid=request.POST.get('tid')

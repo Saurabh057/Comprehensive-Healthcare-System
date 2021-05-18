@@ -13,6 +13,7 @@ urlpatterns = [
 	path('reqdoc',views.reqdoc,name="Request Doctor user"),
 	path('showreq',views.showreq,name="Show Doctors available to user"),
 	path('completedreq',views.completedreq,name="Place Order"),
+	path('feedback',views.feedback,name="Rate Doctor"),
 	
 	#doctor urls
 	path('docshowreq',views.docshowreq,name="Show Pending Requests to docor"),

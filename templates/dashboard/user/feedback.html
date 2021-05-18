@@ -1,0 +1,61 @@
+{% extends 'dashboard/user/user_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<header class="ScriptHeader text-center">
+    <div class="rt-container">
+    	<div class="col-rt-12">
+        	<div class="rt-heading">
+            	<h1>Feedback Form </h1>
+                <p>A feedback form to improve our services.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="rt-container">
+          <div class="col-rt-12">
+              <div class="Scriptcontent">
+              
+       
+<div class="feedback">
+<h4>Dear {{user.first_name}},</h4>
+<p>Thank you for using our system we would like to know your experience. You can rate your experience on the scale of 1 to 5 on in the form below you can read doctors as well as pharmacist after getting their service or</p>
+
+<!-- <h4>Please rate your service experience for the following parameters</h4> -->
+
+<form method="post" action="feedback">
+<div class="justify-items-center"> 
+<label><b>How Would like to rate Dr. {{doctor.0.name}}?<b></label>
+
+ 
+<span class="star-rating ml-5">
+  <input type="radio" name="rating" value="1"><i></i>
+  <input type="radio" name="rating" value="2"><i></i>
+  <input type="radio" name="rating" value="3"><i></i>
+  <input type="radio" name="rating" value="4"><i></i>
+  <input type="radio" name="rating" value="5"><i></i>
+</span>
+
+</div>
+
+
+  <div class="clear"></div> 
+  <hr class="survey-hr"> 
+<label for="m_3189847521540640526commentText">Any Comments/Suggestions:</label><br/><br/>
+<textarea cols="75" name="comment" rows="5" style="100%"></textarea><br>
+<br>
+  <div class="clear"></div> 
+<input  style="background:#43a7d5;color:#fff;padding:12px;border:0" type="submit" id="submitbt" value="Submit your review">&nbsp;
+</form>
+                  </div>
+           
+    		</div>
+		</div>
+    </div>
+</section>
+     
+    <!-- Analytics -->
+{% endblock content %}

@@ -6,7 +6,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Prescription</title>
+  <title>Bill</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{% static 'newassets/vendor/feather/feather.css' %}">
   <link rel="stylesheet" href="{% static 'newassets/vendor/ti-icons/css/themify-icons.css' %}">
@@ -74,7 +74,7 @@
                                       <td >{{i.quantity}}</td>
                                       <td >
                                       	<div class="">
-                                      	<input type="number" id='cost{{num}}' placeholder="Cost" class="form-control form-control-sm">
+                                      	<input type="number" id='cost{{num}}' placeholder="Cost" class="cost form-control form-control-sm">
                                       	</div>
                                       </td>
                                       
@@ -85,9 +85,16 @@
                               </div>
                           </div>
                           <div class="container-fluid mt-5 w-100">
-                            <p class="text-right mb-2">Sub - Total amount: $12,348</p>
-                            <p class="text-right">vat (10%) : $138</p>
-                            <h4 class="text-right mb-5">Total : $13,986</h4>
+                            <p class="text-right mb-2">Sub - Total amount: 
+                              <label id="subtotal">10</label>
+                            </p>
+                            <p class="text-right" >Other : 
+                              <input type="number" id="other"  class="form-control-sm" placeholder="other">
+                            </p>
+                            <h4 class="text-right mb-5" >Total : 
+                              <label id="total"></label>
+                            
+                            </h4>
                             <hr>
                           </div><!-- 
                           <div class="container-fluid w-100">
@@ -118,12 +125,24 @@
 
   </script>
 <script >
+  var cost=[];
+  var total=0;
+  $(".cost").change(function(){
+
+      other=($("#other").val())
+      total=total+($(this).val());
+    alert(other);
+    alert(total)
+      $("#total").html(total);
+  });
+
+
 $(".btsubmit").on("click", function() {
               var i;
-              var cost=[];
               for(i=0;i<totaln;i++)
               {
-                cost.push($("#cost"+(i+1)).val())
+                total=total+$("#cost"+(i+1)).val();
+                cost.push($("#cost"+(i+1)).val());
               }
               var usrid=$("#usrid").val();
               var tid=$("#tid").val();

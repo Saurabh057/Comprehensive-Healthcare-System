@@ -40,6 +40,9 @@
                                   <th>Status</th>
                                   <th>Prescription</th>
                                   <th>Order</th>
+                                  <th>Feedback</th>
+                                  <th style="display: none">Doc ID</th>
+
                               </tr>
                           </thead>
                               <tbody>
@@ -65,11 +68,16 @@
                                       <label class="badge badge-success">Completed</label>
                                   </td>
                                   <td>
-                                    <a href="{{req.prescription}}" class="btn btn-primary" target="_blank">Show</a>
+                                    <a href="{{req.prescription}}" class="btn btn-success" target="_blank">Show</a>
                                   </td>
                                   <td>
                                     <button type="button" data-prescription="{{req.prescription}}" class="button2 btn btn-primary" target="_blank">order</a>
                                   </td>
+                                  <td>
+                                    <button type="button"  class="feedbt btn btn-dark" >Feedback</button>
+                                  </td>
+                                  <td style="display: none;">{{req.doctor}}</td>
+
                               </tr>
 
 
@@ -88,6 +96,9 @@
 
   </form>
   
+  <form id="feedback" action="feedback" method="GET">
+    <input type="hidden" name="feddoc" id="feddoc">
+  </form>
 
 
                 <script>
@@ -114,42 +125,25 @@
                       // document.location.href = "prescription";
 
                       }); 
+                   
+                
+                $(".feedbt").on("click", function() {
+                    var $row = $(this).closest("tr");
+
+                    var ids = $.map(table.rows($row).data(), function (item) {
+                      return item;
+                    });
+                    var id = ids[9];
+                    // alert(id);
+                    $("#feddoc").val(id);
+                    // alert($("#tid").val())
+                    $("#feedback").submit();
+                      // document.location.href = "prescription";
+
+                      }); 
                     });
                       
 
 
-                        // $(document).ready(function () {
-                        //     var table = $('#example2').DataTable();
-                        
-                        // $('.button2').on('click', function () {
-                            
-                        //     var $row=$(this).closest("tr")
-                        //     // alert($row);
-                        //     var $text = $row.find(".nr").text(); // Find the text
-                            
-                        //     var ids = $.map(table.rows($row).data(), function (item) {
-                        //         return item
-                        //     });
-                        //     var id=ids[1];
-                        //     var name=(ids[7]);
-                        //     var tid=ids[4];
-                            
-                        //     localStorage.setItem( 'tid', tid );
-
-                        //     // alert(name);
-                        //     $.ajax({
-                        //         type: "GET",
-                        //         data: {tid:tid},
-                        //         url: "reqpharma",
-                        //         }).done(function( data ) {
-                        //             $("#requested").html("Your Appointment with  "+"Is cancelled");
-                                       
-                        //             document.location.href="reqpharma";
-                                   
-                        //         });
-
-                        // });
-
-                    // });
                 </script>
 {% endblock content %}

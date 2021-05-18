@@ -32,12 +32,14 @@
                                         <thead> 
                                             <tr>
                                                 <th>#</th>
+                                                 <td style="display: none;">user ID </td>
                                                 <th>Pharmacist</th>
                                                 <!-- <th>AI Diagnosis</th> -->
                                                 <th>Request Date</th>
                                                 <th>Expected Delivery Date</th>
                                                 <th>Prescription</th>
                                                 <th style="display: none;">ID</th>
+                                                <th >Bill</th>
                                                 <th >Cancel</th>
                                             </tr>
                                         </thead>
@@ -45,8 +47,19 @@
                                         {%for i,req,num in data1 %}    
                                         <tr>
                                                 <td>{{num}}</td>
+                                                  <td style="display: none;">{{i.0.username}} </td>
                                             
-                                                <td ><a href="log/details/{{i.0.username}}">{{i.0.name}}</a></td>
+                                                <td >
+                                                    <div class="d-flex align-items-center">
+                                                    <img src="{% static 'newassets/images/faces/face1.jpg' %}" alt="profile"/>
+                                                    <a href="log/details/{{i.0.username}}">
+                                                    <div class="ml-3">
+                                                        <p class="mb-0 name">{{i.0.name}}</p>
+                                                        <p class="mb-0 text-muted text-small">{{i.0.profession}}</p>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                            </td>
                                                 <!-- <td>{{req.medicines}}</td> -->
                                                 <td>{{req.rdate}}</td>
                                                 {% if req.adate is not null %}
@@ -55,9 +68,11 @@
                                                     <td>No Response</td>
                                                 {% endif %}
                                                 <td>
-                                                    <a href="{{req.prescription}}" class="btn btn-primary" target="_blank">Show</a>
+                                                    <a href="{{req.prescription}}" class="btn btn-success" target="_blank">Show</a>
                                                     </td>
                                                 <td style="display: none;">{{req.id}}</td>
+                                                   <td> <a href="{{req.bill}}" class="btn btn-success" target="_blank">Bill</a>
+                                                    </td>
                                                     <td><button type="button" class="button btn btn-primary">Cancel</button></td>
                                                     
                                                 
@@ -91,6 +106,8 @@
                                             <thead> 
                                                 <tr>
                                                     <th>#</th>
+                                                     <td style="display: none;">user ID </td>
+
                                                     <th>Pharmacist</th>
                                                     <!-- <th>AI Diagnosis</th> -->
                                                     <th>Request Date</th>
@@ -105,7 +122,19 @@
                                             {%for i,req,num in data2 %}    
                                             <tr>
                                                     <td>{{num}}</td>
-                                                    <td ><a href="log/details/{{i.0.username}}">{{i.0.name}}</a></td>
+                                                  <td style="display: none;">{{i.0.username}} </td>
+                                                    
+                                                <td >
+                                                    <div class="d-flex align-items-center">
+                                                    <img src="{% static 'newassets/images/faces/face1.jpg' %}" alt="profile"/>
+                                                    <a href="log/details/{{i.0.username}}">
+                                                    <div class="ml-3">
+                                                        <p class="mb-0 name">{{i.0.name}}</p>
+                                                        <p class="mb-0 text-muted text-small">{{i.0.profession}}</p>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                            </td>
                                                     <!-- <td>Something</td> -->
                                                     <td>{{req.rdate}}</td>
                                                     {% if req.adate is not null %}
@@ -150,8 +179,8 @@
                             });
                             var id=ids[1]
                             
-                            var tid=ids[5]
-                            alert(tid);
+                            var tid=ids[6]
+                            // alert(tid);
                             $.ajax({
                                 type: "POST",
                                 data: {id:id,tid:tid},
@@ -179,7 +208,7 @@
                             });
                             var id=ids[1]
                             
-                            var tid=ids[5]
+                            var tid=ids[6]
                             
                             $.ajax({
                                 type: "POST",
