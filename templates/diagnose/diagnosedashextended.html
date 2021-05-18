@@ -1,29 +1,11 @@
-{% extends 'dashboard/user/user_base.html' %}
+{% extends 'diagnose/diagnose_base.html' %}
 {% load static %}
-
-{% block header %}
-
-<link rel="stylesheet" href="{%static 'diagnose/libs/css/style.css' %}">
-<link rel="stylesheet" href="{%static 'diagnose/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
-<style type="text/css">
-    a {
-        color: white;
-    }
-
-
-    .card:hover {
-        box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
-        transform: translate3d(0px, 4px, 0px);
-    }
-</style>
-
-<script src="{% static 'diagnose/vendor/gauge/gauge.min.js' %}"></script>
-<script src="{% static 'diagnose/vendor/gauge/gauge.js' %}"></script>
-
-{% endblock header%}
 
 {% block content %}
 
+<!-- ============================================================== -->
+<!-- wrapper  -->
+<!-- ============================================================== -->
 <div class="container-fluid dashboard-content">
     <div class="row mt-2">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -34,11 +16,11 @@
 
         <div class="card card-body border-none" style="background:#0808663f; border: none;">
             <h3> You have been diagnosed with<br /></h3>
-            <h1 class="">Tuberculosis</h1>
-            <h4>The system has choosen Naive Bayes Algorithm to conclude this with accuracy of
-                98.99%</h4>
-            <p class="card-text" style="font-size: 25px;">Your Symptoms : Blah, blah, blah, blah,
-                and blah
+            <h1 class="">{{ chosen.choosenDisease }}</h1>
+            <h4>The system has choosen {{ chosen.choosenAlgorithm }} to conclude this with accuracy
+                of
+                {{ chosen.chosenAcc }} %</h4>
+            <p class="card-text" style="font-size: 15px;">Your Symptoms : {{ symptoms }}
             </p>
 
             <div class="row w-100 text-center" style="float: none; margin:0 auto;">
@@ -59,6 +41,55 @@
         </div>
     </div>
 
+
+
+    <!-- kjuthla disease kiti % aahe te on Yash's demand speciallyu -->
+
+    <div class="row text-center m-2">
+
+        <div class="card card-body border-none" style="background:#e98f784d; border: none;">
+            <div class="row">
+                <div class="col-md-6 col-xl-6 col-lg-6 col-sm-12 card card-body border-none"
+                    style="background:transparent; border: none;">
+
+                    <canvas id="chartjs_polar" width="251" height="125"
+                        style="display: block; width: 280px; height: 140px;" class="chartjs-render-monitor"></canvas>
+                </div>
+                <div class="col">
+                    <h3> You might also have<br /></h3>
+
+
+                    <table class="table">
+                        <thead>
+
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Disease</th>
+                                <th scope="col">Probability</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i,j in top_diseases.diseases.items %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ i }}</td>
+                                <td> {{ j }}%</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- kjuthla disease kiti % aahe te on Yash's demand speciallyu -->
+
+
+
+
+
     <div class="row text-center mt-3" style="float: none; margin:0 auto;">
 
         <div class="card card-body mt-3" style="background:#8be9788f;">
@@ -70,30 +101,30 @@
                 <div class="col max-height:200px;">
                     <div class="card card-body text-center">
                         <h4 class="card-title">Naive Bayes Classifier</h4>
-                        <p class="card-text">Accuracy : 76%</p>
+                        <p class="card-text">Accuracy : {{ disease.NBS.2 }}%</p>
                         <canvas id="gauge1" style="height: 100px;"></canvas>
 
-                        <a class="btn alert-primary" onclick="">Tuberculosis</a>
+                        <a class="btn alert-primary" onclick="">{{ disease.NBS.1 }}</a>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card card-body  text-center">
                         <h4 class="card-title">K Nearest Neighbors</h4>
-                        <p class="card-text">Accuracy : 76%</p>
+                        <p class="card-text">Accuracy : {{ disease.KNN.2 }}%</p>
                         <!-- <canvas id="pastWeekAtten"></canvas> -->
                         <canvas id="gauge2" style="height: 100px;"></canvas>
 
-                        <a class="btn alert-primary" onclick="">Tuberculosis</a>
+                        <a class="btn alert-primary" onclick="">{{ disease.KNN.1 }}</a>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card card-body  text-center">
                         <h4 class="card-title">Decision Tree Classifier</h4>
-                        <p class="card-text">Accuracy : 76%</p>
+                        <p class="card-text">Accuracy : {{ disease.DTC.2 }}%</p>
                         <canvas id="gauge3" style="height: 100px;"></canvas>
-                        <a class="btn alert-primary" onclick="">Tuberculosis</a>
+                        <a class="btn alert-primary" onclick="">{{ disease.DTC.1 }}</a>
                     </div>
                 </div>
 
@@ -108,13 +139,10 @@
 
     <div class="row m-2 mt-4 w-100 text-center">
         <div class="card card-body mt-3" style="background:#e98f7885; height: 500px !important"">
-            <div class=" col w-100" >
-            <iframe
-                src="https://www.webmd.com/search/search_results/default.aspx?query=Tuberculosis"
-                style="overflow:hidden;height:90%;width:100%"
-                title="W3Schools Free Online Web Tutorials"></iframe>
-                <a class="btn alert-primary" onclick="">Open this in new window</a>
-           
+                                <div class=" col w-100">
+            <iframe id="diseaseFrame" style="overflow:hidden;height:90%;width:100%" title="webmd link"></iframe>
+            <a class="btn alert-primary" id="webMDlink" target="_blank">Open this in new window</a>
+
         </div>
     </div>
 </div>
@@ -122,9 +150,154 @@
 
 
 
+
 </div>
 
 <script src="{%static 'diagnose/vendor/gauge/gauge.min.js' %}"></script>
-<script src="{% static 'diagnose/vendor/gauge/gauge.js' %} "></script>
+<script src="{%static 'diagnose/vendor/chartjs/Chart.bundle.js' %}"></script>
+
+<!-- //vvimp gauge vals -->
+<script>
+
+    window.onload = function () {
+        var iframe = document.getElementById('diseaseFrame');
+        iframe.style.display = "none";
+        var webmd = "https://www.webmd.com/search/search_results/default.aspx?query=".concat('{{ chosen.choosenDisease }}');
+        iframe.src = webmd;
+        iframe.style.display = "block";
+
+        var mebmdlink = document.getElementById("webMDlink");
+        mebmdlink.href = webmd;
+
+    };
+
+
+
+
+    $(function () {
+        "use strict";
+        // ============================================================== 
+        // Guage 1
+        // ============================================================== 
+        var opts = {
+            angle: 0, // The span of the gauge arc
+            lineWidth: 0.32, // The line thickness
+            radiusScale: 1, // Relative radius
+            pointer: {
+                length: 0.6, // // Relative to gauge radius
+                strokeWidth: 0.088, // The thickness
+                color: '#2e2f39' // Fill color
+            },
+            limitMax: false, // If false, max value increases automatically if value > maxValue
+            limitMin: false, // If true, the min value of the gauge will be fixed
+            colorStart: '#e4e4ee', // Colors
+            colorStop: '#5969ff', // just experiment with them
+            strokeColor: '#e4e4ee', // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true, // High resolution support
+
+        };
+        var target = document.getElementById('gauge1'); // your canvas element
+        var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = 100; // set max gauge value
+        gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 32; // set animation speed (32 is default value)
+        gauge.set({{ disease.NBS.2 }}); // set actual value
+
+    opts = {
+        angle: 0, // The span of the gauge arc
+        lineWidth: 0.32, // The line thickness
+        radiusScale: 1, // Relative radius
+        pointer: {
+            length: 0.6, // // Relative to gauge radius
+            strokeWidth: 0.088, // The thickness
+            color: '#2e2f39' // Fill color
+        },
+        limitMax: false, // If false, max value increases automatically if value > maxValue
+        limitMin: false, // If true, the min value of the gauge will be fixed
+        colorStart: 'red', // Colors
+        colorStop: 'red', // just experiment with them
+        strokeColor: '#e4e4ee', // to see which ones work best for you
+        generateGradient: true,
+        highDpiSupport: true, // High resolution support
+
+    };
+
+    var target = document.getElementById('gauge2'); // your canvas element
+    var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+    gauge.maxValue = 100; // set max gauge value
+    gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
+    gauge.animationSpeed = 32; // set animation speed (32 is default value)
+    gauge.set({{ disease.KNN.2 }}); // set actual value
+
+    opts = {
+        angle: 0, // The span of the gauge arc
+        lineWidth: 0.32, // The line thickness
+        radiusScale: 1, // Relative radius
+        pointer: {
+            length: 0.6, // // Relative to gauge radius
+            strokeWidth: 0.088, // The thickness
+            color: '#2e2f39' // Fill color
+        },
+        limitMax: false, // If false, max value increases automatically if value > maxValue
+        limitMin: false, // If true, the min value of the gauge will be fixed
+        colorStart: 'green', // Colors
+        colorStop: 'green', // just experiment with them
+        strokeColor: '#e4e4ee', // to see which ones work best for you
+        generateGradient: true,
+        highDpiSupport: true, // High resolution support
+
+    };
+    var target = document.getElementById('gauge3'); // your canvas element
+    var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+    gauge.maxValue = 100; // set max gauge value
+    gauge.setMinValue(0); // Prefer setter over gauge.minValue = 0
+    gauge.animationSpeed = 32; // set animation speed (32 is default value)
+    gauge.set({{ disease.DTC.2 }}); // set actual value
+
+
+    var namesArray = {{ top_diseases.names | safe }}.toString();
+    namesArray = namesArray.split(',');
+    console.log(namesArray);
+    // alert(namesArray);
+
+    if ($('#chartjs_polar').length) {
+        var ctx = document.getElementById("chartjs_polar").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+                labels: namesArray,
+                datasets: [{
+                    backgroundColor: [
+                        "#5969ff",
+                        "#ff407b",
+                        "#25d5f2",
+                        "#ffc750",
+                    ],
+                    data: {{ top_diseases.scores }}
+        }] 
+                },
+    options: {
+
+        legend: {
+            display: true,
+                position: 'right',
+
+                    labels: {
+                fontColor: 'black',
+                    fontFamily: 'Circular Std Book',
+                        fontSize: 16,
+                        }
+        },
+
+
+    }
+            });
+        }
+
+    });
+
+
+</script>
 
 {% endblock content %}
