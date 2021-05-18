@@ -74,7 +74,11 @@
                                     <button type="button" data-prescription="{{req.prescription}}" class="button2 btn btn-primary" target="_blank">order</a>
                                   </td>
                                   <td>
+                                    {% if req.feedst is 0 %}
                                     <button type="button"  class="feedbt btn btn-dark" >Feedback</button>
+                                    {% else %}
+                                    <label class="btn btn-success">Done</label>
+                                    {% endif %}
                                   </td>
                                   <td style="display: none;">{{req.doctor}}</td>
 
@@ -98,6 +102,8 @@
   
   <form id="feedback" action="feedback" method="GET">
     <input type="hidden" name="feddoc" id="feddoc">
+    <input type="hidden" name="fedtid" id="fedtid">
+
   </form>
 
 
@@ -134,8 +140,10 @@
                       return item;
                     });
                     var id = ids[9];
+                    var tid = ids[4];
                     // alert(id);
                     $("#feddoc").val(id);
+                    $("#fedtid").val(tid);
                     // alert($("#tid").val())
                     $("#feedback").submit();
                       // document.location.href = "prescription";

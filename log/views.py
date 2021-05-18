@@ -11,6 +11,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 from log.models import AddtionalDetails
+from proj.models import Record,Feedback
 
 def login(request):
 
@@ -71,9 +72,27 @@ def signup(request):
 
 def details(request,usrid):
 
-	details=AddtionalDetails.objects.filter(username=usrid)
+	details=AddtionalDetails.objects.get(username=usrid)
+	if details.profession=='user':
+		details=AddtionalDetails.objects.get(username=usrid)
+		return render(request,'profile/detail.html',{'details':details})
 
-	return render(request,'profile/detail.html',{'details':details})
+	else:
+		doctor=AddtionalDetails.objects.get(username=usrid)
+
+		feedback =Feedback.objects.filter(doctor=usrid)
+		user=[]
+
+		for i in feedback:
+			user.append(AddtionalDetails.objects.filter(username=i.user))
+		print(user)
+		datazip=zip(user,feedback)
+		data={
+		'details':doctor,
+		'datazip':datazip,
+		}
+		print(data)
+		return render(request,'profile/detail.html',data)
 
 def showinfo(request):
 	# print(request.FILES)

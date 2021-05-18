@@ -27,7 +27,10 @@
 <!-- <h4>Please rate your service experience for the following parameters</h4> -->
 
 <form method="post" action="feedback">
+<input type="hidden" name="docid" value="{{doctor.0.username}}">
+<input type="hidden" name="tid" value="{{tid}}">
 <div class="justify-items-center"> 
+
 <label><b>How Would like to rate Dr. {{doctor.0.name}}?<b></label>
 
  
@@ -44,11 +47,12 @@
 
   <div class="clear"></div> 
   <hr class="survey-hr"> 
-<label for="m_3189847521540640526commentText">Any Comments/Suggestions:</label><br/><br/>
+<label for="m_3189847521540640526commentText">Comments About Doctor  :</label><br/><br/>
 <textarea cols="75" name="comment" rows="5" style="100%"></textarea><br>
 <br>
   <div class="clear"></div> 
 <input  style="background:#43a7d5;color:#fff;padding:12px;border:0" type="submit" id="submitbt" value="Submit your review">&nbsp;
+<a href="completedreq" class="btn btn-warning">Cancel</a>
 </form>
                   </div>
            

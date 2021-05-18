@@ -14,7 +14,7 @@ class Record(models.Model):
     # presarray=ArrayField(models.CharField(max_length=100),blank=True,null=True)
     prescription=models.CharField(max_length=100,null=True)
     bill=models.CharField(max_length=100,null=True)
-
+    feedst=models.IntegerField(default=0)
 
 class Orders(models.Model):
     tid=models.IntegerField(default=0)
@@ -42,3 +42,12 @@ class Prescription(models.Model):
     meal=models.CharField(max_length=254)
     time=ArrayField(models.CharField(max_length=100),blank=True,null=True)
     cost=models.IntegerField(default=0)
+
+class Feedback(models.Model):
+    tid=models.IntegerField(default=0)
+    user = models.EmailField(max_length=254)
+    doctor = models.EmailField(max_length=254)
+    feedback=models.CharField(max_length=100,null=True)
+    rating=models.IntegerField(default=0)
+
+

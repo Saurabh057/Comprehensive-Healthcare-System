@@ -3,7 +3,6 @@
 
 {% block content %}
 
-{% for details in details %}
 
 <div class="row">
             <div class="col-12">
@@ -103,11 +102,38 @@
                         </p>
                       </div>
                       </div>
+                    <div class="profile-feed">
+                      {% for user,feedback in datazip %}
+                        <div class="d-flex align-items-start profile-feed-item">
+                          <img src="{% static '/'%}{{profile}}" alt="profile" class="img-sm rounded-circle"/>
+                          <div class="ml-4">
+                            <h6>
+                              {{user.0.name}}
+                              <small class="ml-4 text-muted"><i class="ti-time mr-1"></i>10 hours</small>
+                            </h6>
+                            <p>
+                              {{feedback.feedback}}
+                            </p>
+                            <p class="small text-muted mt-2 mb-0">
+                              <span>
+                                <i class="ti-star mr-1"></i>4
+                              </span>
+                              <span class="ml-2">
+                                <i class="ti-comment mr-1"></i>11
+                              </span>
+                              <span class="ml-2">
+                                <i class="ti-share"></i>
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {% endfor %}
 {% endblock content %}

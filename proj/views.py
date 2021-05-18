@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from log.models import AddtionalDetails
-from proj.models import Record,Orders,Messages,Prescription
+from proj.models import Record,Orders,Messages,Prescription,Feedback
 from django.db.models import Q
 import json
 from selenium import webdriver
@@ -247,17 +247,35 @@ def completedreq(request):
 def feedback(request):
 	if request.method=="POST":
 		print(request.POST)
-		rating=request.POST.get('rating')
+		usrid=request.user.username
+		print(usrid)
+		rating=int(request.POST.get('rating'))
 		comment=request.POST.get('comment')
-
-		return redirect("/feedback")
+		docid=request.POST.get('docid')
+		tid=request.POST.get('tid')
+		Record.objects.filter(id=tid).update(feedst=1)
+		f=Feedback(tid=tid,user=usrid,doctor=docid,feedback=comment,rating=(rating))
+		f.save()
+		r= AddtionalDetails.objects.get(username=usrid)
+		if (r.rating)==None:
+			r.rating=[rating,1]
+			r.save()
+		else:
+			a,b=map(int,r.rating)
+			print(a,b)
+			avgrating=(a*b+rating)/(b+1)
+			r.rating=[avgrating,b+1]
+			r.save()
+		
+		return redirect("/completedreq")
 	else:
 
 		user=request.GET.get('feddoc')
+		tid=request.GET.get('fedtid')
 
 		doctor=AddtionalDetails.objects.filter(username=user)
 		print(doctor)
-		return render(request,'dashboard/user/feedback.html',{'doctor':doctor})
+		return render(request,'dashboard/user/feedback.html',{'doctor':doctor,'tid':tid})
 
 #fuction for make appointment with user 
 @csrf_exempt
