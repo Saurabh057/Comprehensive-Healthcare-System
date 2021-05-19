@@ -68,7 +68,7 @@ def diangnose(request):
 
 
     # multiple diseases
-    encoder ={"NBS":nb, "KNN":kn, "DTC":dt}
+    encoder ={"NBS":nb, "KNN":kn, "DTC":dt} 
 
     top_diseases = encoder[choosenAlgorithm]
 
@@ -76,7 +76,10 @@ def diangnose(request):
     top_diseases.pop("acc")
 
     # print("top-disease : ", top_diseases)
-
+    keyss=list(top_diseases.keys())
+    for k in keyss:
+        if(top_diseases[k]<=0.01):
+            del top_diseases[k]
     if(len(top_diseases)>4):
         for i in range(len(top_diseases)-4):
             top_diseases.popitem()
@@ -89,7 +92,7 @@ def diangnose(request):
     vals = [round(val,2) for val in top_diseases.values() ]
     context['top_diseases'] = {'diseases': dict(zip(list(top_diseases.keys()),vals)), 'names': json.dumps(list(top_diseases.keys())), 'scores':list(top_diseases.values())}
     print(context)
-    return render(request, 'diagnose/diagnoseDash.html', context)
+    return render(request, 'diagnose/diagnosedashextended.html', context)
 
 def diangnose2(request):
     symp=request.POST.get("symptoms")
@@ -142,7 +145,7 @@ def diangnose2(request):
 
     context = {'chosen':chosen, 'disease': disease, 'symptoms':symptoms}
 
-    return render(request, 'diagnose/diagnoseDash.html', context)
+    return render(request, 'diagnose/diagnosedashextended.html', context)
 
 
 @csrf_exempt
