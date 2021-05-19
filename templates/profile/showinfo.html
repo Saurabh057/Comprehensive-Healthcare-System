@@ -12,7 +12,7 @@
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="border-bottom text-center pb-4">
-                        <img src="{% static '/' %}{{profile}}" alt="profile" class="img-lg rounded-circle mb-3"/>
+                        <img src="{% static '/' %}{{profile}}" id="pfimg" alt="profile" class="img-lg rounded-circle mb-3"/>
                         <div class="mb-3">
                           <h3>{{details.name}}</h3>
                           <div class="d-flex align-items-center justify-content-center">
@@ -25,8 +25,9 @@
                           <form method = "post" action="showinfo" enctype="multipart/form-data"> 
                                     {% csrf_token %} 
                                     <!-- {{ form }}  -->
-                                    <input type="file" class="form-control" required name="profile_Img">
+                                    <input type="file" class="form-control" id="fileup" required name="profile_Img" hidden>
 
+                                    <input type="button" class="btn btn-success" id="edit" value="Edit Image"> <i class="fa fa-pencil" aria-hidden="true"></i>
                                     <input type="submit" class="btn btn-success"   value="Upload"> 
                             </form> 
                           <!-- <button class="btn btn-success mr-1">Hire Me</button> -->
@@ -115,5 +116,10 @@
               </div>
             </div>
           </div>
+          <script>
+          $('#edit').on('click', function () {
+              $("#fileup").click();
+            });
+          </script>
           {% endfor %}
 {% endblock content %}

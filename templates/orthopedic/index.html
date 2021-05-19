@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+ 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'newassets/css/bootstrap.min.css' %}">
+    <link href="{% static 'newassets/fonts/style.css' %}" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            /*background: linear-gradient(to bottom right, #003366 40%, #009999 101%);*/
+            background: url(../static/newassets/images/orthohome.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            /*color: whitesmoke;*/
+        }
+
+        h1 {
+            color: black;
+            font-size: 3rem;
+        }
+
+        .formdiv {
+            background: rgba(0, 0, 0, 0.199);
+            font-size: 1rem;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- /......................................../
+    homepage
+    /......................................../ -->
+    <section>
+
+            <div class="row w-100 pt-3">
+                <div class="col-lg-10 col-md-10 ml-5 heading text-center">
+                    <h1>Classification &nbsp;of&nbsp; Orthopedic &nbsp;<br>Patients&nbsp; Using &nbsp;ML</h1></a>
+                </div>
+
+                <div class="col  text-right" >
+                    {% if user.is_authenticated %}
+                    <h4>Hello, {{user.first_name}}</h4>
+                    <a href="logout" name="logout">LOGOUT</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="container w-100">
+            <div class="row mt-10 pt-10" style="padding-top: 4%;">
+                <div class="col-lg-6 mb-lg-0  mb-5">
+
+                    <h4 class="mt-5 pt-10">Classification of Orthopedic Patients Using ML</h3>
+                        <p class="mt-4"> A person can be categorized based on his orthopedic
+                            condition and to do that we have used a number of machine
+                            learning techniques. Since there has not been enough
+                            application of machine learning in orthopedic field, we tried
+                            to implement a 2  algorithms to analyze the
+                            comparative performance. Six biomechanical features have
+                            been used as parameters for the algorithms
+                        </p>
+                </div>
+                <div class="col-lg-6 col-md-8 pt-10 pr-md-0">
+                    <!-- <img src="../static/img/car5.jpg" style="height: 350px; width: 600px; opacity: 110%;"> -->
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section style="width: 80%; background:url(../static/img/home.jpg); ; margin-left: 10%;" align="center">
+
+        <div class="formclass pt-5">
+            <!-- <form> -->
+            <!-- rgba(0, 0, 0, 0.199) -->
+
+
+            <div class="row  ml-6">
+                <div class="col">
+                    <input class="form-control" type="text" name="pelinc" id="pelinc" placeholder="pelvic_incidence">
+                </div>
+                <div class="col">
+                    <input class="form-control" type="number" name="pelti" id="pelti" placeholder="pelvic_tilt">
+                </div>
+                <div class="col">
+                    <input class="form-control" type="number" name="lumlor" id="lumlor"
+                        placeholder="lumbar_lordosis_angle">
+                </div>
+                <div class="col">
+                    <input class="form-control" type="number" name="sacral" id="sacral" placeholder="sacral_slope">
+                </div>
+                <div class="col">
+                    <input class="form-control" type="number" name="pelrad" id="pelrad" placeholder="pelvic_radius">
+                </div>
+                <div class="col">
+                    <input class="form-control" type="number" name="degree" id="degree"
+                        placeholder="degree_spondylolisthesis">
+                </div>
+
+            </div>
+            <div class="row  ml-6">
+                <div class="col">
+                    Range(26 to 129)
+                </div>
+                <div class="col">
+                    Range(-6 to 49)
+
+                </div>
+                <div class="col">
+                    Range(14-126)
+
+                </div>
+                <div class="col">
+                    Range(13-122)
+
+                </div>
+                <div class="col">
+                    Range(70-163)
+
+                </div>
+                <div class="col">
+                    Range(-11 to 418)
+
+                </div>
+
+            </div>
+            <div class="row mt-3 mb-3 pb-5">
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" name="knn" onclick="subForm(1)"
+                                class="btn btn-primary w-40">KNN</button>
+                        </div>
+                        <div class="col">
+                            <h4>
+                                <div id="result1" style="color: red;"></div>
+                            </h4>
+                        </div>
+                        <div class="col">
+                            <h4>
+                                <div id="result2" style="color: red;"></div>
+                            </h4>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+
+                        <div class="col">
+                            <button type="button" name="naive" onclick="subForm(2)"
+                                class="btn btn-primary w-40 ml-3">NAIVE BAYES</button>
+                        </div>
+                        <div class="col">
+                            <h4>
+                                <div id="result3" style="color: red;"></div>
+                            </h4>
+                        </div>
+                        <div class="col">
+                            <h4>
+                                <div id="result4" style="color: red;"></div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col">
+                    <h3> <div id="result1"></div></h3>
+                    <h3> <div id="result2"></div></h3>
+                 </div> -->
+            </div>
+
+            <!-- </form> -->
+        </div>
+
+        <!-- Button trigger modal -->
+
+        <button type="button" class="btn btn-primary" id="modshow" style="display: none;" data-toggle="modal"
+            data-target="#exampleModalCenter">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="color: blue;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Please wait..</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Your request is being processed plzz wait. We'll let you konow once the thing is done..
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="modclose" class="btn btn-secondary" data-dismiss="modal"
+                            style="display: block;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- javascripts -->
+
+    <script src="{% static 'newassets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'newassets/js/bootstrap.bundle.js' %}"></script>
+
+    <script>
+        function subForm(algo) {
+            // alert(algo);
+            $("#modshow").click();
+
+            var degree = $("#degree").val();
+            var pelinc = $("#pelinc").val();
+            var pelrad = $("#pelrad").val();
+            var sacral = $("#sacral").val();
+            var lumlor = $("#lumlor").val();
+            var pelti = $("#pelti").val();
+            // var damages = $('input[name="undamage"]:checked').val();
+
+            // alert(model);
+            // alert(power);
+            // alert(year);
+            // alert(kms);
+            // alert(damages);
+            if (parseInt(algo) == 1) {
+                $.ajax({
+                    type: "GET",
+                    data: { pelinc: pelinc, pelti: pelti, lumlor: lumlor, sacral: sacral, pelrad: pelrad, degree: degree, algo: algo },
+                    url: "predict",
+                }).done(function (Predicted) {
+                    // alert(Predicted);
+                    // Predicted = JSON.parse(Predicted);
+                    // alert(Predicted);
+                    $("#modclose").click();
+
+                    document.getElementById("result1").innerHTML = " Result  : " + Predicted.kn_result1;
+
+                    document.getElementById("result2").innerHTML = "   " + Predicted.kn_result2;
+
+                });
+            }
+            else if (parseInt(algo) == 2) {
+
+                $.ajax({
+                    type: "GET",
+                    data: { pelinc: pelinc, pelti: pelti, lumlor: lumlor, sacral: sacral, pelrad: pelrad, degree: degree, algo: algo },
+                    url: "predict",
+                }).done(function (Predicted) {
+                    // alert(Predicted);
+                    // Predicted = JSON.parse(Predicted);
+                    // alert(Predicted);
+                    $("#modclose").click();
+
+                    document.getElementById("result3").innerHTML = " Result   : " + Predicted.nb_result1;
+                    document.getElementById("result4").innerHTML = "  " + Predicted.nb_result2;
+
+                });
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

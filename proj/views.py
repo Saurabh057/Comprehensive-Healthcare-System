@@ -12,6 +12,7 @@ from django.db.models import Q
 import json
 from selenium import webdriver
 from django.core.mail import EmailMultiAlternatives
+from io import BytesIO
 
 # _appname_=proj
 
@@ -83,13 +84,21 @@ def chatting(request):
 			
 		if profession=="user":
 			contactlist=Record.objects.filter(user=user)
+			contactlist2=set()
 			for i in contactlist:
-				contacts.append(AddtionalDetails.objects.filter(username=i.doctor))
+				contactlist2.add(i.doctor)
+			# print(contactlist2)
+			for i in contactlist2:
+				contacts.append(AddtionalDetails.objects.filter(username=i))
 
 		elif profession=="doctor":
 			contactlist=Record.objects.filter(doctor=user)
+			contactlist2=set()
 			for i in contactlist:
-				contacts.append(AddtionalDetails.objects.filter(username=i.user))
+				contactlist2.add(i.user)
+			# print(contactlist2)
+			for i in contactlist2:
+				contacts.append(AddtionalDetails.objects.filter(username=i))
 
 		# print(contacts)
 		# print(type(contactlist))
@@ -567,6 +576,7 @@ def printbill(request):
 	
 	user=request.POST.get('email')
 	tid=(request.POST.get('tid'))
+	other=int(request.POST.get('other'))
 
 	cost=request.POST.get('array')
 	cost= json.loads(cost)
@@ -589,34 +599,39 @@ def printbill(request):
 	pharmadata=AddtionalDetails.objects.filter(username=pharma)
 	userdata=AddtionalDetails.objects.filter(username=user)
 	template_path = 'bill.html'
+	total=sum(cost)+other
 	context = {
 		'myvar': 'this is your template context',
 		'user' : userdata,
 		'pharma' :pharmadata,
 		'bill' : bill,
-		'total':sum(cost)
+		'other' : other,
+		'subtotal':sum(cost),
+		'total':total
 		}
-
-	template = get_template(template_path)
-	html = template.render(context)
 
 	name='bill'+tid+'.pdf'
 	output_filename='static/media/'+user+'/'+name
 
-	#location to save pdf 
-	result_file = open(output_filename, "w+b")
-
-	#save pdf funtion
-	pisa_status = pisa.CreatePDF(
-	   html, dest=result_file)
-
-	result_file.close()
+	template = get_template("bill.html")
+	html = template.render(context)
+	response = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), response)
+	Record.objects.filter(id=tid).update(bill=output_filename)
+	Orders.objects.filter(tid=tid).update(bill=output_filename)
+	
+	if not pdf.err:
+		result = open(output_filename, "w+b")
+		result.write(response.getvalue())
+		result.close()
+	    # return HttpResponse(response.getvalue(), content_type='application/pdf')
+	else:
+		print("Failed to render pdf")
+	    # return HttpResponse("Error Rendering PDF", status=400)
 
 
 	# img_save_path =  'media/'+str(request.user.username)+'/profile'+ img_extension
 
-	Record.objects.filter(id=tid).update(bill=output_filename)
-	Orders.objects.filter(tid=tid).update(bill=output_filename)
 	#to send email of prescription
 	# subject, from_email, to = 'Prescription Of appointment', doctor, user
 	# text_content = 'This is an important message.'
@@ -625,8 +640,15 @@ def printbill(request):
 	# msg.attach_alternative(html_content, "text/html")
 	# msg.send()
 	# if error then show some funy view
-	if pisa_status.err:
-	   return HttpResponse('We had some errors <pre>' + html + '</pre>')
+	# if pisa_status.err:
+	#    return HttpResponse('We had some errors <pre>' + html + '</pre>')
+	return redirect("/docshowappo")
+
+	# img_save_path =  'media/'+str(request.user.username)+'/profile'+ img_extension
+
+	Record.objects.filter(id=tid).update(bill=output_filename)
+	Orders.objects.filter(tid=tid).update(bill=output_filename)
+	
 	return redirect("/pharmashoworders")
 
 @csrf_exempt
@@ -659,7 +681,7 @@ def render_pdf_view(request):
 
 	docdata=AddtionalDetails.objects.filter(username=doctor)
 	userdata=AddtionalDetails.objects.filter(username=user)
-	template_path = 'test.html'
+	template_path = 'prescription.html'
 	context = {
 		'myvar': 'this is your template context',
 		'user' : userdata,
@@ -667,25 +689,38 @@ def render_pdf_view(request):
 		'pres' : prescription
 		}
 
-	template = get_template(template_path)
-	html = template.render(context)
+	# template = get_template(template_path)
+	# html = template.render(context)
 
 	name=tid+'.pdf'
 	output_filename='static/media/'+user+'/'+name
 
 	#location to save pdf 
-	result_file = open(output_filename, "w+b")
 
-	#save pdf funtion
-	pisa_status = pisa.CreatePDF(
-	   html, dest=result_file)
+	# # #save pdf funtion
+	# pisa_status = pisa.CreatePDF(
+	#    html, dest=result_file)
 
-	result_file.close()
+	# result_file.close()
+
+	template = get_template("prescription.html")
+	html = template.render(context)
+	response = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), response)
+	Record.objects.filter(id=tid).update(status=1,prescription=output_filename)
+	
+	if not pdf.err:
+		result = open(output_filename, "w+b")
+		result.write(response.getvalue())
+		result.close()
+	    # return HttpResponse(response.getvalue(), content_type='application/pdf')
+	else:
+		print("Failed to render pdf")
+	    # return HttpResponse("Error Rendering PDF", status=400)
 
 
 	# img_save_path =  'media/'+str(request.user.username)+'/profile'+ img_extension
 
-	Record.objects.filter(id=tid).update(status=1,prescription=output_filename)
 	#to send email of prescription
 	# subject, from_email, to = 'Prescription Of appointment', doctor, user
 	# text_content = 'This is an important message.'
@@ -694,6 +729,50 @@ def render_pdf_view(request):
 	# msg.attach_alternative(html_content, "text/html")
 	# msg.send()
 	# if error then show some funy view
-	if pisa_status.err:
-	   return HttpResponse('We had some errors <pre>' + html + '</pre>')
+	# if pisa_status.err:
+	#    return HttpResponse('We had some errors <pre>' + html + '</pre>')
 	return redirect("/docshowappo")
+@csrf_exempt
+def render_to_pdf(bill):
+        print(bill)
+        template = get_template("bill.html")
+        html = template.render(bill)
+        response = BytesIO()
+        pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), response)
+        if not pdf.err:
+
+            return HttpResponse(response.getvalue(), content_type='application/pdf')
+        else:
+            return HttpResponse("Error Rendering PDF", status=400)
+@csrf_exempt
+def generatePDF(request):
+      
+        bill = {
+            1:{
+                'meditype':"Tablet", 
+             'name' : "BCosule",
+             'quantity' : "5",
+             'total' : "$1000"
+        },
+            2:{
+                'meditype':"Syrup", 
+             'name' : "BeerSah",
+             'quantity' : "1",
+             'total' : "$30"
+        },
+          3:{
+                'meditype':"Ointment", 
+             'name' : "Flucortine",
+             'quantity' : "1",
+             'total' : "$50",}
+        }
+
+        data = {
+             # 'today': datetime.date.today(), 
+             'amount': 39.99,
+            'customer_name': 'Cooper Mann',
+            'order_id': 1233434,
+        }
+
+        pdf = render_to_pdf({'bill' : bill})
+        return pdf

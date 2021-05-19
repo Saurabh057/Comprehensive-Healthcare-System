@@ -74,7 +74,7 @@
                                       <td >{{i.quantity}}</td>
                                       <td >
                                       	<div class="">
-                                      	<input type="number" id='cost{{num}}' placeholder="Cost" class="cost form-control form-control-sm">
+                                      	<input type="number" id='cost{{num}}' value="0" onchange="Updatetotal()" placeholder="Cost" class="cost form-control form-control-sm">
                                       	</div>
                                       </td>
                                       
@@ -88,10 +88,10 @@
                             <p class="text-right mb-2">Sub - Total amount: 
                               <label id="subtotal">10</label>
                             </p>
-                            <p class="text-right" >Other : 
-                              <input type="number" id="other"  class="form-control-sm" placeholder="other">
-                            </p>
-                            <h4 class="text-right mb-5" >Total : 
+                            <p class="text-right " >Other : &nbsp;&nbsp;
+                              <input type="number" id="other" name="other" value="0" onchange="Updatetotal()" class="form-control " placeholder="other" style="float :right ;max-width: 100px;"> 
+                            </p><br><br>
+                            <h4 class="text-right mb-5" ><b>Total :</b> 
                               <label id="total"></label>
                             
                             </h4>
@@ -126,32 +126,35 @@
   </script>
 <script >
   var cost=[];
-  var total=0;
-  $(".cost").change(function(){
 
-      other=($("#other").val())
-      total=total+($(this).val());
-    alert(other);
-    alert(total)
-      $("#total").html(total);
-  });
+  function Updatetotal() {
+  var total=0;
+
+          for(i=0;i<totaln;i++)
+              {
+                total=parseInt(total)+parseInt($("#cost"+(i+1)).val());
+              $("#subtotal").html(total)
+                
+              }
+              total=parseInt(total)+parseInt($("#other").val())
+              $("#total").html(total)
+      }
 
 
 $(".btsubmit").on("click", function() {
               var i;
               for(i=0;i<totaln;i++)
               {
-                total=total+$("#cost"+(i+1)).val();
                 cost.push($("#cost"+(i+1)).val());
               }
               var usrid=$("#usrid").val();
               var tid=$("#tid").val();
-              
+              var other=$("#other").val();
               var encodedcost = JSON.stringify(cost);   
                  
                   $.ajax({
                                 type: "POST",
-                                data: {email:usrid,tid:tid,array:encodedcost},
+                                data: {email:usrid,tid:tid,array:encodedcost,other:other},
                                 url: "printbill",
                                 }).done(function( data ) {
                                     // $("#requested").html("Your Appointment with  "+"Is cancelled");
