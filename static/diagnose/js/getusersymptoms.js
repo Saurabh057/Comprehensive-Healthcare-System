@@ -28,7 +28,7 @@ function delThis(num) {
 // }
 
 function addUserSymps(color="green") {
-  alert(symps);
+  // alert(symps);
     var x = document.getElementById("myInput").value;
     symps.push(x);
     if(color=="green")
@@ -91,7 +91,7 @@ function suggestSymptoms(a) {
     // var st= '<button class="btn text-center m-1" style="border:none; background-color:#f8f9fa;">Suggested:</p>';
     // $("#suggestedSymps").append(st);
 
-    alert(a);
+    // alert(a);
     if(a[0]=="nosymp"){
       // var st= '<button class="btn text-center m-1" style="border:none; background-color:#f8f9fa;">None</p>';
       // $("#suggestedSymps").append(st);
@@ -210,7 +210,7 @@ function getsuggestions(){
           // alert(data["after"]);
           // alert(data["before"].toString());
           if(symps.toString()!=data["before"].toString()){
-            alert("skip");
+            // alert("skip");
           }
           else{
             sugesstions=data["after"];
@@ -272,19 +272,21 @@ function changeContent(num) {
 }
 
 function diagnoseit(){
+
   if(symps.length==0){
     alert("Enter atleast one symptom");
   }
   else{
+    $('#preloader-active').show();
     var final='';
     for(var i=0;i<symps.length;i++){
       final+=symps[i]+',';
     }
     
     final=final.slice(0,-1);
-    alert(final);
+    // alert(final);
     $("#symptoms").val(final);
-    alert($("#symptoms").val());
+    // alert($("#symptoms").val());
     $("#digform").submit();
 
   }

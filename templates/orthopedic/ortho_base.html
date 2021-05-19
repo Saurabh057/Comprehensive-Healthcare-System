@@ -17,30 +17,41 @@
   <link rel="stylesheet" href="{% static 'newassets/vendor/datatables.net-bs4/dataTables.bootstrap4.css' %}">
   <link rel="stylesheet" href="{% static 'newassets/vendor/ti-icons/css/themify-icons.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'newassets/js/select.dataTables.min.css' %}">
-  <link rel="stylesheet" href="{% static 'newassets/vendor/jquery-bar-rating/css-stars.css' %}">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{% static 'newassets/css/vertical-layout-light/style.css' %}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{% static 'newassets/images/favicon.png' %}" />
 
-    <!-- <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}"> -->
-    <!-- <link href="{% static 'assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet"> -->
-    <!-- <link rel="stylesheet" href="{% static 'assets/libs/css/style.css' %}"> -->
-    <link rel="stylesheet" href="{% static 'newassets/vendor/font-awesome/css/fontawesome-all.css' %}">
     <script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
-<!-- 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+    <style type="text/css">
+      .card a{
+        color: black;
+      }
+      .card {
+        /*color: white;*/
+        padding: 1px;  /*JUST TO LOOK COOL*/ 
+        border: 1px solid #eee;  /* JUST TO LOOK COOL */
+        box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+        transition: all .3s ease-in-out;
+      }
 
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
- --></head>
+      .card:hover {
+        box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
+        transform: translate3d(0px, 4px, 2px);
+      }
+      .homecard a{
+        color: white;
+      }
+    </style>
+</head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="/dashboard"><img src="{% static 'newassets/images/logo.svg' %}" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="/dashboard"><img src="{% static 'newassets/images/logo-mini.svg' %}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="dashboard"><img src="{% static 'newassets/images/logo.svg' %}" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="dashboard"><img src="{% static 'newassets/images/logo-mini.svg' %}" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -83,15 +94,17 @@
                 </div>
               </a>
               {% endfor %}
-
             </div>
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="{% static '/' %}{{profile}}" alt="profile"/>
+              <img src="{%static '/'%}{{details.profile}}" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              
+              <a class="dropdown-item">
+                <i chref="log/showinfo" lass="ti-settings text-primary"></i>
+                Settings
+              </a>
               <a href="log/logout" class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
                 Logout
@@ -290,100 +303,39 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">Patient</span>
+              <span class="menu-title">Doctor </span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="reqdoc">Make Appointment</a></li>
-                <li class="nav-item"> <a class="nav-link" href="showreq">MY Appointments</a></li>
+                <li class="nav-item"> <a class="nav-link" href="docshowreq">Pending Requests</a></li>
+                <li class="nav-item"> <a class="nav-link" href="docshowappo">MY Appointments</a></li>
                 
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-              <i class="icon-columns menu-icon"></i>
-              <span class="menu-title">Form elements</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="form-elements">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="{% static 'newassets/pages/forms/basic_elements.html' %}">Basic Elements</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+            <a class="nav-link" href="#">
               <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Charts</span>
-              <i class="menu-arrow"></i>
+              <span class="menu-title">Analysis</span>
             </a>
-            <div class="collapse" id="charts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{% static 'newassets/pages/charts/chartjs.html' %}">ChartJs</a></li>
-              </ul>
-            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="icon-grid-2 menu-icon"></i>
-              <span class="menu-title">Tables</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="tables">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{% static 'newassets/pages/tables/basic-table.html' %}">Basic table</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Icons</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="icons">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{% static 'newassets/pages/icons/mdi.html ' %}">Mdi icons</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <a class="nav-link" href="log/showinfo">
               <i class="icon-head menu-icon"></i>
-              <span class="menu-title">User Pages</span>
-              <i class="menu-arrow"></i>
+              <span class="menu-title">Profile</span>
             </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{% static 'newassets/pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="{% static 'newassets/pages/samples/register.html"> Register </a></li>
-              </ul>
-            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-              <i class="icon-ban menu-icon"></i>
-              <span class="menu-title">Error pages</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link" href="chatting">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Chat</span>
             </a>
-            <div class="collapse" id="error">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{% static 'newassets/pages/samples/error-404.html"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="{% static 'newassets/pages/samples/error-500.html"> 500 </a></li>
-              </ul>
-            </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% static 'newassets/pages/documentation/documentation.html">
-              <i class="icon-paper menu-icon"></i>
-              <span class="menu-title">Documentation</span>
-            </a>
-          </li> -->
+          
         </ul>
       </nav>
       <!-- partial -->
@@ -397,9 +349,9 @@
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © Project Group 37 <a href="https://www.bootstrapdash.com/" target="_blank">Sinhgad College Of Engineering</a> (Computer Department). All rights reserved.</span>
-            <!-- <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
-          --> </div>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © Project Group 37 <a href="https://www.bootstrapdash.com/" target="_blank">Sinhgad College Of Engineering</a> (Computer Department). All rights reserved.</span><!-- 
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span> -->
+          </div>
         </footer>
         <!-- partial -->
       </div>
@@ -411,8 +363,6 @@
 
   <!-- plugins:js -->
   <script src="{% static 'newassets/vendor/js/vendor.bundle.base.js' %}"></script>
-  <script src="{% static 'newassets/vendor/jquery-bar-rating/jquery.barrating.min.js' %}"></script>
-
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <script src="{% static 'newassets/vendor/chart.js/Chart.min.js' %}"></script>
@@ -432,9 +382,6 @@
   <script src="{% static 'newassets/js/dashboard.js' %}"></script>
   <script src="{% static 'newassets/js/Chart.roundedBarCharts.js' %}"></script>
   <!-- End custom js for this page-->
-
-  <script src="{% static 'newassets/js/profile-demo.js' %}></script>
-
 </body>
 
 </html>

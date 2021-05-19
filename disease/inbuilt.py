@@ -96,7 +96,9 @@ def dt(inp):
     ytest=test.iloc[:,-1]
     dtc=DecisionTreeClassifier(criterion = "gini", random_state = 100,max_depth=133, min_samples_leaf=5)
     dtc.fit(xtrain,ytrain)
+    print("dt")
     ypred=dtc.predict(xtest)
+    print(ypred)
     acc=int(accuracy_score(ypred,ytest)*100)
     print(acc)
 
