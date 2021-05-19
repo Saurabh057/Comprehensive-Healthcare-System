@@ -52,9 +52,9 @@ function autocomplete(inp, arr) {
 
 
 
-    var node = document.getElementById("suggestedSymps");
-    node.querySelectorAll('*').forEach(n => n.remove());
-
+    // var node = document.getElementById("suggestedSymps");
+    // node.querySelectorAll('*').forEach(n => n.remove());
+    // $("#suggesionss").empty();
 
 
 

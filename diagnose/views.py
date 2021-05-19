@@ -76,7 +76,10 @@ def diangnose(request):
     top_diseases.pop("acc")
 
     # print("top-disease : ", top_diseases)
-
+    keyss=list(top_diseases.keys())
+    for k in keyss:
+        if(top_diseases[k]<=0.01):
+            del top_diseases[k]
     if(len(top_diseases)>4):
         for i in range(len(top_diseases)-4):
             top_diseases.popitem()

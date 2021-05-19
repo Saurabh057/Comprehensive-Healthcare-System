@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
     <script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
-    
+    <script src="{% static 'home/assets/css/style.css' %}"></script>    
 
     <style>
         body {
@@ -215,7 +215,7 @@
 
     <!-- <div id="wave"></div> -->
     <header class="text-center text-white py-5">
-        <h1 class="display-4 font-weight-bold mb-4">Comprehensive Healthcare System using ML</h1>
+        <h3 class="display-4 font-weight-bold mb-4">Comprehensive Healthcare System using ML</h3>
     </header>
     <div style="overflow-y: hidden;">
         <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" style="z-index: -2;">
@@ -259,13 +259,13 @@
                         <input type="text" id="myInput" class="form-control text-center"
                             placeholder="Enter your symptom">
                         <div class="input-group-append text-center">
-                            <span class="input-group-text"><button type="button" class="btn btn-primary"
+                            <span class="input-group-text"><button type="button" class="btn btn-primary" onclick="addUserSymps()"
                                     id="adduserSympButton">Add</button></span>
                         </div>
                     </div>
 
                     <div class="text-center" id="quesanswers" style="display: none;">
-                        <h1 class="text-center" style="color:blue;" id="question" > </h1>
+                        <h1 class="text-center justify-content-center" style="color:white;" id="question" > </h1>
                         <br><button class='btn btn-outline-secondary alert-primary text-center ml-4 mt-2' style="color: green;" onclick="addyes()" id="yes">
                             Yes</button>
                         <button class='btn btn-outline-secondary alert-primary text-center ml-4 mt-2' style="color: red;" id="no"
