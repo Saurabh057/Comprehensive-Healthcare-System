@@ -382,7 +382,7 @@
             <!-- partial -->
 
 
-            <div class="container-fluid  dashboard-content">
+            <div class="container-fluid dashboard-content">
                 <!-- ============================================================== -->
                 <!-- pageheader -->
                 <!-- ============================================================== -->
@@ -399,6 +399,9 @@
                 <!-- ============================================================== -->
                 <!-- simple calendar -->
                 <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- simple calendar -->
+                <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
@@ -408,6 +411,9 @@
                         </div>
                     </div>
                 </div>
+                <!-- ============================================================== -->
+                <!-- end simple calendar -->
+                <!-- ============================================================== -->
                 <!-- ============================================================== -->
                 <!-- end simple calendar -->
                 <!-- ============================================================== -->
@@ -432,26 +438,6 @@
     <script src="{% static 'calendar/full-calendar/js/calendar.js' %}"></script>
 
     <!-- calendar scripts -->
-    <script>
-        function get_calendar_height() {
-            return $(window).height() - 100;
-        }
-
-        //attacht resize event to window and set fullcalendar height property
-        $(document).ready(function () {
-            $(window).resize(function () {
-                $('#calendar1').fullCalendar('option', 'height', get_calendar_height());
-            });
-
-
-            //set fullcalendar height property
-            $('#calendar1').fullCalendar({
-                //options
-                height: get_calendar_height
-            });
-        })
-    </script>
-
 </body>
 
 </html>

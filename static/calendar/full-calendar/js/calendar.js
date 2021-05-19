@@ -3,7 +3,7 @@ $(function() {
 
     $(document).ready(function() {
 
-        $('#calendar').fullCalendar({
+        $('#calendar1').fullCalendar({
             header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -120,7 +120,7 @@ $(function() {
         /* initialize the calendar
         -----------------------------------------------------------------*/
 
-        $('#calendar').fullCalendar({
+        $('#calendar1').fullCalendar({
             header: {
                 left: 'prev,next today',
                 center: 'title',
