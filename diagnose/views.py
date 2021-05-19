@@ -68,7 +68,7 @@ def diangnose(request):
 
 
     # multiple diseases
-    encoder ={"NBS":nb, "KNN":kn, "DTC":dt}
+    encoder ={"NBS":nb, "KNN":kn, "DTC":dt} 
 
     top_diseases = encoder[choosenAlgorithm]
 
