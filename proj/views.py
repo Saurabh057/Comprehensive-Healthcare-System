@@ -32,9 +32,9 @@ def home(request):
 
 	return render(request,'home/healthhome.html')
 
-# def videomeet(requests):
+def about(request):
 
-	# return redirect("videomeet")
+	return render(request,'home/about.html')
 
 @csrf_exempt
 def newmsg(request):
