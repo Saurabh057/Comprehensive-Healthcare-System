@@ -8,11 +8,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Dashboard</title>
+
+    <!-- calendar -->
+    <link rel="stylesheet" href="{% static 'diagnose\vendor\bootstrap\css\bootstrap.min.css' %}">
+    <!-- <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="../assets/libs/css/style.css"> -->
+    <!-- <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css"> -->
+    <link href="{% static 'calendar\full-calendar\css\fullcalendar.css' %}" rel='stylesheet' />
+    <link href="{% static 'calendar\full-calendar\css\fullcalendar.print.css' %}" rel='stylesheet' media='print' />
+
+    <!-- calendar -->
+
+
     <!-- plugins:css -->
     <link rel="stylesheet" href="{% static 'newassets/vendor/feather/feather.css' %}">
     <link rel="stylesheet" href="{% static 'newassets/vendor/ti-icons/css/themify-icons.css' %}">
     <link rel="stylesheet" href="{% static 'newassets/vendor/css/vendor.bundle.base.css' %}">
-    <link rel="stylesheet" href="{%static 'newassets/vendors/font-awesome/css/font-awesome.min.css' %}" />
+    <!-- <link rel="stylesheet" href="{%static 'newassets/vendors/font-awesome/css/font-awesome.min.css' %}" /> -->
 
     <!-- endinject -->
     <!-- Plugin css for this page -->
@@ -30,23 +42,15 @@
     <!-- <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}"> -->
     <!-- <link href="{% static 'assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href="{% static 'assets/libs/css/style.css' %}"> -->
-    <link rel="stylesheet" href="{% static 'newasstes/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
-    <script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'newassets/vendor/font-awesome/css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'newassets/css/feedback.css' %}">
 
 
-    <link rel="stylesheet" href="{%static 'diagnose/libs/css/style.css' %}">
-    <link rel="stylesheet" href="{%static 'diagnose/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
-    <style type="text/css">
-        a {
-            color: white;
-        }
 
 
-        .card:hover {
-            box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
-            transform: translate3d(0px, 4px, 0px);
-        }
-    </style>
+    <!-- calendar ch -->
+
 </head>
 
 <body>
@@ -54,9 +58,9 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo mr-5" href="dashboard"><img
+                <a href="/" class="navbar-brand brand-logo mr-5" href="dashboard"><img
                         src="{% static 'newassets/images/logo.svg' %}" class="mr-2" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="dashboard"><img
+                <a href="/" class="navbar-brand brand-logo-mini" href="dashboard"><img
                         src="{% static 'newassets/images/logo-mini.svg' %}" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -86,32 +90,9 @@
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                             aria-labelledby="notificationDropdown">
                             <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-success">
-                                        <i class="ti-info-alt mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                                    <p class="font-weight-light small-text mb-0 text-muted">
-                                        Just now
-                                    </p>
-                                </div>
-                            </a>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-warning">
-                                        <i class="ti-settings mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">Settings</h6>
-                                    <p class="font-weight-light small-text mb-0 text-muted">
-                                        Private message
-                                    </p>
-                                </div>
-                            </a>
+
+                            {% for i,j in info %}
+
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-info">
@@ -119,25 +100,26 @@
                                     </div>
                                 </div>
                                 <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                                    <h6 class="preview-subject font-weight-normal">{{i}}</h6>
                                     <p class="font-weight-light small-text mb-0 text-muted">
-                                        2 days ago
+                                        {{j}}
                                     </p>
                                 </div>
                             </a>
+                            {% endfor %}
                         </div>
                     </li>
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="{% static 'newassets/images/faces/face28.jpg' %}" alt="profile" />
+                            <img src="{% static '/' %}{{profile}}" alt="profile" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
-                            <a class="dropdown-item">
+                            <a href="/log/showinfo" class="dropdown-item">
                                 <i class="ti-settings text-primary"></i>
                                 Settings
                             </a>
-                            <a class="dropdown-item">
+                            <a href="/log/logout" class="dropdown-item">
                                 <i class="ti-power-off text-primary"></i>
                                 Logout
                             </a>
@@ -347,7 +329,7 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard">
+                        <a class="nav-link" href="/dashboard">
                             <i class="icon-grid menu-icon"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -355,17 +337,26 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
                             aria-controls="ui-basic">
-                            <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">Patient</span>
+                            <i class="ti-timer menu-icon"></i>
+                            <span class="menu-title">Appointments</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="reqdoc">Make Appointment</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="showreq">MY Appointments</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/reqdoc">New</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/showreq">In process </a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/completedreq">Completed </a></li>
+                                <!-- <li class="nav-item"> <a class="nav-link" href="reqpharma">Order Medicines</a></li> -->
+                                <!-- <li class="nav-item"> <a class="nav-link" href="showorders">MY orders</a></li> -->
 
                             </ul>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/showorders">
+                            <i class="ti-shopping-cart menu-icon"></i>
+                            <span class="menu-title">My Orders</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
@@ -374,177 +365,86 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="log/showinfo">
+                        <a class="nav-link" href="/log/showinfo">
                             <i class="icon-head menu-icon"></i>
                             <span class="menu-title">Profile</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="chatting">
-                            <i class="icon-layout menu-icon"></i>
+                        <a class="nav-link" href="/chatting">
+                            <i class="ti-comment-alt menu-icon"></i>
                             <span class="menu-title">Chat</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="/calendar">
+                            <i class="ti-calendar menu-icon"></i>
+                            <span class="menu-title">Calendar</span>
                         </a>
                     </li>
 
                 </ul>
             </nav>
             <!-- partial -->
-            <div class="main-panel">
-                <div class="content-wrapper">
 
 
-                    <!-- ============================================================== -->
-                    <!-- wrapper  -->
-                    <!-- ============================================================== -->
-                    <div class="container-fluid dashboard-content">
-                        <div class="row mt-2">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <!-- <h3 class="text-center">Good afternoon, Abhijit!</h3> -->
-                            </div>
-                        </div>
-                        <div class="row text-center m-2">
-
-                            <div class="card card-body border-none" style="background:#0808663f; border: none;">
-                                <h3> You have been diagnosed with<br /></h3>
-                                <h1 class="">Tuberculosis</h1>
-                                <h4>The system has choosen Naive Bayes Algorithm to conclude this with accuracy of
-                                    98.99%</h4>
-                                <p class="card-text" style="font-size: 25px;">Your Symptoms : Blah, blah, blah, blah,
-                                    and blah
-                                </p>
-
-                                <div class="row w-100 text-center" style="float: none; margin:0 auto;">
-
-                                    <div class="col m-2">
-                                        <a class="btn alert-primary w-100" onclick="">Diagnose
-                                            again</a>
-                                    </div>
-                                    <div class="col m-2 ">
-                                        <a class="btn alert-primary w-100" onclick="">Consult
-                                            Doctor</a>
-                                    </div>
-                                    <div class="col m-2">
-                                        <a class="btn alert-primary  w-100" onclick="">Dashboard Home</a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row text-center mt-3" style="float: none; margin:0 auto;">
-
-                            <div class="card card-body mt-3" style="background:#8be9788f;">
-
-
-
-                                <div class="row text-center mt-3" style="border:0px solid !important;">
-
-                                    <div class="col max-height:200px;">
-                                        <div class="card card-body text-center">
-                                            <h4 class="card-title">Naive Bayes Classifier</h4>
-                                            <p class="card-text">Accuracy : 76%</p>
-                                            <canvas id="gauge1" style="height: 100px;"></canvas>
-
-                                            <a class="btn alert-primary" onclick="">Tuberculosis</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="card card-body  text-center">
-                                            <h4 class="card-title">K Nearest Neighbors</h4>
-                                            <p class="card-text">Accuracy : 76%</p>
-                                            <!-- <canvas id="pastWeekAtten"></canvas> -->
-                                            <canvas id="gauge2" style="height: 100px;"></canvas>
-
-                                            <a class="btn alert-primary" onclick="">Tuberculosis</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <div class="card card-body  text-center">
-                                            <h4 class="card-title">Decision Tree Classifier</h4>
-                                            <p class="card-text">Accuracy : 76%</p>
-                                            <canvas id="gauge3" style="height: 100px;"></canvas>
-                                            <a class="btn alert-primary" onclick="">Tuberculosis</a>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="row m-2 mt-4 w-100 text-center">
-                            <div class="card card-body mt-3" style="background:#e98f7885; height: 500px !important"">
-                                <div class=" col w-100" >
-                                <iframe
-                                    src="https://www.webmd.com/search/search_results/default.aspx?query=Tuberculosis"
-                                    style="overflow:hidden;height:90%;width:100%"
-                                    title="W3Schools Free Online Web Tutorials"></iframe>
-                                    <a class="btn alert-primary" onclick="">Open this in new window</a>
-                               
-                            </div>
+            <div class="container-fluid dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row mt-2 text-center">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title">Calendar </h2>
                         </div>
                     </div>
-
-
-
-
-
                 </div>
-                <!-- content-wrapper ends -->
-                <!-- partial:partials/_footer.html -->
-                <footer class="footer">
-                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright ©
-                            Project Group 37 <a href="https://www.bootstrapdash.com/" target="_blank">Sinhgad
-                                College Of Engineering</a> (Computer Department). All rights reserved.</span>
-                        <!-- <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
-          -->
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- simple calendar -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- simple calendar -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id='calendar1'></div>
+                            </div>
+                        </div>
                     </div>
-                </footer>
-                <!-- partial -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- end simple calendar -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- end simple calendar -->
+                <!-- ============================================================== -->
+
             </div>
-            <!-- main-panel ends -->
         </div>
-        <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-
-    <!-- plugins:js -->
-    <script src="{% static 'newassets/vendor/js/vendor.bundle.base.js' %}"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="{% static 'newassets/vendor/chart.js/Chart.min.js' %}"></script>
-    <script src="{% static 'newassets/vendor/datatables.net/jquery.dataTables.js' %}"></script>
-    <script src="{% static 'newassets/vendor/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
-    <script src="{% static 'newassets/js/dataTables.select.min.js' %}"></script>
-
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{% static 'newassets/js/off-canvas.js' %}"></script>
-    <script src="{% static 'newassets/js/hoverable-collapse.js' %}"></script>
-    <script src="{% static 'newassets/js/template.js' %}"></script>
-    <script src="{% static 'newassets/js/settings.js' %}"></script>
-    <script src="{% static 'newassets/js/todolist.js' %}"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="{% static 'newassets/js/dashboard.js' %}"></script>
-    <script src="{% static 'newassets/js/Chart.roundedBarCharts.js' %}"></script>
-    <!-- End custom js for this page-->
-
-    <script src="{% static 'newassets/vendor/owl-carousel-2/owl.carousel.min.js' %}"></script>
-
-    <script src="{% static 'newassets/js/owl-carousel.js' %}"></script>
 
 
-    <script src="{%static 'diagnose/vendor/gauge/gauge.min.js' %}"></script>
-    <script src="{% static 'diagnose/vendor/gauge/gauge.js' %} "></script>
 
+
+
+
+
+    <!-- calendar scripts -->
+    <script src="{% static 'diagnose/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'diagnose/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <!-- <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script> -->
+    <script src="{% static 'calendar/full-calendar/js/moment.min.js' %}"></script>
+    <script src="{% static 'calendar/full-calendar/js/fullcalendar.js' %}"></script>
+    <script src="{% static 'calendar/full-calendar/js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'calendar/full-calendar/js/calendar.js' %}"></script>
+
+    <!-- calendar scripts -->
 </body>
 
 </html>

@@ -92,7 +92,7 @@ def diangnose(request):
     vals = [round(val,2) for val in top_diseases.values() ]
     context['top_diseases'] = {'diseases': dict(zip(list(top_diseases.keys()),vals)), 'names': json.dumps(list(top_diseases.keys())), 'scores':list(top_diseases.values())}
     print(context)
-    return render(request, 'diagnose/diagnoseDash.html', context)
+    return render(request, 'diagnose/diagnosedashextended.html', context)
 
 def diangnose2(request):
     symp=request.POST.get("symptoms")
@@ -145,7 +145,7 @@ def diangnose2(request):
 
     context = {'chosen':chosen, 'disease': disease, 'symptoms':symptoms}
 
-    return render(request, 'diagnose/diagnoseDash.html', context)
+    return render(request, 'diagnose/diagnosedashextended.html', context)
 
 
 @csrf_exempt
