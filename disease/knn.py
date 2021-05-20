@@ -22,7 +22,7 @@ def pred(countdic,ans,k):
             total+=i
         unique=list(v.keys())
         if(total+anslen<=k):
-            print(0)
+            # print(0)
             for s in unique:
                 ans[s]+=v[s]
                 v[s]=0
@@ -38,7 +38,7 @@ def pred(countdic,ans,k):
                             v[unique[i]]-=1
                             anslen+=1
                 else:
-                    print(1)
+                    # print(1)
                     for s in unique:
                         if(v[s]>=diff):
                             v[s]-=diff
@@ -52,8 +52,8 @@ def pred(countdic,ans,k):
             break
     ans=dict(sorted(ans.items(),key=operator.itemgetter(1), reverse=True))
     
-    print(k)
-    print(ans)
+    # print(k)
+    # print(ans)
     
     return ans
 
@@ -95,8 +95,8 @@ def datapreprocessing(st,columns):
             dic[x[-1]]=1
         countdic[count]=dic
     countdic=dict(OrderedDict(sorted(countdic.items())))
-    print()
-    print(countdic)
+    # print()
+    # print(countdic)
     ans={}
     for s in df.iloc[:,-1].unique():
         ans[s]=0
