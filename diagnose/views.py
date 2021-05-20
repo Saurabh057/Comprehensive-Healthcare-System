@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from disease.paralleldt import dt
 from django.views.decorators.csrf import csrf_exempt
 import json
+import pandas as pd
 import disease.inbuilt as inbuilt
 from disease.naivebayes import soln
 from disease.knn import knn
@@ -19,9 +20,12 @@ def diangnose(request):
     s=symp.split(',')
     sys=[]
     i=0
+    df=pd.read_csv("disease/Training.csv",header=0)
+    cols=list(df.columns)[:-1]
     while(i<len(s)):
         if(s[i+1]=='1'):
-            sys.append(s[i])
+            if(s[i] in cols):
+                sys.append(s[i])
         i=i+2
     print(sys)
     nb=soln(sys)
@@ -99,9 +103,12 @@ def diangnose2(request):
     s=symp.split(',')
     sys=[]
     i=0
+    df=pd.read_csv("disease/Training.csv",header=0)
+    cols=list(df.columns)[:-1]
     while(i<len(s)):
         if(s[i+1]=='1'):
-            sys.append(s[i])
+            if(s[i] in cols):
+                sys.append(s[i])
         i=i+2
     print(sys)
     nb=inbuilt.nb(sys)
@@ -170,3 +177,6 @@ def suggest(request):
                 break
     print(json.dumps({"after":final, "before":x}))
     return HttpResponse(json.dumps({"after":final, "before":x}))
+
+def analysis(request):
+    return render(request,'diagnose/analysis.html')
