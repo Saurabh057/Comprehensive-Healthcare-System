@@ -1,32 +1,31 @@
 {% load static %}
 <!doctype html>
 <html class="no-js" lang="zxx">
-
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Health | Template</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/assets/img/favicon.ico' %}">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>CHS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/assets/img/favicon.ico' %}">
 
-  <link rel="stylesheet" href="{% static 'home/assets/css/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="{% static 'home/assets/css/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="{% static 'home/assets/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'home/assets/css/font-awesome/css/font-awesome.css">
 
-  <link rel="stylesheet" href="{% static 'home/assets/css/fontawesome-all.min.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/owl.carousel.min.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/slicknav.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/flaticon.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/gijgo.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/animate.min.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/animated-headline.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/magnific-popup.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/themify-icons.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/slick.css' %}">
-  <link rel="stylesheet" href="{% static 'home/assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/gijgo.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/animated-headline.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'home/assets/css/nice-select.css' %}">
 </head>
 
 <body>
@@ -51,7 +50,7 @@
 
             <div class="col-xl-2 col-lg-2 col-md-1">
               <div class="logo">
-                <a href="#"><img src="{% static 'home/assets/img/logo/logo.png' %}" alt=""></a>
+                <a style="margin-left:50px;" href="/"><img src="{% static 'home/assets/img/logo/logo.png' %}" alt=""></a>
               </div>
             </div>
             <div class="col-xl-10 col-lg-10 col-md-10">
@@ -60,24 +59,15 @@
                 <div class="main-menu f-right d-none d-lg-block">
                   <nav>
                     <ul id="navigation">
-                      <li><a href="index.html">Home</a></li>
+                      <li><a href="#">Home</a></li>
                       <li><a href="about">About</a></li>
-                      <li><a href="services.html">Services</a></li>
-                      <li><a href="blog.html">Blog</a>
-                        <ul class="submenu">
-                          <li><a href="blog.html">Blog</a></li>
-                          <li><a href="blog_details.html">Blog Details</a></li>
-                          <li><a href="elements.html">Element</a></li>
                         </ul>
-                      </li>
-                      <li><a href="contact.html">Contact</a></li>
-                    </ul>
                   </nav>
                 </div>
                 <div class="header-right-btn f-right d-none d-lg-block ml-15">
                   {% if user.is_authenticated %}
                   <!-- <h4>Hello, {{user.first_name}}</h4> -->
-                  <a href="log/logout" class="btn header-btn1">Hello, {{user.first_name}}
+                  <a href="log/logout" id="logout" class="btn header-btn1">Hello, {{user.first_name}}
                   </a>
 
                   {% else %}
@@ -117,6 +107,9 @@
                     <a href="dashboard" class="btn" data-animation="fadeInLeft" data-delay=".3s">Take a Service</a>
                   </div>
                 </div>
+              </div>
+              <div class="col">
+                <img src="">
               </div>
             </div>
           </div>
@@ -159,10 +152,10 @@
                 <h2>Create a healthy
                   life you love!</h2>
               </div>
-              <p class="pera-top mb-40">Almost before we knew it, we had left the ground</p>
-              <p class="pera-bottom mb-30">Praesent porttitor, nulla vitae posuere iaculis, arcu nisl
-                dignissim dolor, a pretium mi sem ut ipsum. Fusce
-                fermentum. Pellentesque libero tortor, tincidunt et.</p>
+              <!-- <p class="pera-top mb-40">Almost before we knew it, we had left the ground</p> -->
+              <p class="pera-bottom mb-30">Sometimes we need the help of doctors, but due to our helter-skelter lifestyle we choose to ignore it or sometimes we may overvalue it. But it might lead to some serious concerns. 
+In rural areas, doctors are available but they are not specialists, so they may not give a thought to considering seriousness of disease.<br> 
+So, Here we are to connect all the medical system.</p>
               <div class="icon-about">
                 <img src="{% static 'home/assets/img/icon/about1.svg' %}" alt="" class=" mr-20">
                 <img src="{% static 'home/assets/img/icon/about2.svg' %}" alt="">
@@ -185,7 +178,7 @@
               </div>
             </div>
             <div class="col-xl-2 col-lg-3 col-md-4">
-              <a href="services.html" class="btn f-right sm-left">Take a Service</a>
+              <a href="#" class="btn f-right sm-left">Take a Service</a>
             </div>
           </div>
         </div>
@@ -201,10 +194,9 @@
                 <img src="{% static 'home/assets/img/icon/services1.svg' %}" alt="">
               </div>
               <div class="cat-cap">
-                <h5><a href="services.html">Physical Activity</a></h5>
-                <p>Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi sem ut
-                  ipsum.</p>
-                <a href="services.html" class="plus-btn"><i class="ti-plus"></i></a>
+                <h5><a href="#">Virtual Health Advisor</a></h5>
+                <p>Now you can avail any medical help in just one click. We are here to help you  right from Consulting doctor to getting your medicines home delivery we do everything on the palm of your hand..</p>
+                <a href="#" class="plus-btn"><i class="ti-plus"></i></a>
               </div>
             </div>
           </div>
@@ -214,10 +206,9 @@
                 <img src="{% static 'home/assets/img/icon/services2.svg' %}" alt="">
               </div>
               <div class="cat-cap">
-                <h5><a href="services.html">Physical Activity</a></h5>
-                <p>Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi sem ut
-                  ipsum.</p>
-                <a href="services.html" class="plus-btn"><i class="ti-plus"></i></a>
+                <h5><a href="">AI Diagnosis</a></h5>
+                <p>Machines do everything now a days so why don't they provide a medical assistant. Well ,we do that too! With modern machine learning algorithms we analyse symptoms.</p>
+                <a href="" class="plus-btn"><i class="ti-plus"></i></a>
               </div>
             </div>
           </div>
@@ -227,10 +218,9 @@
                 <img src="{% static 'home/assets/img/icon/services3.svg' %}" alt="">
               </div>
               <div class="cat-cap">
-                <h5><a href="services.html">Physical Activity</a></h5>
-                <p>Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi sem ut
-                  ipsum.</p>
-                <a href="services.html" class="plus-btn"><i class="ti-plus"></i></a>
+                <h5><a href="">Caboodle</a></h5>
+                <p>So as you have got an idea till now we do everything ! Right from keeping your medical history to provide you one click medical assistant so ya, the whole kit and caboodle..</p>
+                <a href="" class="plus-btn"><i class="ti-plus"></i></a>
               </div>
             </div>
           </div>
@@ -250,17 +240,16 @@
                 <div class="single-testimonial position-relative">
                   <div class="testimonial-caption">
                     <img src="{% static 'home/assets/img/icon/quotes-sign.png' %}" alt="" class="quotes-sign">
-                    <p>"The automated process starts as soon as your clothe go into the machine. This site outcome is
-                      gleaming clothe. Placeholder text commonly used. In publishing and graphic.</p>
+                    <p>"AI will not replace physicians. However, physicians who use AI will replace those who do not.</p>
                   </div>
 
                   <div class="testimonial-founder d-flex align-items-center">
                     <div class="founder-img">
-                      <img src="{% static 'home/assets/img/icon/testimonial.png' %}" alt="">
+                      <!-- <img src="{% static 'home/assets/img/icon/testimonial.png' %}" alt=""> -->
                     </div>
                     <div class="founder-text">
-                      <span>Robart Brown</span>
-                      <p>Creative designer at Colorlib</p>
+                      <span>Josh Stevens </span>
+                      <p>CEO, Keas</p>
                     </div>
                   </div>
                 </div>
@@ -268,17 +257,16 @@
                 <div class="single-testimonial position-relative">
                   <div class="testimonial-caption">
                     <img src="{% static 'home/assets/img/icon/quotes-sign.png' %}" alt="" class="quotes-sign">
-                    <p>"The automated process starts as soon as your clothe go into the machine. This site outcome is
-                      gleaming clothe. Placeholder text commonly used. In publishing and graphic.</p>
+                    <p>That’s going to be the story for the next year or so: [digital health] moving from a curiosity, to a research tool, to an actual mainstream, accepted clinical tool. I think it’s very exciting.</p>
                   </div>
 
                   <div class="testimonial-founder d-flex align-items-center">
                     <div class="founder-img">
-                      <img src="{% static 'home/assets/img/icon/testimonial.png' %}" alt="">
+                      <!-- <img src="{% static 'home/assets/img/icon/testimonial.png' %}" alt=""> -->
                     </div>
                     <div class="founder-text">
-                      <span>Robart Brown</span>
-                      <p>Creative designer at Colorlib</p>
+                      <span>Corey Bridges</span>
+                      <p>CEO, LifeMap Solutions</p>
                     </div>
                   </div>
                 </div>
@@ -291,103 +279,8 @@
     </section>
 
 
-    <div class="container">
-      <div class="video-area section-bg2 d-flex align-items-center"
-        data-background="{% static 'home/assets/img/gallery/video-bg.png' %}">
-        <div class="video-wrap position-relative">
-          <div class="video-icon">
-            <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=up68UAfH0d0"><i
-                class="fas fa-play"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <section class="home-blog-area section-padding30">
-      <div class="container">
-
-        <div class="row justify-content-center">
-          <div class="col-lg-7 col-md-9 col-sm-10">
-            <div class="section-tittle text-center mb-100">
-              <h2>Latest Blog</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6">
-            <div class="home-blog-single mb-40">
-              <div class="blog-img-cap">
-                <div class="blog-img">
-                  <img src="{% static 'home/assets/img/gallery/blog1.png' %}" alt="">
-                </div>
-                <div class="blog-cap">
-                  <h3><a href="blog_details.html">Your daily meal plan</a></h3>
-                  <P>Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi
-                    sem ut ipsum.</P>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="home-blog-single mb-40">
-              <div class="blog-img-cap">
-                <div class="blog-img">
-                  <img src="{% static 'home/assets/img/gallery/blog2.png' %}" alt="">
-                </div>
-                <div class="blog-cap">
-                  <h3><a href="blog_details.html">Food is a great source of medicine</a></h3>
-                  <P>Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi
-                    sem ut ipsum.</P>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="home-blog-single mb-40">
-              <div class="blog-img-cap">
-                <div class="blog-img">
-                  <img src="{% static 'home/assets/img/gallery/blog3.png' %}" alt="">
-                </div>
-                <div class="blog-cap">
-                  <h3><a href="blog_details.html">Everyday diet plan</a></h3>
-                  <P>Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi
-                    sem ut ipsum.</P>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="about-low-area mt-30">
-      <div class="container">
-        <div class="about-cap-wrapper">
-          <div class="row">
-            <div class="col-xl-5  col-lg-6 col-md-10 offset-xl-1">
-              <div class="about-caption mb-50">
-
-                <div class="section-tittle mb-35">
-                  <h2>100% satisfaction guaranteed.</h2>
-                </div>
-                <p>Almost before we knew it, we had left the ground</p>
-                <a href="about.html" class="border-btn">Make an Appointment</a>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-
-              <div class="about-img">
-                <div class="about-font-img">
-                  <img src="{% static 'home/assets/img/gallery/about2.png' %}" alt="">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    
+    
 
   </main>
   <footer>
@@ -399,90 +292,63 @@
               <div class="single-footer-caption mb-50">
 
                 <div class="footer-logo mb-25">
-                  <a href="index.html"><img src="{% static 'home/assets/img/logo/logo2_footer.png' %}" alt=""></a>
+                  <a href="/"><img src="{% static 'home/assets/img/logo/logo_footer.png' %}" alt=""></a>
                 </div>
                 <d iv class="header-area">
                   <div class="main-header main-header2">
                     <div class="menu-main d-flex align-items-center justify-content-start">
 
-                      <div class="main-menu main-menu2">
-                        <nav>
-                          <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                          </ul>
-                        </nav>
-                      </div>
+                      
                     </div>
                   </div>
                 </d>
 
-                <div class="footer-social mt-50">
+                <!-- <div class="footer-social mt-50">
                   <a href="#"><i class="fab fa-twitter"></i></a>
                   <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
                   <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
               <div class="single-footer-caption">
                 <div class="footer-tittle mb-50">
-                  <h4>Subscribe newsletter</h4>
+                  <h4>Reach Out to us at</h4>
                 </div>
 
                 <div class="footer-form">
                   <div id="mc_embed_signup">
-                    <form target="_blank"
-                      action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                      method="get" class="subscribe_form relative mail_part" novalidate="true">
-                      <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address "
-                        class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = 'Enter your email'">
-                      <div class="form-icon">
-                        <button type="submit" name="submit" id="newsletter-submit"
-                          class="email_icon newsletter-submit button-contactForm">
-                          Subscribe
+                    <form>
+                       <div class="form-icon">
+                        <button type="button" 
+                          class="email_icon button-contactForm">
+                          chs390118@gmail.com
                         </button>
                       </div>
                       <div class="mt-10 info"></div>
                     </form>
                   </div>
                 </div>
-                <div class="footer-tittle">
-                  <div class="footer-pera">
-                    <p>Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium misem ut
-                      ipsum.</p>
-                  </div>
-                </div>
-              </div>
+                
             </div>
           </div>
         </div>
       </div>
 
-      <div class="footer-bottom-area">
-        <div class="container">
-          <div class="footer-border">
-            <div class="row">
-              <div class="col-xl-10 ">
-                <div class="footer-copy-right">
-                  <p>
-                    Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
-                    made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                      target="_blank">Colorlib</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
   </footer>
+      <footer>
+        <div class="footer-copy-right text-center " >
+            <p>
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved |
+               Made For SCOE COMP by <a
+                    href="" target="_blank" style="color: black !important;">AYS</a>
+            </p>
+        </div>
+    </footer>
+
 
   <div id="back-top">
     <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i>
@@ -490,50 +356,65 @@
     </a>
   </div>
 
-  <script src="{% static 'home/assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+      <script src="{% static 'home/assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
 
-  <script src="{% static 'home/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
-  <script src="{% static 'home/assets/js/popper.min.js' %}"></script>
-  <script src="{% static 'home/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/bootstrap.min.js' %}"></script>
 
-  <script src="{% static 'home/assets/js/jquery.slicknav.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/jquery.slicknav.min.js' %}"></script>
 
-  <script src="{% static 'home/assets/js/owl.carousel.min.js' %}"></script>
-  <script src="{% static 'home/assets/js/slick.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/slick.min.js' %}"></script>
 
-  <script src="{% static 'home/assets/js/wow.min.js' %}"></script>
-  <script src="{% static 'home/assets/js/animated.headline.js' %}"></script>
-  <script src="{% static 'home/assets/js/jquery.magnific-popup.js' %}"></script>
+    <script src="{% static 'home/assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/animated.headline.js' %}"></script>
+    <script src="{% static 'home/assets/js/jquery.magnific-popup.js' %}"></script>
 
-  <script src="{% static 'home/assets/js/gijgo.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/gijgo.min.js' %}"></script>
 
-  <script src="{% static 'home/assets/js/jquery.nice-select.min.js' %}"></script>
-  <script src="{% static 'home/assets/js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'home/assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/jquery.sticky.js' %}"></script>
 
-  <script src="{% static 'home/assets/js/jquery.counterup.min.js' %}"></script>
-  <script src="{% static 'home/assets/js/waypoints.min.js' %}"></script>
-  <script src="{% static 'home/assets/js/jquery.countdown.min.js' %}"></script>
-  <script src="{% static 'home/assets/js/hover-direction-snake.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/hover-direction-snake.min.js' %}"></script>
 
-  <script src="{% static 'home/assets/js/contact.js' %}"></script>
-  <script src="{% static 'home/assets/js/jquery.form.js' %}"></script>
-  <script src="{% static 'home/assets/js/jquery.validate.min.js' %}"></script>
-  <script src="{% static 'home/assets/js/mail-script.js' %}"></script>
-  <script src="{% static 'home/assets/js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/contact.js' %}"></script>
+    <script src="{% static 'home/assets/js/jquery.form.js' %}"></script>
+    <script src="{% static 'home/assets/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'home/assets/js/mail-script.js' %}"></script>
+    <script src="{% static 'home/assets/js/jquery.ajaxchimp.min.js' %}"></script>
 
-  <script src="{% static 'home/assets/js/plugins.js' %}"></script>
-  <script src="{% static 'home/assets/js/main.js' %}"></script>
+    <script src="{% static 'home/assets/js/plugins.js' %}"></script>
+    <script src="{% static 'home/assets/js/main.js' %}"></script>
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    gtag('config', 'UA-23581568-13');
-  </script>
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
-    data-cf-beacon='{"version":"2021.1.1","rayId":"613f997d7df041c5","si":10}'></script>
+        gtag('config', 'UA-23581568-13');
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"version":"2021.1.1","rayId":"613f997d7df041c5","si":10}'></script>
+   <script >
+     
+        // $("#logout").html("{{user.first_name}}");
+        $('#logout').hover(
+              function() {
+                  var $this = $(this); // caching $(this)
+                  $this.data('defaultText', $this.text());
+                  $this.text("Logout!");
+              },
+              function() {
+                  var $this = $(this); // caching $(this)
+                  $this.text($this.data('defaultText'));
+              }
+          );
+    </script>
 </body>
 
 </html>
