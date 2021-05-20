@@ -170,3 +170,6 @@ def suggest(request):
                 break
     print(json.dumps({"after":final, "before":x}))
     return HttpResponse(json.dumps({"after":final, "before":x}))
+
+def analysis(request):
+    return render(request,'diagnose/analysis.html')
