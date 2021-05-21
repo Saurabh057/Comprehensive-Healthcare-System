@@ -11,14 +11,21 @@
                     <br><br>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-                    <h5 class="mb-0">Here is the list of Doctors for you {{user.first_name}}....</h5>
+                    <h5 class="mb-0">Here is the list of Doctors for you {{user.first_name}}.... 
+                        <span class="ml-5">
+                            <i class="icon-search"></i>
+                            <input type="text" id="city" class="form-control-sm" name="city" placeholder="Enter City">
+                            <button id="search"  class="btn btn-secondary">Search</button>
+                            <button id="clearsearch"  class="btn btn-info">Clear Selection</button>
+                        </span>
+                    </h5>
                     </div>            
                 </div>
-                <div class="row"><br></div>
-               <div class="row">
+                <div class="row searchresult"></div>
+               <div class="row mt-5">
                     {%for i,doc in data %}    
-                   
                    <div class="col-md-3 grid-margin stretch-card">
+                     <div class="filterDiv {{doc.city.lower}}">
                             <div class="card ">
                                 <div class="card-body">
                                     <div class="d-sm-flex justify-content-center flex-row flex-wrap text-left text-sm-left align-items-left">
@@ -26,6 +33,7 @@
                                         <div class="ml-sm-3 ml-md-0 ml-xl-3 mt-2 mt-sm-0 mt-md-2 mt-xl-0">
                                             <h6 class="mb-0 mt-2">{{doc.name}}</h6>
                                             <p class="text-muted mb-1">{{doc.username}}</p>
+                                            <p class="text-muted mb-1">{{doc.city|title}}</p>
                                             <p class="mb-0 text-success font-weight-bold">Average Rating : {{doc.rating.0}}/5 
                                             <span class="fa fa-star checked"></span>
 
@@ -40,6 +48,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                         {% endfor %}
                     
                </div>
@@ -112,4 +121,37 @@
 
                     // });
                 </script>
+
+                <script >
+                $('#clearsearch').on('click', function () {
+                        
+                        $('.searchresult').empty();
+                        $('.filterDiv').show();
+
+                });
+                    
+                $('#search').on('click', function () {
+                $('.searchresult').empty();
+                    $('.filterDiv').show();
+                    var city=$("#city").val().toLowerCase();
+                    if(city==''){
+                        return                         
+                    }
+                    // alert(city);
+                    filterSelection(city);
+                });
+
+
+            function filterSelection(c) {
+
+              $('.filterDiv').hide();
+              var cityclone = $('.'+c).clone()
+              $('.searchresult').append(cityclone);
+              $('.searchresult').children().show();
+            }
+
+            // Show filtered elements
+        
+                </script>
+
 {% endblock content %}

@@ -58,7 +58,7 @@ def signup(request):
 			user = User.objects.create_user(username=username, password=password,email=username, first_name =first_name, last_name = last_name)
 			user.save()
 
-			details = AddtionalDetails(username=username,name=name,phone=phone,bdate=bdate,address=address,city=city,pin=pin,gender=gender,profession=profession,notifications=noti)
+			details = AddtionalDetails(username=username,name=name,phone=phone,bdate=bdate,address=address,city=city,pin=pin,gender=gender,profession=profession,notifications=noti,rating=[0,0])
 			details.save()
 			dirname="static/media/"+username
 			if not os.path.exists(os.path.join(BASE_DIR, dirname)):
