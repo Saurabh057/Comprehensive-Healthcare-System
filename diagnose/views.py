@@ -9,6 +9,7 @@ import disease.inbuilt as inbuilt
 from disease.naivebayes import soln
 from disease.knn import knn
 from disease.decisiontree import decisiontree
+import operator
 # Create your views here.
 def home(request):
     return render(request,'diagnose/newindex.html')
@@ -180,3 +181,21 @@ def suggest(request):
 
 def analysis(request):
     return render(request,'diagnose/analysis.html')
+@csrf_exempt
+def bardata(request):
+    inp=request.POST.get("symp")
+    print(inp)
+    df=pd.read_csv("disease/Training.csv",header=0,usecols=[inp,'prognosis'])
+    print(df)
+    df=df.loc[df[inp]!=0]
+    ans={}
+    for i in df.iloc[:,-1].unique():
+       ans[i]=len(df.loc[df["prognosis"]==i])
+    ans=dict(sorted(ans.items(),key=operator.itemgetter(1), reverse=True))
+    print(ans)
+    col=[]
+    colors=['#191970','#FF8C00','#006400','#FFF5EE','#000080','#FF1493','#8B0000','#FFD700','#DDA0DD','#FFFFE0','#FFFAF0','#FFA07A','#A0522D','#FF00FF','#DC143C','#E9967A','#00FFFF','#5F9EA0','#FFDAB9','#32CD32','#BDB76B']
+    for i in range(len(ans)):
+        col.append(colors[i])
+    print({"xval":list(ans.keys()),"yval":list(ans.values()),"colors":col})
+    return HttpResponse(json.dumps({"xval":list(ans.keys()),"yval":list(ans.values()),"colors":col})) 

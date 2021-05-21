@@ -23,5 +23,6 @@ urlpatterns = [
     path('dash',views.diangnose, name="home"),
     path('suggest',views.suggest,name="suggest"),
     path('analysis',views.analysis,name="analysis"),
+    path('bardata',views.bardata,name="bardata"),
     # path('suggest',views.suggest,name="suggest")
 ]

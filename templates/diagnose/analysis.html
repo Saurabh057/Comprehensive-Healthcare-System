@@ -3,6 +3,38 @@
 
 {% block content %}
 
+<style>
+    .dropbtn {
+        background-color: #3498DB;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        }
+
+        /* Dropdown button on hover & focus */
+        .dropbtn:hover, .dropbtn:focus {
+        background-color: #2980B9;
+        }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+        position: relative;
+        display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        }
+
+</style>
 
 <div class="container-fluid  dashboard-content">
     <!-- ============================================================== -->
@@ -11,8 +43,8 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="page-header">
-                <h2 class="pageheader-title">Chartist.js </h2>
-                <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                <h2 class="pageheader-title">HealthCare Data Analysis </h2>
+                <p class="pageheader-text">Here is some information of current health affairs and our system datasets</p>
                
 
 
@@ -24,15 +56,19 @@
     <!-- ============================================================== -->
     <!-- end pageheader -->
     <!-- ============================================================== -->
+    <br>
+    <h3 class="pageheader-title">Latest Updates: </h3>
     <div class="row">
         <!-- ============================================================== -->
         <!-- simple line chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card analCard">
-                <h5 class="card-header">Simple Line Chart</h5>
+                <h5 class="card-header">Covid-19 Statistics of India </h5>
                 <div class="card-body">
-                    <div class="ct-chart-line ct-golden-section"></div>
+                    <div class="ct-chart-line ct-golden-section">
+                            <canvas id="ct-chart-line" style="display: block; " class="chartjs-render-monitor"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,27 +78,32 @@
         <!-- ============================================================== -->
         <!-- holes in data chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+      <!--  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Holes In Data</h5>
                 <div class="card-body">
                     <div class="ct-chart-holes ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- end holes in data chart  -->
         <!-- ============================================================== -->
     </div>
+    <br>
+    <br>
+    <br>
     <div class="row">
         <!-- ============================================================== -->
         <!-- whole numbers chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card analCard">
-                <h5 class="card-header">Whole Numbers</h5>
+                <h5 class="card-header">Top 15 countries with highest Covid-19 cases all over the world</h5>
                 <div class="card-body">
-                    <div class="ct-chart-wnumbers ct-golden-section"></div>
+                    <div class="ct-chart-wnumbers ct-golden-section">
+                        <canvas id="ct-chart-wnumbers" style="display: block; " class="chartjs-render-monitor"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,14 +113,14 @@
         <!-- ============================================================== -->
         <!-- line scatter chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+       <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Line Scatter Diagram With Responsive Settings</h5>
                 <div class="card-body">
                     <div class="ct-chart-scatter ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- end line scatter chart  -->
         <!-- ============================================================== -->
@@ -88,43 +129,67 @@
         <!-- ============================================================== -->
         <!-- line chart with area  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Line Chart With Area</h5>
                 <div class="card-body">
                     <div class="ct-chart-area ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- end line chart with area  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- bi polar chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Bi-polar Line Chart With Area Only</h5>
                 <div class="card-body">
                     <div class="ct-chart-polar ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- end bi polar chart  -->
         <!-- ============================================================== -->
     </div>
+    <br>
+    <br>
+    <br>
+    <h3 class="pageheader-title">System Dataset Analysis: </h3> 
+    <br>
     <div class="row">
         <!-- ============================================================== -->
         <!--stacked bar chart  -->
         <!-- ============================================================== -->
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
-                <h5 class="card-header">Stacked Bar Chart</h5>
+                <h5 class="card-header">Records with following sympyoms</h5>
                 <div class="card-body">
-                    <div class="ct-chart-scatter-bar ct-golden-section"></div>
+                    <select name="symtopms" id="symptoms" onchange='getdata(this.value)'>
+                    </select>
+                    <div class="ct-chart-scatter-bar ct-golden-section" id="bargraph">
+                        
+                        <canvas id="ct-chart-scatter-bar" style="display: block; height:199;width:150 " class="chartjs-render-monitor"></canvas>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-5" >
+        <br><br>
+            <h4 class="pageheader-title"><u>Description:</u></h4>
+            <h6 ><br> &emsp;&emsp; This is the simple statistical analysis of our datasets.<br><br> <br>1. Provide the symptom as input.<br><br><br>2. The system gets data of diseases experienced while facing given symptom. 
+            <br><br><br> 3.Graphical represetation of information received.</h6>
+           <!-- <div class="card analCard">
+                
+                <div class="card-body">
+                    <div class="ct-chart-scatter-bar ct-golden-section" id="bargraph">
+                        
+                    </div>
+                </div>
+            </div>-->
         </div>
         <!-- ============================================================== -->
         <!--end stacked bar chart  -->
@@ -132,14 +197,14 @@
         <!-- ============================================================== -->
         <!--multi line chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Multi Line Labels</h5>
                 <div class="card-body">
                     <div class="ct-chart-multilines ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!--end multi line chart  -->
         <!-- ============================================================== -->
@@ -148,28 +213,28 @@
         <!-- ============================================================== -->
         <!--multi line lables chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Multi-line Labels</h5>
                 <div class="card-body">
                     <div class="ct-chart-bipolar ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- end multi line lables chart  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- peak circle using the draw  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Add Peak Circles Using The Draw Events</h5>
                 <div class="card-body">
                     <div class="ct-chart-events ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- end peak circle using the draw  -->
         <!-- ============================================================== -->
@@ -178,72 +243,89 @@
         <!-- ============================================================== -->
         <!-- advanced smill chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Advanced Smil Animations</h5>
                 <div class="card-body">
                     <div class="ct-chart-animation ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- end advanced smill chart  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- horizontal chart bar  -->
         <!-- ============================================================== -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+        <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Horizontal Chart Bar</h5>
                 <div class="card-body">
                     <div class="ct-chart-horizontal ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>>--
         <!-- ============================================================== -->
         <!-- end horizontal chart bar  -->
         <!-- ============================================================== -->
     </div>
+    <br>
     <div class="row">
         <!-- ============================================================== -->
         <!-- simple pie chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-            <div class="card analCard">
-                <h5 class="card-header">Simple Pie Chart</h5>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-5" >
+        <br><br>
+            <h4 class="pageheader-title"><u>Description:</u></h4>
+            <h6 ><br> &emsp;&emsp; These are the 5 most experienced symptoms in out dataset. <br><br> 1.Fatigue <br><br> 2.Vomiting <br><br> 3.High Fever <br><br> 4.Loss of appetite <br><br> 5.Nausea </h6>
+           <!-- <div class="card analCard">
+                
                 <div class="card-body">
-                    <div class="ct-chart-pie ct-golden-section"></div>
+                    <div class="ct-chart-scatter-bar ct-golden-section" id="bargraph">
+                        
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="card analCard">
+                <h5 class="card-header">Top 5 sympstoms</h5>
+                <div class="card-body">
+                    <div class="ct-chart-pie ct-golden-section">
+                        <canvas id="ct-chart-pie" style="display: block; height:199;width:150 " class="chartjs-render-monitor"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
+        
         <!-- ============================================================== -->
         <!-- end simple pie chart  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- donut chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+       <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Donut Chart Using Fill Rather Than Stroke</h5>
                 <div class="card-body">
                     <div class="ct-chart-donut ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- end donut chart  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- animations donut chart  -->
         <!-- ============================================================== -->
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+       <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
             <div class="card analCard">
                 <h5 class="card-header">Animating A Donut With Svg.animate</h5>
                 <div class="card-body">
                     <div class="ct-chart-animated ct-golden-section"></div>
                 </div>
             </div>
-        </div>
+        </div>-->
         <!-- ============================================================== -->
         <!-- end animations donut chart  -->
         <!-- ============================================================== -->
@@ -253,35 +335,180 @@
 
 
 
-
 <script src="{%static 'diagnose/vendor/chartist-bundle/chartist.min.js' %}"></script>
 <script src="{%static 'diagnose/vendor/chartist-bundle/chartist-plugin-threshold.js' %}"></script>
+<script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
 <script>
+
+    
+    var countries = ["itching", "skin_rash", "nodal_skin_eruptions", "continuous_sneezing", "shivering", "chills", "joint_pain", "stomach_pain", "acidity", "ulcers_on_tongue", "muscle_wasting", "vomiting", "burning_micturition", "spotting_ urination", "fatigue", "weight_gain", "anxiety", "cold_hands_and_feets", "mood_swings", "weight_loss", "restlessness", "lethargy", "patches_in_throat", "irregular_sugar_level", "cough", "high_fever", "sunken_eyes", "breathlessness", "sweating", "dehydration", "indigestion", "headache", "yellowish_skin", "dark_urine", "nausea", "loss_of_appetite", "pain_behind_the_eyes", "back_pain", "constipation", "abdominal_pain", "diarrhoea", "mild_fever", "yellow_urine", "yellowing_of_eyes", "acute_liver_failure", "fluid_overload", "swelling_of_stomach", "swelled_lymph_nodes", "malaise", "blurred_and_distorted_vision", "phlegm", "throat_irritation", "redness_of_eyes", "sinus_pressure", "runny_nose", "congestion", "chest_pain", "weakness_in_limbs", "fast_heart_rate", "pain_during_bowel_movements", "pain_in_anal_region", "bloody_stool", "irritation_in_anus", "neck_pain", "dizziness", "cramps", "bruising", "obesity", "swollen_legs", "swollen_blood_vessels", "puffy_face_and_eyes", "enlarged_thyroid", "brittle_nails", "swollen_extremeties", "excessive_hunger", "extra_marital_contacts", "drying_and_tingling_lips", "slurred_speech", "knee_pain", "hip_joint_pain", "muscle_weakness", "stiff_neck", "swelling_joints", "movement_stiffness", "spinning_movements", "loss_of_balance", "unsteadiness", "weakness_of_one_body_side", "loss_of_smell", "bladder_discomfort", "foul_smell_of urine", "continuous_feel_of_urine", "passage_of_gases", "internal_itching", "toxic_look_(typhos)", "depression", "irritability", "muscle_pain", "altered_sensorium", "red_spots_over_body", "belly_pain", "abnormal_menstruation", "dischromic _patches", "watering_from_eyes", "increased_appetite", "polyuria", "family_history", "mucoid_sputum", "rusty_sputum", "lack_of_concentration", "visual_disturbances", "receiving_blood_transfusion", "receiving_unsterile_injections", "coma", "stomach_bleeding", "distention_of_abdomen", "history_of_alcohol_consumption", "fluid_overload", "blood_in_sputum", "prominent_veins_on_calf", "palpitations", "painful_walking", "pus_filled_pimples", "blackheads", "scurring", "skin_peeling", "silver_like_dusting", "small_dents_in_nails", "inflammatory_nails", "blister", "red_sore_around_nose", "yellow_crust_ooze", "prognosis"];
+    for(var i=0;i<countries.length;i++){
+        $('#symptoms').append("<option value='"+ countries[i] +"'>"+ countries[i] +"</option>");
+    }
+    function getdata(val){
+        //alert(val);
+            if(val!="none"){
+                $.ajax({
+                    type: "POST",
+                    url: 'bardata',
+                    data: {"symp":val},
+                    success: function(data){
+                        data=JSON.parse(data);
+                        //alert(data["xval"]);
+                        
+                        $("#bargraph").empty();
+                        $("#bargraph").append(`<canvas id="ct-chart-scatter-bar" style="display: block; " class="chartjs-render-monitor"></canvas>`)
+                        var y = document.getElementById("ct-chart-scatter-bar").getContext('2d');
+                        new Chart(y, {
+                            type: "bar",
+                            data: {
+                                labels: data["xval"],
+                                datasets: [{
+                                    label: 'Diseases',
+                                backgroundColor: data["colors"],
+                                data: data["yval"]
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero:true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+                    }
+                })
+            }  
+        }
+
     (function(window, document, $, undefined) {
+
     "use strict";
+    getdata("itching");
     $(function() {
 
-        if ($('.ct-chart-line').length) {
+     /*  if ($('.ct-chart-line').length) {
             new Chartist.Line('.ct-chart-line', {
-                labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                labels: [ 'United States of America', 'India', 'Brazil', 'France', 'Turkey', 'Russian Federation', 'The United Kingdom', 'Italy', 'Spain', 'Germany', 'Argentina', 'Colombia', 'Poland', 'Iran (Islamic Republic of)'],
                 series: [
-                    [12, 9, 7, 8, 5],
-                    [2, 1, 3.5, 7, 3],
-                    [1, 3, 4, 5, 6]
+                    [580983, 283248, 436537, 107234, 45186, 116575, 127691, 124497, 79502, 86665, 71027, 81809, 72250,77532],
+                    [32647162, 25496330, 15657391, 5802138, 5139485, 4957756, 4450396, 4167025, 3619848, 3614095, 3335965, 3131410, 2859261, 2779415],
+                    
                 ]
             }, {
                 fullWidth: true,
                 chartPadding: {
-                    right: 40
+                    right: 40,
+                    left:40,
+                    bottom:40
                 },
-                axisY: {
-                    
-                }
+                low:0,
+                
             });
 
-        }
+        }*/
+              /*  var y = document.getElementById("ct-chart-wnumbers").getContext('2d');
+                        new Chart(y, {
+                            type: "line",
+                            data: {
+                                labels: [ 'United States of America', 'India', 'Brazil', 'France', 'Turkey', 'Russian Federation', 'The United Kingdom', 'Italy', 'Spain', 'Germany', 'Argentina', 'Colombia', 'Poland', 'Iran (Islamic Republic of)'],
+                                datasets: [
+                                    {
+                                        label:"Total cases",
+                                        fill:false,
+                                        borderColor:'blue',
+                                        data: [32647162, 25496330, 15657391, 5802138, 5139485, 4957756, 4450396, 4167025, 3619848, 3614095, 3335965, 3131410, 2859261, 2779415],
+                                    },
+                                    {
+                                        label:"Total deaths",
+                                        fill:false,
+                                        borderColor:'red',
+                                        data:[580983, 283248, 436537, 107234, 45186, 116575, 127691, 124497, 79502, 86665, 71027, 81809, 72250, 77532]
+                                    }
+                                ]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                           // beginAtZero:true
+                                        }
+                                    }]
+                                }
+                            }
+                        });*/
+                        var y = document.getElementById("ct-chart-line").getContext('2d');
+                        new Chart(y, {
+                            type: "line",
+                            data: {
+                                labels: ['2020-01-30', '2020-01-31', '2020-02-01', '2020-02-02', '2020-02-03', '2020-02-04', '2020-02-05', '2020-02-06', '2020-02-07', '2020-02-08', '2020-02-09', '2020-02-10', '2020-02-11', '2020-02-12', '2020-02-13', '2020-02-14', '2020-02-15', '2020-02-16', '2020-02-17', '2020-02-18', '2020-02-19', '2020-02-20', '2020-02-21', '2020-02-22', '2020-02-23', '2020-02-24', '2020-02-25', '2020-02-26', '2020-02-27', '2020-02-28', '2020-02-29', '2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05', '2020-03-06', '2020-03-07', '2020-03-08', '2020-03-09', '2020-03-10', '2020-03-11', '2020-03-12', '2020-03-13', '2020-03-14', '2020-03-15', '2020-03-16', '2020-03-17', '2020-03-18', '2020-03-19', '2020-03-20', '2020-03-21', '2020-03-22', '2020-03-23', '2020-03-24', '2020-03-25', '2020-03-26', '2020-03-27', '2020-03-28', '2020-03-29', '2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02', '2020-04-03', '2020-04-04', '2020-04-05', '2020-04-06', '2020-04-07', '2020-04-08', '2020-04-09', '2020-04-10', '2020-04-11', '2020-04-12', '2020-04-13', '2020-04-14', '2020-04-15', '2020-04-16', '2020-04-17', '2020-04-18', '2020-04-19', '2020-04-20', '2020-04-21', '2020-04-22', '2020-04-23', '2020-04-24', '2020-04-25', '2020-04-26', '2020-04-27', '2020-04-28', '2020-04-29', '2020-04-30', '2020-05-01', '2020-05-02', '2020-05-03', '2020-05-04', '2020-05-05', '2020-05-06', '2020-05-07', '2020-05-08', '2020-05-09', '2020-05-10', '2020-05-11', '2020-05-12', '2020-05-13', '2020-05-14', '2020-05-15', '2020-05-16', '2020-05-17', '2020-05-18', '2020-05-19', '2020-05-20', '2020-05-21', '2020-05-22', '2020-05-23', '2020-05-24', '2020-05-25', '2020-05-26', '2020-05-27', '2020-05-28', '2020-05-29', '2020-05-30', '2020-05-31', '2020-06-01', '2020-06-02', '2020-06-03', '2020-06-04', '2020-06-05', '2020-06-06', '2020-06-07', '2020-06-08', '2020-06-09', '2020-06-10', '2020-06-11', '2020-06-12', '2020-06-13', '2020-06-14', '2020-06-15', '2020-06-16', 
+                                    '2020-06-17', '2020-06-18', '2020-06-19', '2020-06-20', '2020-06-21', '2020-06-22', '2020-06-23', '2020-06-24', '2020-06-25', '2020-06-26', '2020-06-27', '2020-06-28', '2020-06-29', '2020-06-30', '2020-07-01', '2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09', '2020-07-10', '2020-07-11', '2020-07-12', '2020-07-13', '2020-07-14', '2020-07-15', '2020-07-16', '2020-07-17', '2020-07-18', '2020-07-19', '2020-07-20', '2020-07-21', '2020-07-22', '2020-07-23', '2020-07-24', '2020-07-25', '2020-07-26', '2020-07-27', '2020-07-28', '2020-07-29', '2020-07-30', '2020-07-31', '2020-08-01', '2020-08-02', '2020-08-03', '2020-08-04', '2020-08-05', '2020-08-06', '2020-08-07', '2020-08-08', '2020-08-09', '2020-08-10', '2020-08-11', '2020-08-12', '2020-08-13', '2020-08-14', '2020-08-15', '2020-08-16', '2020-08-17', '2020-08-18', '2020-08-19', '2020-08-20', '2020-08-21', '2020-08-22', '2020-08-23', '2020-08-24', '2020-08-25', '2020-08-26', '2020-08-27', '2020-08-28', '2020-08-29', '2020-08-30', '2020-08-31', '2020-09-01', '2020-09-02', '2020-09-03', '2020-09-04', '2020-09-05', '2020-09-06', '2020-09-07', '2020-09-08', '2020-09-09', '2020-09-10', '2020-09-11', '2020-09-12', '2020-09-13', '2020-09-14', '2020-09-15', '2020-09-16', '2020-09-17', '2020-09-18', '2020-09-19', '2020-09-20', '2020-09-21', '2020-09-22', '2020-09-23', '2020-09-24', '2020-09-25', '2020-09-26', '2020-09-27', '2020-09-28', '2020-09-29', '2020-09-30', '2020-10-01', '2020-10-02', '2020-10-03', '2020-10-04', '2020-10-05', '2020-10-06', '2020-10-07', '2020-10-08', '2020-10-09', '2020-10-10', '2020-10-11', '2020-10-12', '2020-10-13', '2020-10-14', '2020-10-15', '2020-10-16', '2020-10-17', '2020-10-18', '2020-10-19', '2020-10-20', '2020-10-21', '2020-10-22', '2020-10-23', '2020-10-24', '2020-10-25', '2020-10-26', '2020-10-27', '2020-10-28', '2020-10-29', '2020-10-30', '2020-10-31', '2020-11-01', '2020-11-02', '2020-11-03', '2020-11-04', '2020-11-05', '2020-11-06', '2020-11-07', '2020-11-08', '2020-11-09', '2020-11-10', '2020-11-11', '2020-11-12', '2020-11-13', '2020-11-14', '2020-11-15', '2020-11-16', '2020-11-17', '2020-11-18', '2020-11-19', '2020-11-20', '2020-11-21', '2020-11-22', '2020-11-23', '2020-11-24', '2020-11-25', '2020-11-26', '2020-11-27', '2020-11-28', '2020-11-29', '2020-11-30', '2020-12-01', '2020-12-02', '2020-12-03', '2020-12-04', '2020-12-05', '2020-12-06', '2020-12-07', '2020-12-08', '2020-12-09', '2020-12-10', 
+                                    '2020-12-11', '2020-12-12', '2020-12-13', '2020-12-14', '2020-12-15', '2020-12-16', '2020-12-17', '2020-12-18', '2020-12-19', '2020-12-20', '2020-12-21', '2020-12-22', '2020-12-23', '2020-12-24', '2020-12-25', '2020-12-26', '2020-12-27', '2020-12-28', '2020-12-29', '2020-12-30', '2020-12-31', '2021-01-01', '2021-01-02', '2021-01-03', '2021-01-04', '2021-01-05', '2021-01-06', '2021-01-07', '2021-01-08', '2021-01-09', '2021-01-10', '2021-01-11', '2021-01-12', '2021-01-13', '2021-01-14', '2021-01-15', '2021-01-16', '2021-01-17', '2021-01-18', '2021-01-19', '2021-01-20', '2021-01-21', '2021-01-22', '2021-01-23', '2021-01-24', '2021-01-25', '2021-01-26', '2021-01-27', '2021-01-28', '2021-01-29', '2021-01-30', '2021-01-31', '2021-02-01', '2021-02-02', '2021-02-03', '2021-02-04', '2021-02-05', '2021-02-06', '2021-02-07', '2021-02-08', '2021-02-09', '2021-02-10', '2021-02-11', '2021-02-12', '2021-02-13', '2021-02-14', '2021-02-15', '2021-02-16', '2021-02-17', '2021-02-18', '2021-02-19', '2021-02-20', '2021-02-21', '2021-02-22', '2021-02-23', '2021-02-24', '2021-02-25', '2021-02-26', '2021-02-27', '2021-02-28', '2021-03-01', '2021-03-02', '2021-03-03', '2021-03-04', '2021-03-05', '2021-03-06', '2021-03-07', '2021-03-08', '2021-03-09', '2021-03-10', '2021-03-11', '2021-03-12', '2021-03-13', '2021-03-14', '2021-03-15', '2021-03-16', '2021-03-17', '2021-03-18', '2021-03-19', '2021-03-20', '2021-03-21', '2021-03-22', '2021-03-23', '2021-03-24', '2021-03-25', '2021-03-26', '2021-03-27', '2021-03-28', '2021-03-29', '2021-03-30', '2021-03-31', '2021-04-01', '2021-04-02', '2021-04-03', '2021-04-04', '2021-04-05', '2021-04-06', '2021-04-07', '2021-04-08', '2021-04-09', '2021-04-10', '2021-04-11', '2021-04-12', '2021-04-13', '2021-04-14', '2021-04-15', '2021-04-16', '2021-04-17', '2021-04-18', '2021-04-19', '2021-04-20', '2021-04-21', '2021-04-22', '2021-04-23', '2021-04-24', '2021-04-25', '2021-04-26', '2021-04-27', '2021-04-28', '2021-04-29', '2021-04-30', '2021-05-01', '2021-05-02', '2021-05-03', '2021-05-04', '2021-05-05', '2021-05-06', '2021-05-07', '2021-05-08', '2021-05-09', '2021-05-10', '2021-05-11', '2021-05-12', '2021-05-13', '2021-05-14', '2021-05-15', '2021-05-16', '2021-05-17', '2021-05-18', '2021-05-19'],
+                                datasets: [
+                                    {
+                                        label:"Total cases",
+                                        fill:false,
+                                        borderColor:'blue',
+                                        data: [1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 22, 2, 1, 3, 5, 7, 12, 2, 14, 7, 3, 26, 4, 23, 14, 22, 50, 60, 77, 73, 86, 87, 88, 30, 185, 115, 227, 146, 437, 235, 478, 525, 505, 704, 508, 485, 591, 896, 768, 918, 905, 1463, 1118, 826, 1076, 957, 1324, 1540, 1329, 1486, 1229, 1752, 1441, 1712, 1555, 1674, 1875, 1621, 1642, 2185, 2967, 2712, 3875, 2680, 3561, 3390, 3320, 3277, 4213, 3604, 3525, 3722, 3967, 3740, 4927, 5122, 4566, 6425, 5609, 6088, 6654, 6767, 6977, 6535, 
+                                        6387, 6566, 7466, 7964, 8380, 8392, 8171, 8909, 9304, 9851, 9887, 9971, 9983, 9987, 9985, 9996, 10956, 11458, 11929, 11502, 10667, 10974, 12881, 13586, 14516, 15413, 14821, 14933, 15968, 16922, 17296, 18552, 19906, 19459, 18522, 18653, 19148, 20903, 22771, 24850, 24248, 22252, 22752, 24879, 26506, 27114, 28637, 28701, 28498, 29429, 32695, 34956, 34884, 38902, 40425, 37148, 37724, 45720, 49310, 48916, 48661, 49931, 47703, 48513, 52123, 55078, 57118, 54735, 52972, 52050, 52509, 56282, 62538, 61537, 64399, 62064, 53601, 60963, 66999, 64553, 65002, 63490, 57981, 55079, 64531, 69652, 68898, 69878, 69239, 61408, 60975, 67151, 75760, 77266, 76472, 78761, 78512, 69921, 78357, 83883, 83341, 86432, 90632, 90802, 75809, 89706, 95735, 96551, 97570, 94372, 92071, 83809, 90123, 97894, 96424, 93337, 92605, 86961, 75083, 83347, 86508, 86052, 85362, 88600, 82170, 70589, 80472, 86821, 81484, 79476, 75829, 74442, 61267, 72049, 78524, 70496, 73272, 74383, 66732, 55342, 63509, 67708, 63371, 62212, 61871, 55722, 46790, 54044, 55839, 54366, 53370, 50129, 45148, 36470, 
+                                        43893, 49881, 48648, 48268, 46963, 45231, 38310, 46253, 50210, 47638, 50356, 45674, 45903, 38073, 44281, 47905, 44879, 44684, 41100, 30548, 29163, 38617, 45576, 45882, 46232, 45209, 44059, 37975, 44376, 44489, 43082, 41322, 41810, 38772, 31118, 36604, 35551, 36595, 36652, 36011, 32981, 26567, 32080, 31521, 29398, 30006, 30254, 27071, 22004, 26443, 24010, 22890, 25152, 26624, 26921, 10186, 30736, 24712, 23067, 22273, 18732, 20021, 16432, 20549, 21822, 20035, 19079, 18177, 16504, 16375, 18088, 20346, 18139, 18222, 18645, 16311, 12584, 15968, 16946, 15590, 15158, 15144, 13788, 10064, 13823, 15223, 14545, 14256, 14849, 7648, 14657, 12689, 11666, 18855, 13083, 13052, 10448, 9614, 11039, 12899, 12408, 11713, 12059, 11831, 9110, 11067, 9096, 13136, 12143, 12194, 11649, 9121, 11610, 7159, 18915, 13993, 14264, 14199, 10584, 26214, 4266, 16577, 16488, 16752, 14418, 13378, 4078, 28318, 16838, 18327, 18711, 18599, 1474, 31835, 0, 22854, 48167, 25320, 26291, 24492, 28903, 35871, 39726, 40953, 43846, 46951, 40715, 47262, 53476, 59118, 62258, 62714, 68020, 56211, 53480, 76806, 76990, 89129, 93249, 103558, 96982, 115736, 126789, 131968, 145384, 152879, 168912, 161736, 184372, 200739, 217353, 234692, 261500, 273810, 259170, 295041, 314835, 332730, 346786, 349691, 352991, 323144, 360960, 379257, 386452, 401993, 392488, 368147, 357229, 382315, 412262, 414188, 401078, 403738, 366161, 329942, 348421, 362727, 343144, 326098, 311170, 281386, 263533],
+                                       // borderDash: [10,5]
+                                    },
+                                    {
+                                        label:"Total cured",
+                                        fill:false,
+                                        borderColor:'green',
+                                        data:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 3, 0, 1, 0, 6, 3, 0, 1, 0, 16, 3, 2, 22, 
+                                            13, 16, 6, 22, 20, 12, 7, 50, 62, 44, 34, 58, 67, 38, 137, 112, 215, 210, 154, 171, 252, 248, 287, 540, 418, 700, 365, 489, 396, 704, 448, 665, 770, 576, 692, 886, 936, 875, 1399, 1022, 1084, 1273, 1307, 1511, 1559, 1538, 1931, 1849, 1685, 2233, 3956, 2715, 2350, 3124, 3002, 3234, 3250, 2657, 3280, 2770, 3935, 3266, 3414, 11264, 4614, 4835, 3708, 4776, 3804, 5355, 4611, 5220, 4802, 5120, 5991, 5823, 6166, 7135, 8049, 7419, 10215, 6922, 7390, 10386, 9120, 13925, 9440, 10994, 10495, 13012, 13940, 10244, 13832, 12010, 13099, 13157, 11881, 20032, 14335, 14856, 15350, 15515, 16883, 19547, 19138, 19870, 19235, 18850, 17989, 20572, 20783, 22942, 17994, 23672, 22664, 24491, 28472, 29557, 34602, 32223, 36145, 31991, 35175, 35286, 32553, 37223, 36569, 51255, 40574, 44306, 51706, 46121, 49769, 48900, 53879, 54859, 47746, 56110, 56383, 55573, 57381, 53322, 57584, 57937, 60091, 58794, 
+                                            62282, 63631, 57989, 57469, 66550, 63173, 56013, 60177, 65050, 64935, 60868, 65081, 62026, 68584, 66659, 70072, 73642, 69564, 73521, 74894, 72939, 70880, 81533, 78399, 77512, 79292, 82961, 82719, 87472, 95880, 94612, 93356, 101468, 89746, 87374, 81177, 93420, 92043, 74893, 84877, 86428, 85376, 78877, 75628, 82260, 76737, 75787, 82203, 83011, 78365, 82753, 89154, 71559, 77760, 74632, 81514, 70338, 70816, 72614, 66399, 69720, 61775, 79415, 73979, 67549, 62077, 59105, 63842, 58439, 56480, 57386, 59454, 58684, 53285, 58323, 53357, 55331, 54157, 53920, 49082, 48405, 46084, 50326, 52718, 49079, 47992, 42156, 43851, 40791, 44739, 48493, 44807, 49715, 43493, 41024, 42314, 37816, 36367, 39379, 41452, 42298, 
+                                            45333, 41985, 43062, 40726, 42916, 42533, 41970, 39109, 39045, 36635, 37725, 37528, 33494, 33136, 30695, 34477, 33813, 33291, 31087, 29885, 29690, 25709, 30376, 26895, 29791, 24661, 22274, 21430, 21131, 24900, 26572, 26139, 23181, 22926, 20923, 19557, 29091, 21314, 19587, 20539, 19253, 19299, 16959, 18385, 17817, 17652, 15975, 16977, 17170, 14457, 17411, 16988, 19965, 18002, 17130, 15948, 13298, 15901, 13320, 14301, 20746, 14808, 13965, 11858, 13423, 14225, 17824, 15853, 14488, 11805, 11904, 14016, 13087, 11764, 15858, 11395, 11106, 9489, 11805, 11833, 11987, 10896, 10307, 11667, 9695, 13255, 14037, 11799, 12179, 12771, 11718, 11288, 12464, 13123, 14031, 13819, 14234, 14392, 14278, 16596, 20652, 0, 
+                                            18100, 35114, 16637, 17455, 20191, 17741, 17741, 20654, 23653, 22956, 21180, 29785, 23907, 26490, 32987, 30386, 28739, 32231, 37028, 41280, 40382, 50356, 44202, 60048, 52847, 50143, 59856, 59258, 61899, 77567, 90584, 75086, 97168, 82339, 93528, 118302, 123354, 138423, 144178, 154761, 167457, 178841, 193279, 219838, 217113, 219272, 251827, 261162, 269507, 297540, 299988, 307865, 300732, 320289, 338439, 329113, 331507, 318609, 386444, 353818, 356082, 355338, 352181, 344776, 353299, 362437, 378741, 422436, 389851],
+                                        //borderDash: [10,5]
+                                    },
+                                    {
+                                        label:"Total deaths",
+                                        fill:false,
+                                        borderColor:'red',
+                                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 3, 0, 2, 1, 5, 2, 2, 8, 4, 4, 6, 12, 9, 13, 8, 28, 13, 25, 20, 37, 36, 31, 51, 29, 39, 28, 32, 36, 31, 40, 44, 49, 34, 37, 56, 47, 60, 51, 71, 67, 77, 66, 88, 83, 194, 111, 89, 103, 95, 128, 97, 87, 122, 134, 100, 103, 120, 157, 134, 140, 132, 148, 137, 147, 154, 146, 170, 194, 175, 265, 193, 230, 204, 217, 260, 273, 294, 287, 206, 331, 279, 357, 396, 386, 311, 325, 380, 
+                                        2003, 334, 336, 375, 306, 445, 312, 465, 418, 407, 384, 410, 380, 418, 507, 434, 379, 442, 613, 425, 467, 482, 487, 475, 519, 551, 500, 553, 582, 606, 687, 671, 543, 681, 587, 648, 1129, 740, 757, 705, 708, 654, 768, 775, 779, 764, 853, 771, 803, 857, 904, 886, 933, 861, 1007, 871, 834, 942, 1007, 996, 944, 941, 876, 1092, 977, 983, 945, 912, 836, 848, 1059, 1023, 1057, 1021, 948, 971, 819, 1045, 1043, 1096, 1089, 1065, 1016, 1133, 1115, 1172, 1209, 1201, 1114, 1136, 1054, 1290, 1132, 1174, 1247, 1133, 1130, 1053, 1085, 1129, 1141, 1089, 1124, 1039, 776, 1179, 1181, 1095, 1069, 940, 903, 884, 986, 971, 964, 926, 918, 816, 706, 730, 680, 895, 837, 1033, 579, 587, 717, 702, 690, 650, 578, 480, 488, 508, 517, 563, 551, 470, 496, 490, 514, 704, 670, 577, 559, 490, 448, 512, 550, 547, 520, 447, 435, 449, 474, 585, 584, 564, 501, 511, 480, 481, 524, 492, 485, 496, 443, 482, 501, 526, 540, 512, 482, 391, 385, 402, 412, 414, 442, 391, 336, 354, 387, 355, 338, 347, 341, 333, 301, 333, 312, 336, 251, 279, 279, 252, 286, 299, 256, 224, 217, 214, 201, 264, 222, 234, 228, 201, 161, 167, 202, 198, 191, 175, 181, 145, 137, 162, 151, 163, 152, 155, 131, 117, 137, 123, 163, 137, 127, 118, 94, 110, 107, 120, 95, 78, 84, 78, 94, 108, 87, 
+                                        103, 92, 90, 81, 100, 101, 97, 101, 90, 83, 78, 104, 138, 120, 113, 113, 106, 91, 98, 89, 113, 108, 100, 97, 77, 133, 0, 126, 257, 161, 118, 131, 188, 172, 154, 188, 197, 212, 199, 275, 251, 257, 291, 312, 291, 271, 354, 459, 469, 714, 513, 478, 446, 630, 685, 780, 794, 839, 904, 879, 1027, 1038, 1185, 1341, 1501, 1619, 1761, 2023, 2104, 2263, 2624, 2767, 2812, 2771, 3293, 3645, 3498, 3523, 3689, 3417, 3449, 3780, 3980, 3915, 4187, 4092, 3754, 3876, 4205, 4120, 4000, 3890, 4077, 4106, 4329, 4529],
+                                        //borderDash: [10,5]
+                                    }
+                                ]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero:true
+                                        },
+                                        gridLines: {
+                                            drawOnChartArea: false
+                                        }
+                                    }],
+                                    xAxes: [{
+                                        gridLines: {
+                                            drawOnChartArea: false
+                                        },
+                                        ticks: {
+                                            autoSkip: true,
+                                            maxTicksLimit: 20
+                                        }
 
-
+                                    }],
+                                },
+                                elements: {
+                                    point:{
+                                        radius: 0,
+                                        //backgroundColor: 'black',
+                                    }
+                                },
+                            }
+                        });
         if ($('.ct-chart-holes').length) {
             var chart = new Chartist.Line('.ct-chart-holes', {
                 labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
@@ -308,7 +535,7 @@
             });
         }
 
-        if ($('.ct-chart-wnumbers').length) {
+        /*if ($('.ct-chart-wnumbers').length) {
             new Chartist.Line('.ct-chart-wnumbers', {
                 labels: [1, 2, 3, 4, 5, 6, 7, 8],
                 series: [
@@ -329,8 +556,43 @@
                 },
 
             });
-        }
-
+        }*/
+         var y = document.getElementById("ct-chart-wnumbers").getContext('2d');
+                        new Chart(y, {
+                            type: "line",
+                            data: {
+                                labels: [ 'United States of America', 'India', 'Brazil', 'France', 'Turkey', 'Russian Federation', 'The United Kingdom', 'Italy', 'Spain', 'Germany', 'Argentina', 'Colombia', 'Poland', 'Iran (Islamic Republic of)', 'Mexico'],
+                                datasets: [
+                                    {
+                                        label:"Total cases",
+                                        fill:false,
+                                        borderColor:'blue',
+                                        data: [32647162, 25496330, 15657391, 5802138, 5139485, 4957756, 4450396, 4167025, 3619848, 3614095, 3335965, 3131410, 2859261, 2779415,2382745],
+                                    },
+                                    {
+                                        label:"Total deaths",
+                                        fill:false,
+                                        borderColor:'red',
+                                        data:[580983, 283248, 436537, 107234, 45186, 116575, 127691, 124497, 79502, 86665, 71027, 81809, 72250, 77532, 220493]
+                                    }
+                                ]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                           // beginAtZero:true
+                                        }
+                                    }]
+                                },
+                                elements: {
+                                    point:{
+                                        radius: 0,
+                                        //backgroundColor: 'black',
+                                    }
+                                },
+                            }
+                        });
 
         if ($('.ct-chart-scatter').length) {
             var times = function(n) {
@@ -420,7 +682,7 @@
             });
         }
 
-        if ($('.ct-chart-scatter-bar').length) {
+        /*if ($('.ct-chart-scatter-bar').length) {
             new Chartist.Bar('.ct-chart-scatter-bar', {
                 labels: ['Q1', 'Q2', 'Q3', 'Q4'],
                 series: [
@@ -440,7 +702,9 @@
                     });
                 }
             });
-        }
+        }*/
+        
+         
 
         if ($('.ct-chart-multilines').length) {
             new Chartist.Bar('.ct-chart-multilines', {
@@ -523,8 +787,8 @@
             });
         }
 
-        if ($('.ct-chart-pie').length) {
-            var data = {
+       /* if ($('.ct-chart-pie').length) {
+           var data = {
                 series: [5, 3, 4]
             };
 
@@ -534,8 +798,25 @@
                 labelInterpolationFnc: function(value) {
                     return Math.round(value / data.series.reduce(sum) * 100) + '%';
                 }
+            });*/
+            var x = document.getElementById("ct-chart-pie");
+            new Chart(x, {
+                type: "pie",
+                data: {
+                    labels: ['fatigue','vomiting','high_fever','loss_of_appetite','nausea'],
+                    datasets: [{
+                    backgroundColor: ["#b91d47","#00aba9","#2b5797","#e8c3b9","#1e7145"],
+                    data: [152, 149, 107,92,91]
+                    }]
+                },
+               // options: {
+               //     title: {
+               //     display: true,
+               //     text: "World Wide Wine Production 2018"
+                //    }
+                //}
             });
-        }
+        //}
 
 
         if ($('.ct-chart-donut').length) {
