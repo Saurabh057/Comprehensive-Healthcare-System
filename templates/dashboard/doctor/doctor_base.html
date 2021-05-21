@@ -1,5 +1,7 @@
 {% load static %}
-
+{% if not request.user.is_authenticated %}
+    <meta http-equiv="REFRESH" content="0;url=log/login">
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
  
@@ -22,7 +24,8 @@
   <link rel="stylesheet" href="{% static 'newassets/css/vertical-layout-light/style.css' %}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{% static 'newassets/images/favicon.png' %}" />
-
+  <link rel="stylesheet" href="{% static 'newassets/vendor/owl-carousel-2/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'newassets/vendor/owl-carousel-2/owl.theme.default.min.css' %}">
     <script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
     <style type="text/css">
       .card a{
@@ -50,8 +53,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="dashboard"><img src="{% static 'newassets/images/logo.svg' %}" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="dashboard"><img src="{% static 'newassets/images/logo-mini.svg' %}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="/"><img src="{% static 'newassets/images/logo.svg' %}" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="/"><img src="{% static 'newassets/images/logo-mini.svg' %}" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -245,6 +248,11 @@
   <script src="{% static 'newassets/js/dashboard.js' %}"></script>
   <script src="{% static 'newassets/js/Chart.roundedBarCharts.js' %}"></script>
   <!-- End custom js for this page-->
+  
+  <script src="{% static 'newassets/vendor/owl-carousel-2/owl.carousel.min.js' %}"></script>
+
+  <script src="{% static 'newassets/js/owl-carousel.js' %}"></script>
+
 </body>
 
 </html>

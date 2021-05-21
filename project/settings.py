@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'health',
+        'NAME': 'healthcare',
         'USER' : 'postgres',
-        'PASSWORD' : 'Mandakini@4',
+        'PASSWORD' : 'saurabhgore57',
         'HOST' : 'localhost'
     }
 }
@@ -134,7 +134,7 @@ STATIC_ROOT = os.path.join(BASE_DIR,'assests')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media') 
 MEDIA_URL = '/media/'
 
-
+LOGIN_URL="log/login"
 #DataFlair
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

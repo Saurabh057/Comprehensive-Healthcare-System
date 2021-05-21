@@ -108,6 +108,7 @@ def chatting(request):
 
 
 #dashboard common to all user
+@login_required
 def dashboard(request):
 	
 	if request.user.is_authenticated:
@@ -132,22 +133,30 @@ def dashboard(request):
 			requests=Record.objects.filter(doctor=username,status=0,adate__isnull=False)[:5]
 			for i in requests:
 				list1.append(AddtionalDetails.objects.filter(username=i.user))
+			clients=set()
+			meetings=Record.objects.filter(doctor=username)
+			for i  in meetings:
+				clients.add(i.user)
 
 			numbers=range(1,20)
 			data1=zip(list1,requests,numbers)
 			
-			return render(request,'dashboard/doctor/doctor.html',{'data1':data1})
+			return render(request,'dashboard/doctor/doctor.html',{'data1':data1,'meetings':len(meetings),'clients':len(clients)})
 		
 		elif profession=="pharma":
 			list1=[]
 			requests=Orders.objects.filter(pharma=username,status=0,adate__isnull=False)[:5]
 			for i in requests:
 				list1.append(AddtionalDetails.objects.filter(username=i.user))
+			clients=set()
+			orders=Orders.objects.filter(pharma=username)
+			for i  in orders:
+				clients.add(i.user)
 
 			numbers=range(1,20)
 			data1=zip(list1,requests,numbers)
 			
-			return render(request,'dashboard/pharma/pharma.html',{'data1':data1})
+			return render(request,'dashboard/pharma/pharma.html',{'data1':data1,'orders':len(orders),'clients':len(clients)})
 
 	else:
 		return redirect("/log/login")
