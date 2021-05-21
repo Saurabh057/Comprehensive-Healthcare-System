@@ -19,7 +19,7 @@ train_test_2c, train_test_3c =0,0
 def index(request):
     user=request.user.username
     details=AddtionalDetails.objects.get(username=user)
-    return render(request,'diagnose/newindex.html')
+    # return render(request,'diagnose/newindex.html')
 
     return render(request,'orthopedic/orthopedic.html')
 

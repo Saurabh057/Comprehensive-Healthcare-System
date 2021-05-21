@@ -631,14 +631,20 @@ def printbill(request):
 
 
 	# img_save_path =  'media/'+str(request.user.username)+'/profile'+ img_extension
-
+	# print(userdata.name)
 	#to send email of prescription
-	# subject, from_email, to = 'Prescription Of appointment', doctor, user
-	# text_content = 'This is an important message.'
-	# html_content = '<p>This is an <strong>Prescription</strong> message.<br>'+pres+'</p>'
-	# msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-	# msg.attach_alternative(html_content, "text/html")
-	# msg.send()
+	subject, from_email, to = 'Bill Of Order', 'chs390118@gmail.com', user
+	text_content = 'This is an important message.'
+	html_content = '<p>Hello '+userdata[0].name+',<br>\
+	Hoping you and loved ones are doing good.<br>\
+	As per Your Request We have deliverd Medicines to you .\
+	<br>Please Find Bill as attachment below.</p>\
+	<b>Total Bill to pay :'+str(total)+'Rs.</b>'
+	
+	msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+	msg.attach_alternative(html_content, "text/html")
+	msg.attach_file(output_filename)
+	msg.send()
 	# if error then show some funy view
 	# if pisa_status.err:
 	#    return HttpResponse('We had some errors <pre>' + html + '</pre>')
@@ -719,60 +725,19 @@ def render_pdf_view(request):
 	    # return HttpResponse("Error Rendering PDF", status=400)
 
 
-	# img_save_path =  'media/'+str(request.user.username)+'/profile'+ img_extension
 
 	#to send email of prescription
-	# subject, from_email, to = 'Prescription Of appointment', doctor, user
-	# text_content = 'This is an important message.'
-	# html_content = '<p>This is an <strong>Prescription</strong> message.<br>'+pres+'</p>'
-	# msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-	# msg.attach_alternative(html_content, "text/html")
-	# msg.send()
+	subject, from_email, to = 'Prescription', 'chs390118@gmail.com', user
+	text_content = 'This is an important message.'
+	html_content = '<p>Hello '+userdata[0].name+',<br>\
+	Hoping you and loved ones are doing good.<br>\
+	Prescription Of your Appointment is Attached below .'
+	
+	msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+	msg.attach_alternative(html_content, "text/html")
+	msg.attach_file(output_filename)
+	msg.send()
 	# if error then show some funy view
 	# if pisa_status.err:
 	#    return HttpResponse('We had some errors <pre>' + html + '</pre>')
 	return redirect("/docshowappo")
-@csrf_exempt
-def render_to_pdf(bill):
-        print(bill)
-        template = get_template("bill.html")
-        html = template.render(bill)
-        response = BytesIO()
-        pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), response)
-        if not pdf.err:
-
-            return HttpResponse(response.getvalue(), content_type='application/pdf')
-        else:
-            return HttpResponse("Error Rendering PDF", status=400)
-@csrf_exempt
-def generatePDF(request):
-      
-        bill = {
-            1:{
-                'meditype':"Tablet", 
-             'name' : "BCosule",
-             'quantity' : "5",
-             'total' : "$1000"
-        },
-            2:{
-                'meditype':"Syrup", 
-             'name' : "BeerSah",
-             'quantity' : "1",
-             'total' : "$30"
-        },
-          3:{
-                'meditype':"Ointment", 
-             'name' : "Flucortine",
-             'quantity' : "1",
-             'total' : "$50",}
-        }
-
-        data = {
-             # 'today': datetime.date.today(), 
-             'amount': 39.99,
-            'customer_name': 'Cooper Mann',
-            'order_id': 1233434,
-        }
-
-        pdf = render_to_pdf({'bill' : bill})
-        return pdf
