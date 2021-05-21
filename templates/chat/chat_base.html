@@ -1,5 +1,7 @@
 {% load static %}
-
+{% if not request.user.is_authenticated %}
+    <meta http-equiv="REFRESH" content="0;url=log/login">
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
  

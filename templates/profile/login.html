@@ -10,6 +10,7 @@
     <!--Include Css-->
     <link rel="stylesheet" href="{% static 'newassets/vendor/bootstrap/css/bootstrap.min.css' %}">
     <link href="{% static 'newassets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'newassets/vendor/ti-icons/css/themify-icons.css' %}">
     <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" /> -->
     <style>
         * {
@@ -289,55 +290,62 @@
         .user .pharma .doctor{
             overflow: hidden;
         }
+
     </style>
 </head>
 
 <body>
+    
     <img class="wave" src="{% static 'newassets/images/log/wave.png' %}" alt="">
     <div class="container">
+        <!-- <div>Here</div> -->
         <div class="img">
             <img src="{% static 'newassets/images/log/mobile.svg' %}" alt="">
         </div>
+
         <div class="login-container">
             <form method="POST" action="login" >
                 {% csrf_token %}
-                <img class="avtar" src="{% static 'newassets/images/log/profile.svg' %}" alt="">
+                <a href="/"><img class="avtar" src="{% static 'newassets/images/log/profile.svg' %}" alt=""></a>
                 <h2>HEALTHAI</h2>
-                <h4 style="font-size: 20px; color: #555;">Sign In As</h4>
-                <div class="button-box">
+                <h4 style="font-size: 20px; color: #555;">Sign In</h4>
+                <!-- <div class="button-box">
                     <div id="btn"></div>
                     <button type="button" class="toggle-btn" onclick="userCall()">User</button>
                     <button type="button" class="toggle-btn" onclick="doctorCall()"> Doctor</button>
                     <button type="button" class="toggle-btn" onclick="pharmaCall()">Pharmacist</button>
-                </div>
+                </div> -->
                 <div id="user">
+                    {% for i in messages %}
+                    <p class="badge badge-warning">{{i}}</p>
+                    {% endfor %}
                 <div class="input-div one">
-                    <div class="i">
-                        <i class="fas fa-user"></i>
+                    <div class="i badge-primary">
+                        <i class="ti-user"></i>
                     </div>
                     <div>
                         <h5></h5>
-                        <input placeholder="Username" class="input" type="text"  name="usrid">
+                        <input placeholder="Username" required class="input" type="email"  name="usrid">
                     </div>
                 </div>
                 <div class="input-div two">
-                    <div class="i">
-                        <i class="fas fa-lock"></i>
+                    <div class="i badge-danger">
+                        <i class="ti-unlock"></i>
                     </div>
                     <div>
                         <h5></h5>
-                        <input placeholder="Password" class="input" type="password" name="pass">
+                        <input placeholder="Password" required class="input" type="password" name="pass">
                     </div>
                 </div>
                 <div class="error">
                 </div>
                 <div class="forgot"><a href="#">Forgot Password</a></div>
-                <input type="submit" class="btn" value="Sign In">
+                <input type="submit" class="btn btn-info" value="Sign In">
                 <h4 style="font-size: 20px; color: #555;">New Registration<a href="signup"> Sign up</a></h4>
 
                 </div>
 
-                <div id="doctor">
+<!--                 <div id="doctor">
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
@@ -362,9 +370,9 @@
 
                 <input type="submit" class="btn" value="Sign In">
                 </div>
+ -->
 
-
-                <div id="pharma">
+               <!--  <div id="pharma">
                     <div class="input-div one">
                         <div class="i">
                             <i class="fas fa-user"></i>
@@ -388,14 +396,14 @@
                 <div class="forgot"><a href="#">Forgot Password</a></div>
 
                     <input type="submit"  class="btn" value="Sign In">
-                    </div> 
+                    </div>  -->
             </form>
         </div>
     </div>
     <script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'newassets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'newassets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
-
+<!-- 
     <script>
         var x=document.getElementById("user");
         var y=document.getElementById("doctor");
@@ -424,7 +432,8 @@
             $('#user').show();
 
         }
-    </script>
+    </script> -->
+
 </body>
 
 </html>
