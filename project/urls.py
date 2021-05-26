@@ -21,7 +21,7 @@ urlpatterns = [
     path('log/', include('log.urls')),
     path('admin/', admin.site.urls),
     path('diagnose/',include('diagnose.urls')),
-
+    path('mobile/',include('mobile.urls')),
     path('orthopedic/',include('orthopedic.urls')),
     path('calendar/',include('calendr.urls'))
 ]
