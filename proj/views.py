@@ -116,7 +116,7 @@ def dashboard(request):
 		username=request.user.username
 		if username=="admin@gmail.com":
 			
-			users=AddtionalDetails.objects.filter(profession ="doctor", verified=0)
+			users=AddtionalDetails.objects.filter(~Q(profession ="user") & Q(verified=0))
 
 			return render(request,'dashboard/admin/verify.html',{'data1':users})
 
@@ -202,7 +202,7 @@ def reqdoc(request):
 
 	else:					#show available doctors
 		numbers=range(1,20)
-		doctors=AddtionalDetails.objects.filter(profession='doctor')
+		doctors=AddtionalDetails.objects.filter(profession='doctor', verified=1)
 		# doctors={}
 		data=zip(numbers,doctors)
 		return render(request,'dashboard/user/show_doc.html',{'data':data})
@@ -425,7 +425,7 @@ def reqpharma(request):
 		# list1.append(AddtionalDetails.objects.filter(username=user))
 
 		numbers=range(1,20)
-		pharmas=AddtionalDetails.objects.filter(profession='pharma')
+		pharmas=AddtionalDetails.objects.filter(profession='pharma', verified=1)
 		# doctors={}
 		data=zip(numbers,pharmas)
 		return render(request,'dashboard/user/show_pharma.html',{'data':data,'tid':tid})
