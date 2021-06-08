@@ -2,6 +2,8 @@ import pandas as pd
 import operator
 def pie():
     df=pd.read_csv("Training.csv",header=0)
+    print(len(df.columns))
+    print(len(df.iloc[:,-1].unique()))
     dic={}
     for i in list(df.columns)[:-1]:
         x=len(df.loc[df[i]==1])
@@ -39,6 +41,6 @@ def india():
         print(ans)
 
     print(df)
-who()
+pie()
 
     

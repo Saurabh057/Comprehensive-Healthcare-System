@@ -1,9 +1,13 @@
 import numpy as np
 import pandas as pd
 # from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import plot_confusion_matrix
+
 from sklearn.model_selection import train_test_split
 import operator
+import matplotlib.pyplot as plt  
+
 
 def kn(inp):
     from sklearn.neighbors import KNeighborsClassifier
@@ -35,18 +39,21 @@ def kn(inp):
 
 def nb(inp):
     from sklearn.naive_bayes import GaussianNB
-    train=pd.read_csv('disease/Training.csv',header=0)
+    train=pd.read_csv('Training.csv',header=0)
     xtrain=train.iloc[:,:-1]
     ytrain=train.iloc[:,-1]
     # xtrain,xtest,ytrain,ytest=train_test_split(xtrain,ytrain, test_size=0.3, random_state=100)
-    test=pd.read_csv('disease/Testing.csv',header=0)
+    test=pd.read_csv('Testing.csv',header=0)
     xtest=test.iloc[:,:-1]
     ytest=test.iloc[:,-1]
     gnb=GaussianNB()
     gnb.fit(xtrain,ytrain)
+    plot_confusion_matrix(gnb, xtest, ytest) 
+    plt.show()
     ypred=gnb.predict(xtest)
     acc=int(accuracy_score(ypred,ytest)*100)
     print(acc)
+    print(confusion_matrix(ypred,ytest))
 
     input=[]
     for i in xtrain.columns:
@@ -57,6 +64,7 @@ def nb(inp):
     # input=input[:-1]
     pred=gnb.predict([input])
     print(pred)
+    
     return [acc,pred[0]]
 
 def lr(inp):
