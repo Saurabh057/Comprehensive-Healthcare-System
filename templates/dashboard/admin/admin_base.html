@@ -1,0 +1,200 @@
+{% load static %}
+{% if not request.user.is_authenticated %}
+    <meta http-equiv="REFRESH" content="0;url=log/login">
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Dashboard</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'newassets/vendor/feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'newassets/vendor/ti-icons/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'newassets/vendor/css/vendor.bundle.base.css' %}">
+  <!-- <link rel="stylesheet" href="{%static 'newassets/vendors/font-awesome/css/font-awesome.min.css' %}" /> -->
+
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'newassets/vendor/datatables.net-bs4/dataTables.bootstrap4.css' %}">
+  <link rel="stylesheet" href="{% static 'newassets/vendor/ti-icons/css/themify-icons.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'newassets/js/select.dataTables.min.css' %}">
+  <!-- End plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'newassets/vendor/owl-carousel-2/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'newassets/vendor/owl-carousel-2/owl.theme.default.min.css' %}">
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'newassets/css/vertical-layout-light/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'newassets/images/favicon.png' %}" />
+
+  <!-- <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}"> -->
+  <!-- <link href="{% static 'assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet"> -->
+  <!-- <link rel="stylesheet" href="{% static 'assets/libs/css/style.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'newassets/vendor/font-awesome/css/font-awesome.min.css' %}">
+
+  <link rel="stylesheet" href="{% static 'newassets/css/feedback.css' %}">
+
+  <script src="{% static 'newassets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+  <style type="text/css">
+    .homecard a {
+      color: white;
+    }
+
+    .card a {
+      color: black;
+      text-underline-position: none;
+    }
+
+    .card {
+      /*color: white;*/
+      padding: 1px;
+      /*JUST TO LOOK COOL*/
+      border: 1px solid #eee;
+      /* JUST TO LOOK COOL */
+      box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+      transition: all .3s ease-in-out;
+    }
+
+    .homecard a {
+      color: white;
+    }
+
+    .card:hover {
+      box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
+      transform: translate3d(0px, 4px, 0px);
+    }
+  </style>
+
+  {% block header %} {% endblock %}
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a href="/" class="navbar-brand brand-logo mr-5" href="/"><img
+            src="{% static 'newassets/images/logo.svg' %}" class="mr-2" alt="logo" /></a>
+        <a href="/" class="navbar-brand brand-logo-mini" href="/"><img
+            src="{% static 'newassets/images/logo-mini.svg' %}" alt="logo" /></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+        <!-- <ul class="navbar-nav mr-lg-2">
+          <li class="nav-item nav-search d-none d-lg-block">
+            <div class="input-group">
+              <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                <span class="input-group-text" id="search">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now"
+                aria-label="search" aria-describedby="search">
+            </div>
+          </li>
+        </ul> -->
+        
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+      <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="ti-settings"></i></div>
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close ti-close"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-light-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div>Light
+          </div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
+          </div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles success"></div>
+            <div class="tiles warning"></div>
+            <div class="tiles danger"></div>
+            <div class="tiles info"></div>
+            <div class="tiles dark"></div>
+            <div class="tiles default"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="log/logout">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">logout</span>
+            </a>
+          </li>
+          
+
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+
+          {% block content %}
+          {% endblock content %}
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © Project Group 37 <a
+                href="https://www.bootstrapdash.com/" target="_blank">Sinhgad College Of Engineering</a> (Computer
+              Department). All rights reserved.</span>
+            <!-- <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+          -->
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- plugins:js -->
+  <script src="{% static 'newassets/vendor/js/vendor.bundle.base.js' %}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="{% static 'newassets/vendor/chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'newassets/vendor/datatables.net/jquery.dataTables.js' %}"></script>
+  <script src="{% static 'newassets/vendor/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
+  <script src="{% static 'newassets/js/dataTables.select.min.js' %}"></script>
+
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{% static 'newassets/js/off-canvas.js' %}"></script>
+  <script src="{% static 'newassets/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'newassets/js/template.js' %}"></script>
+  <script src="{% static 'newassets/js/settings.js' %}"></script>
+  <script src="{% static 'newassets/js/todolist.js' %}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{% static 'newassets/js/dashboard.js' %}"></script>
+  <script src="{% static 'newassets/js/Chart.roundedBarCharts.js' %}"></script>
+  <!-- End custom js for this page-->
+
+  <script src="{% static 'newassets/vendor/owl-carousel-2/owl.carousel.min.js' %}"></script>
+
+  <script src="{% static 'newassets/js/owl-carousel.js' %}"></script>
+
+</body>
+
+</html>

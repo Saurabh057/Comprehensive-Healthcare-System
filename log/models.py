@@ -18,5 +18,5 @@ class AddtionalDetails(models.Model):
     designation=models.CharField(max_length=6,null=True)
     rating=ArrayField(models.CharField(max_length=1),blank=True,null=True)
     bio=models.CharField(max_length=50,null=True)
-
+    verified=models.IntegerField(default=0)
 # models.py 

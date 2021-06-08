@@ -114,11 +114,17 @@ def dashboard(request):
 	if request.user.is_authenticated:
 
 		username=request.user.username
+		if username=="admin@gmail.com":
+			
+			users=AddtionalDetails.objects.filter(profession ="doctor", verified=0)
+
+			return render(request,'dashboard/admin/verify.html',{'data1':users})
+
 		user_rec=AddtionalDetails.objects.filter(username=username)
 		global profession
 		profession=(user_rec[0].profession)
 		# profession="doctor"
-		
+
 		if profession=="user":
 			list1=[]
 			requests=Record.objects.filter(user=username,status=0,adate__isnull=False)[:5]
@@ -164,6 +170,17 @@ def dashboard(request):
 
 
 	#Funtion for Show Available doctors to user and request to doctor.
+
+@csrf_exempt
+def verify(request):
+	username=request.POST.get('id')
+	print(username)
+	print("ha user")
+	r=AddtionalDetails.objects.get(username=username)
+	r.verified=1
+	r.save()
+	return HttpResponse("Requested")
+	
 	
 @csrf_exempt
 def reqdoc(request):

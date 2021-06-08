@@ -1,0 +1,115 @@
+{% extends 'dashboard/admin/admin_base.html' %}
+{% load static %}
+ 
+{% block content %}
+
+<div class="container-fluid dashboard-content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-left">Hello,  Admin</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h3 class="text-center" id="requested"></h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- ============================================================== -->
+                    <!-- data table  -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"> Requests for Verification...</h5>
+                                <!-- <p>This example shows DataTables and the Buttons extension being used with the Bootstrap 4 framework providing the styling.</p> -->
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="table-responsive">
+                                    <table id="example" class="table" style="width:100%">
+                                        <thead> 
+                                            <tr>
+                                                <th style="display: none;">#</th>
+                                                <th style="display: none;">user id</th>
+                                                <th>Name</th>
+                                                <th>City</th>
+                                                <th>Birth Date</th>
+                                                <th>Mobile No.</th>
+                                                <th >Verify</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {%for i in data1 %}    
+                                        <tr>
+                                            <td style="display: none;">{{num}} </td>
+                                            <td style="display: none;">{{i.username}} </td>
+                                            <td>
+                                                <div class="d-flex align-items-center text-left text-sm-left">
+                                                    <img src="{% static 'newassets/images/faces/face1.jpg' %}" alt="profile"/>
+                                                    <a href="log/details/{{i.0.username}}">
+                                                    <div class="ml-3">
+                                                        <p class="mb-0">{{i.name}}</p>
+                                                        <p class="mb-0 text-left text-muted text-small">{{i.profession}}</p>
+                                                    </div>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>{{i.city}}</td>
+                                            <td>{{i.bdate}}</td>
+                                            <td>{{i.phone}}</td>
+                                            
+                                            <td>
+                                                <button type="button" class="button btn btn-primary ">Verify</button>
+                                            
+                                            </td>
+                                                
+   
+                                        </tr>
+
+
+                                        {% endfor %}   
+                                        </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <script>
+                    $(document).ready(function () {
+                        $('table').dataTable({searching: true,ordering :true, paging: false, info: false});
+
+                        var table = $('#example').DataTable();
+                        
+                        
+                        $('.button').on('click', function () {
+                            var $row=$(this).closest("tr")
+                            var $text = $row.find(".nr").text(); // Find the text
+                            
+                            var ids = $.map(table.rows($row).data(), function (item) {
+                                return item
+                            });
+                            // alert(ids);
+                            var id=ids[1];
+                            
+                            $.ajax({
+                                type: "POST",
+                                data: {id:id},
+                                url: "verify",
+                                }).done(function( data ) {
+                                    $("#requested").html("User verified  ");
+                                    document.location.href="dashboard"
+                                  
+                               
+                                });
+
+                            });
+                        });
+
+                </script>
+{% endblock content %}

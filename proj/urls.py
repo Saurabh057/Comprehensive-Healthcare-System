@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
 	#common to all users
 	path('',views.home,name="index"),
+	path('verify',views.verify,name="verify user"),
 	path('about',views.about,name="about"),
 	path('dashboard',views.dashboard,name="index"),
 	path('chatting',views.chatting,name="chat"),
